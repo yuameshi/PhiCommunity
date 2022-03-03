@@ -64,6 +64,14 @@ window.addEventListener('DOMContentLoaded', () => {
 			document.querySelector('div#changeLogContainerPopupOverlay').classList.remove('show');
 		}
 	});
+	document.querySelector('button#ContactUs').addEventListener('click',()=>{
+		document.querySelector('div#ContactUsPopupOverlay').classList.add('show');
+	});
+	document.querySelector('div#ContactUsPopupOverlay').addEventListener('click',(e)=>{
+		if(e.target!=document.querySelector('#ContactUs')){
+			document.querySelector('div#ContactUsPopupOverlay').classList.remove('show');
+		}
+	});
 });
 
 if ('serviceWorker' in navigator) {
