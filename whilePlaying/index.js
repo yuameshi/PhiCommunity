@@ -87,7 +87,7 @@ window.addEventListener('DOMContentLoaded',()=>{
 				window.Renderer.chart=chart123(JSON.parse(chartXHR.responseText));
 			} catch (error) {
 				//	JSON解析出错了就换PEC解析（
-				window.Renderer.chart=chart123(chartp23(chartXHR.responseText, undefined));
+				window.Renderer.chart=chart123(pec2json(chartXHR.responseText, undefined).data);
 			}
 			// prerenderChart(window.Renderer.chart);
 		});
@@ -266,7 +266,7 @@ function replay() {
 	try {
 		window.Renderer.chart=chart123(JSON.parse(window.chartString));
 	} catch (e) {
-		window.Renderer.chart=chart123(chartp23(window.chartString, undefined));
+		window.Renderer.chart=chart123(pec2json(window.chartString, undefined));
 	}
 	btnPlay.click();
 }
