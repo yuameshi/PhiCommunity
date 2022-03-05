@@ -24,7 +24,7 @@ body::before {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: url(../assets/image/ElementSqare.Half.Size.webp) center center
+	background: url(../assets/images/ElementSqare.Half.Size.webp) center center
 		no-repeat fixed;
 	background-size: cover;
 	filter: blur(1px);
