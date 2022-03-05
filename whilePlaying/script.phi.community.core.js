@@ -2749,7 +2749,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	var chartMetaXHR = new XMLHttpRequest();
 	chartMetaXHR.open(
 		'GET',
-		'https://charts.phi.han-han.xyz/' + play + '/meta.json',
+		'https://charts.phicommunity.com.cn/' + play + '/meta.json',
 		true
 	);
 	chartMetaXHR.addEventListener('error', () => {
@@ -2777,7 +2777,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		var chartXHR = new XMLHttpRequest();
 		chartXHR.open(
 			'GET',
-			'https://charts.phi.han-han.xyz/' +
+			'https://charts.phicommunity.com.cn/' +
 				play +
 				'/' +
 				chartMetadata['chart' + level.toUpperCase()],
@@ -2806,7 +2806,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			'style',
 			'--background: url(' +
 				encodeURI(
-					'https://charts.phi.han-han.xyz/' +
+					'https://charts.phicommunity.com.cn/' +
 						chartMetadata['codename'] +
 						'/' +
 						chartMetadata['illustration']
@@ -2814,7 +2814,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				')'
 		);
 		fetch(
-			'https://charts.phi.han-han.xyz/' +
+			'https://charts.phicommunity.com.cn/' +
 				chartMetadata['codename'] +
 				'/' +
 				chartMetadata['illustration']
@@ -2842,7 +2842,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			var chartLineDataXHR = new XMLHttpRequest();
 			chartLineDataXHR.open(
 				'GET',
-				'https://charts.phi.han-han.xyz/' +
+				'https://charts.phicommunity.com.cn/' +
 					chartMetadata['codename'] +
 					'/' +
 					chartMetadata['lineTexture'],
@@ -2862,13 +2862,13 @@ window.addEventListener('DOMContentLoaded', () => {
 				for (let i = 0; i < window.chartLine.length; i++) {
 					console.log(
 						'Fetching chart line texture:',
-						'https://charts.phi.han-han.xyz/' +
+						'https://charts.phicommunity.com.cn/' +
 							chartMetadata['codename'] +
 							'/' +
 							chartLine[i].Image.toString()
 					);
 					fetch(
-						'https://charts.phi.han-han.xyz/' +
+						'https://charts.phicommunity.com.cn/' +
 							chartMetadata['codename'] +
 							'/' +
 							chartLine[i].Image.toString()
@@ -2899,7 +2899,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		//	获取歌曲
 		console.log('Fetching Audio:', chartMetadata['musicFile']);
 		fetch(
-			'https://charts.phi.han-han.xyz/' +
+			'https://charts.phicommunity.com.cn/' +
 				chartMetadata['codename'] +
 				'/' +
 				chartMetadata['musicFile']

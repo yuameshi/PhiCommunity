@@ -35,12 +35,12 @@ window.addEventListener('DOMContentLoaded', () => {
 		location.href='../tapToStart/index.html';
 	});
 	document.querySelector('button#gotoCFPages').addEventListener('click',()=>{
-		location.href='https://cf.phi.han-han.xyz';
+		location.href='https://cf.phicommunity.com.cn';
 	});
 	document.querySelector('button#gotoGHPages').addEventListener('click',()=>{
-		location.href='https://phi.han-han.xyz';
+		location.href='https://phicommunity.com.cn';
 	});
-	if (location.href.match('cf.phi.han-han.xyz')) {	//	检测是否为CF节点
+	if (location.href.match('cf')) {	//	检测是否为CF节点
 		document.querySelector('button#gotoCFPages').style.display='none';
 	}else{
 		document.querySelector('button#gotoGHPages').style.display='none';

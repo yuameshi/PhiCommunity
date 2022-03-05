@@ -29,7 +29,7 @@ function listFile(filePath) {
 										.toString();
 									if (
 										fileData.match(
-											'https://charts.phi.han-han.xyz/'
+											'https://charts.phicommunity.com.cn/'
 										)
 									) {
 										console.log(
@@ -39,8 +39,8 @@ function listFile(filePath) {
 										fs.writeFileSync(
 											filedir,
 											fileData.toString().replaceAll(
-												'https://charts.phi.han-han.xyz/',
-												'https://cf.charts.phi.han-han.xyz/'
+												'https://charts.phicommunity.com.cn/',
+												'https://cf.charts.phicommunity.com.cn/'
 											)
 										);
 									}

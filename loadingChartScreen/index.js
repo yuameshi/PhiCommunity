@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	const songInfoXHR = new XMLHttpRequest();
 	songInfoXHR.open(
 		'GET',
-		encodeURI('https://charts.phi.han-han.xyz/' + chart + '/meta.json'),
+		encodeURI('https://charts.phicommunity.com.cn/' + chart + '/meta.json'),
 		true
 	);
 	songInfoXHR.addEventListener('load', () => {
@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			.setAttribute(
 				'src',
 				encodeURI(
-					'https://charts.phi.han-han.xyz/' +
+					'https://charts.phicommunity.com.cn/' +
 						chart +
 						'/' +
 						songInfoObj.illustration
@@ -47,7 +47,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			'style',
 			'--background: url(' +
 				encodeURI(
-					'https://charts.phi.han-han.xyz/' +
+					'https://charts.phicommunity.com.cn/' +
 						chart +
 						'/' +
 						songInfoObj.illustration

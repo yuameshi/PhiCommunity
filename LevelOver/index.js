@@ -130,7 +130,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	var songInfoXHR = new XMLHttpRequest();
 	songInfoXHR.open(
 		'GET',
-		'https://charts.phi.han-han.xyz/' + play + '/meta.json',
+		'https://charts.phicommunity.com.cn/' + play + '/meta.json',
 		true
 	);
 	songInfoXHR.addEventListener('load', () => {
@@ -172,14 +172,19 @@ window.addEventListener('DOMContentLoaded', () => {
 		xhr.send();
 		document.body.setAttribute(
 			'style',
-			`--background:url(https://charts.phi.han-han.xyz/${window.playResult.play}/${window.playResult.songInfo.illustration});`
+			`--background:url(${encodeURI(
+				'https://charts.phicommunity.com.cn/' +
+					window.playResult.play +
+					'/' +
+					window.playResult.songInfo.illustration
+			)});`
 		);
 		document
 			.querySelector('#songImg')
 			.setAttribute(
 				'src',
 				encodeURI(
-					'https://charts.phi.han-han.xyz/' +
+					'https://charts.phicommunity.com.cn/' +
 						play +
 						'/' +
 						window.playResult.songInfo.illustration

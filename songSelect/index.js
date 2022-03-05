@@ -159,7 +159,7 @@ function getSongMeta(songCodeName) {
 	var getSongMetaXHR = new XMLHttpRequest();
 	getSongMetaXHR.open(
 		'GET',
-		'https://charts.phi.han-han.xyz/' + songCodeName + '/meta.json',
+		encodeURI('https://charts.phicommunity.com.cn/' + songCodeName + '/meta.json'),
 		false
 	);
 	getSongMetaXHR.send();
