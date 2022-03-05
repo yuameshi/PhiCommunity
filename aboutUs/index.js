@@ -3,33 +3,31 @@
 // 	autoScroll();
 // });
 
-document.body.addEventListener('click', () => {
+document.querySelector('div.trigger').addEventListener('click', () => {
 	document.querySelector('div.trigger').classList.add('fadeout');
 	setTimeout(() => {
-		// document.querySelector('div.trigger').remove();
+		document.querySelector('div.trigger').remove();
 	}, 1000);
 	// document.querySelector('div#main').classList.add('actived');
 	// document.body.classList.add('actived');
 	autoScroll();
 });
 function autoScroll() {
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', './AboutUs.mp3', true);
-	xhr.responseType = 'arraybuffer';
-	xhr.onload = function () {
-		const actx = new (window.AudioContext ||
-			window.webkitAudioContext ||
-			window.mozAudioContext ||
-			window.msAudioContext)();
-		actx.decodeAudioData(this.response, function (buffer) {
-			var source = actx.createBufferSource();
-			source.buffer = buffer;
-			source.loop = true;
-			source.connect(actx.destination);
-			source.start(0);
+	fetch('./AboutUs.mp3')
+		.then(res => res.arrayBuffer())
+		.then(arrayBuffer => {
+			const actx = new (window.AudioContext ||
+				window.webkitAudioContext ||
+				window.mozAudioContext ||
+				window.msAudioContext)();
+			actx.decodeAudioData(arrayBuffer, function (buffer) {
+				var source = actx.createBufferSource();
+				source.buffer = buffer;
+				source.loop = true;
+				source.connect(actx.destination);
+				source.start(0);
+			});
 		});
-	};
-	xhr.send();
 	var topSize=window.innerHeight;
 	document
 		.querySelector('#main')

@@ -267,49 +267,6 @@ function resizeCanvas() {
 			? canvasos.height / 18.75
 			: canvasos.width / 14.0625; //判定线、文字缩放
 }
-// function resizeCanvas() {
-// 	const width = document.documentElement.clientWidth;
-// 	const height = document.documentElement.clientHeight;
-// 	const defaultWidth = Math.min(854, width * 0.8);
-// 	const defaultHeight = defaultWidth / (selectaspectratio.value || 16 / 9);
-// 	const realWidth = Math.floor(full.check(canvas) ? width : defaultWidth);
-// 	const realHeight = Math.floor(full.check(canvas) ? height : defaultHeight);
-// 	canvas.style.cssText += `;width:${realWidth}px;height:${realHeight}px`;
-// 	canvas.width = realWidth * devicePixelRatio;
-// 	canvas.height = realHeight * devicePixelRatio;
-// 	canvasos.width = Math.min(realWidth, realHeight * AspectRatio) * devicePixelRatio;
-// 	canvasos.height = realHeight * devicePixelRatio;
-// 	wlen = canvasos.width / 2;
-// 	hlen = canvasos.height / 2;
-// 	wlen2 = canvasos.width / 18;
-// 	hlen2 = canvasos.height * 0.6; //鎺у埗note娴侀€�
-// 	noteScale = canvasos.width / (selectscaleratio.value || 8e3); //note銆佺壒鏁堢缉鏀�
-// 	lineScale = canvasos.width > canvasos.height * 0.75 ? canvasos.height / 18.75 : canvasos.width / 14.0625; //鍒ゅ畾绾裤€佹枃瀛楃缉鏀�
-// }
-//连点标题之后允许加载demo
-//qwq[water,demo,democlick]
-// const qwq = [true, false, 3, 0];
-// document.getElementById("demo").classList.add("hide");
-// document.querySelector(".title").addEventListener("click", function () {
-// 	if (qwq[1]) qwq[0] = !qwq[0];
-// 	else if (!--qwq[2]) document.getElementById("demo").classList.remove("hide");
-// });
-//	加载demo
-// document.getElementById("demo").addEventListener("click", function () {
-// 	document.getElementById("demo").classList.add("hide");
-// 	uploads.classList.add("disabled");
-// 	const xhr = new XMLHttpRequest();
-// 	xhr.open("get", "./src/demo.png", true); //避免gitee的404
-// 	xhr.responseType = 'blob';
-// 	xhr.send();
-// 	xhr.onprogress = progress => { //显示加载文件进度
-// 		message.sendMessage(`加载文件：${Math.floor(progress.loaded / 5079057 * 100)}%`);
-// 	};
-// 	xhr.onload = () => {
-// 		document.getElementById("filename").value = "demo.zip";
-// 		loadFile(xhr.response);
-// 	};
-// });
 const mouse = {}; //存放鼠标事件(用于检测，下同)
 const touch = {}; //存放触摸事件
 const keyboard = {}; //存放键盘事件
@@ -1024,86 +981,6 @@ window.onload = function () {
 	if (window.ResourcesLoad != 100) {
 		loadPhiCommunityResources();
 	}
-	// //加载资源
-	// (async function () {
-	// 	const loadItems={
-	// 		JudgeLine: "assets/JudgeLine.png",
-	// 		ProgressBar: "assets/ProgressBar.png",
-	// 		SongsNameBar: "assets/SongsNameBar.png",
-	// 		Pause: "assets/Pause.png",
-	// 		clickRaw: "assets/clickRaw.png",
-	// 		Tap: "assets/Tap.png",
-	// 		Tap2: "assets/Tap2.png",
-	// 		TapHL: "assets/TapHL.png",
-	// 		Drag: "assets/Drag.png",
-	// 		DragHL: "assets/DragHL.png",
-	// 		HoldHead: "assets/HoldHead.png",
-	// 		HoldHeadHL: "assets/HoldHeadHL.png",
-	// 		Hold: "assets/Hold.png",
-	// 		HoldHL: "assets/HoldHL.png",
-	// 		HoldEnd: "assets/HoldEnd.png",
-	// 		Flick: "assets/Flick.png",
-	// 		FlickHL: "assets/FlickHL.png",
-	// 		LevelOver1: "assets/LevelOver1.png",
-	// 		LevelOver3: "assets/LevelOver3.png",
-	// 		LevelOver4: "assets/LevelOver4.png",
-	// 		LevelOver5: "assets/LevelOver5.png",
-	// 		Rank: "assets/Rank.png",
-	// 		NoImage: "assets/0.png",
-	// 		mute: "assets/mute.ogg",
-	// 		HitSong0: "assets/HitSong0.ogg",
-	// 		HitSong1: "assets/HitSong1.ogg",
-	// 		HitSong2: "assets/HitSong2.ogg"
-	// 	};
-	// 	if (localStorage.getItem('useOldUI')=='true') {
-	// 		document.body.setAttribute('style','background: #000 !important;');
-	// 		document.querySelector("#select-global-alpha").children[0].selected=true;
-	// 		loadItems.clickRaw="assets/oldui/clickRaw.png";
-	// 		loadItems.Drag="assets/oldui/Drag.png";
-	// 		loadItems.DragHL="assets/oldui/Drag2HL.png";
-	// 		loadItems.Flick="assets/oldui/Flick.png";
-	// 		loadItems.FlickHL="assets/oldui/Flick2HL.png";
-	// 		loadItems.Hold="assets/oldui/HoldBody.png";
-	// 		loadItems.HoldHL="assets/oldui/HoldBody.png";
-	// 		loadItems.HoldHead="assets/oldui/Tap.png";
-	// 		loadItems.HoldHeadHL="assets/oldui/Tap2HL.png";
-	// 		loadItems.HoldEnd="assets/oldui/HoldEnd.png";
-	// 		loadItems.Tap="assets/oldui/Tap.png";
-	// 		loadItems.Tap2="assets/oldui/Tap2.png";
-	// 		loadItems.TapHL="assets/oldui/Tap2HL.png";
-	// 	}
-	// 	let loadedNum = 0;
-	// 	await Promise.all((obj => {
-	// 		const arr = [];
-	// 		for (const i in obj) arr.push([i, obj[i]]);
-	// 		return arr;
-	// 	})(loadItems).map(([name, src], _i, arr) => {
-	// 		const xhr = new XMLHttpRequest();
-	// 		xhr.open("get", src, true);
-	// 		xhr.responseType = 'arraybuffer';
-	// 		xhr.send();
-	// 		return new Promise(resolve => {
-	// 			xhr.onload = async () => {
-	// 				if (/\.(mp3|wav|ogg)$/i.test(src)) res[name] = await actx.decodeAudioData(xhr.response);
-	// 				else if (/\.(png|jpeg|jpg)$/i.test(src)) res[name] = await createImageBitmap(new Blob([xhr.response]));
-	// 				message.sendMessage(`加载资源：${Math.floor(++loadedNum / arr.length * 100)}%`);
-	// 				window.ResourcesLoad=Math.floor(++loadedNum / arr.length * 100);
-	// 				resolve();
-	// 			};
-	// 		});
-	// 	}));
-	// 	res["JudgeLineMP"] = await createImageBitmap(imgShader(res["JudgeLine"], "#feffa9"));
-	// 	res["JudgeLineAP"] = await createImageBitmap(imgShader(res["JudgeLine"], "#a3ffac"));
-	// 	res["JudgeLineFC"] = await createImageBitmap(imgShader(res["JudgeLine"], "#a2eeff"));
-	// 	res["TapBad"] = await createImageBitmap(imgShader(res["Tap2"], "#6c4343"));
-	// 	res["Clicks"] = {};
-	// 	//res["Clicks"].default = await qwqImage(res["clickRaw"], "white");
-	// 	res["Ranks"] = await qwqImage(res["Rank"], "white");
-	// 	res["Clicks"]["rgba(255,236,160,0.8823529)"] = await qwqImage(res["clickRaw"], "rgba(255,236,160,0.8823529)"); //#fce491
-	// 	res["Clicks"]["rgba(168,255,177,0.9016907)"] = await qwqImage(res["clickRaw"], "rgba(168,255,177,0.9016907)"); //#97f79d
-	// 	res["Clicks"]["rgba(180,225,255,0.9215686)"] = await qwqImage(res["clickRaw"], "rgba(180,225,255,0.9215686)"); //#9ed5f3
-	// 	message.sendMessage("等待上传文件...");
-	// })();
 };
 async function qwqImage(img, color) {
 	const clickqwq = imgShader(img, color);
@@ -1581,22 +1458,21 @@ const qwqEnd = new Timer();
 btnPause.addEventListener('click', function () {
 	if (this.classList.contains('disabled') || btnPlay.value == '播放') return;
 	if (this.value == '暂停') {
-		const playPauseSoundXHR = new XMLHttpRequest();
-		playPauseSoundXHR.open('GET', '../assets/audio/Pause.mp3', true);
-		playPauseSoundXHR.responseType = 'arraybuffer';
-		playPauseSoundXHR.onload = function (e) {
-			const actx = new (window.AudioContext ||
-				window.webkitAudioContext ||
-				window.mozAudioContext ||
-				window.msAudioContext)();
-			actx.decodeAudioData(this.response, function (buffer) {
-				let source = actx.createBufferSource();
-				source.buffer = buffer;
-				source.connect(actx.destination);
-				source.start(0);
+		fetch('../assets/audio/Pause.mp3')
+			.then(res => res.arrayBuffer())
+			.then(arrayBuffer => {
+				const actx = new (window.AudioContext ||
+					window.webkitAudioContext ||
+					window.mozAudioContext ||
+					window.msAudioContext)();
+				actx.decodeAudioData(arrayBuffer, function (buffer) {
+					var source = actx.createBufferSource();
+					source.buffer = buffer;
+					source.loop = false;
+					source.connect(actx.destination);
+					source.start(0);
+				});
 			});
-		};
-		playPauseSoundXHR.send();
 		qwqIn.pause();
 		document
 			.querySelector('div#pauseOverlay.pauseOverlay')
@@ -1632,9 +1508,12 @@ btnPause.addEventListener('click', function () {
 				'div#pauseOverlay.pauseOverlay'
 			).innerHTML = `
 			<div id="backInPlayingBtn" id="backInPlayingBtn"></div>
-			<div id="restartBtn" onclick="replay()"></div>
-			<div id="resumeBtn" onclick="btnPause.click()"></div>
+			<div id="restartBtn"></div>
+			<div id="resumeBtn"></div>
 			`;
+			document.querySelector('div#backInPlayingBtn').addEventListener('click', exit);
+			document.querySelector('div#restartBtn').addEventListener('click',replay);
+			document.querySelector('div#resumeBtn').addEventListener('click',btnPause.click());
 			document
 				.querySelector('div#pauseOverlay.pauseOverlay')
 				.classList.remove('readyToResume');
@@ -2251,40 +2130,6 @@ function qwqdraw2() {
 		stat.noteRank[7]
 	}&m=${stat.noteRank[2]}&mode=${mode}`;
 	return;
-	// fucktemp = true;
-	// btnPause.click(); //isPaused = true;
-	// while (stopPlaying.length) stopPlaying.shift()();
-	// cancelAnimationFrame(stopDrawing);
-	// btnPause.classList.add('disabled');
-	// ctxos.globalCompositeOperation = 'source-over';
-	// ctxos.resetTransform();
-	// ctxos.globalAlpha = 1;
-	// if (document.getElementById('imageBlur').checked) {
-	// 	ctxos.drawImage(Renderer.bgImageBlur, ...adjustSize(Renderer.bgImageBlur, canvasos, 1));
-	// 	ctx.drawImage(Renderer.bgImageBlur, ...adjustSize(Renderer.bgImageBlur, canvas, 1));
-	// } else {
-	// 	ctxos.drawImage(Renderer.bgImage, ...adjustSize(Renderer.bgImage, canvasos, 1));
-	// 	ctx.drawImage(Renderer.bgImage, ...adjustSize(Renderer.bgImage, canvas, 1));
-	// }
-	// ctxos.fillStyle = '#000'; //背景变暗
-	// ctxos.globalAlpha = selectglobalalpha.value == '' ? 0.6 : selectglobalalpha.value; //背景不透明度
-	// ctxos.fillRect(0, 0, canvasos.width, canvasos.height);
-	// const difficulty = ['ez', 'hd', 'in', 'at'].indexOf(inputLevel.value.slice(0, 2).toLocaleLowerCase());
-	// const xhr = new XMLHttpRequest();
-	// xhr.open('get', `src/LevelOver${difficulty < 0 ? 2 : difficulty}${hyperMode.checked ? '_v2' : ''}.ogg`, true);
-	// xhr.responseType = 'arraybuffer';
-	// xhr.send();
-	// xhr.onload = async () => {
-	// 	const bgm = await actx.decodeAudioData(xhr.response);
-	// 	const timeout = setTimeout(() => {
-	// 		if (!fucktemp) return;
-	// 		stopPlaying.push(playSound(bgm, true, true, 0));
-	// 		qwqEnd.reset();
-	// 		qwqEnd.play();
-	// 		fucktemp2 = stat.getData(autoplay.checked);
-	// 	}, 1000);
-	// 	stopPlaying.push(() => clearTimeout(timeout));
-	// };
 }
 
 function qwqdraw3(statData) {
@@ -2696,31 +2541,9 @@ function hex2rgba(color) {
 
 window.addEventListener('DOMContentLoaded', () => {
 	// loadPhiCommunityResources();
-	document
-		.getElementById('backInPlayingBtn')
-		.addEventListener('click', () => {
-			const playExitSoundXHR = new XMLHttpRequest();
-			playExitSoundXHR.open('GET', '../assets/audio/Exit.mp3', true);
-			playExitSoundXHR.responseType = 'arraybuffer';
-			playExitSoundXHR.onload = function () {
-				const actx = new (window.AudioContext ||
-					window.webkitAudioContext ||
-					window.mozAudioContext ||
-					window.msAudioContext)();
-				actx.decodeAudioData(this.response, function (buffer) {
-					let source = actx.createBufferSource();
-					source.buffer = buffer;
-					source.connect(actx.destination);
-					source.start(0);
-				});
-			};
-			playExitSoundXHR.send();
-			setTimeout(() => {
-				location.href = `../songSelect/index.html?c=${new URLSearchParams(
-					new URL(location.href).search
-				).get('c')}`;
-			}, 500);
-		});
+	document.querySelector('div#backInPlayingBtn').addEventListener('click', exit);
+	document.querySelector('div#restartBtn').addEventListener('click',replay);
+	document.querySelector('div#resumeBtn').addEventListener('click',btnPause.click());
 	//	获取游玩谱面和难度信息
 	const play = new URLSearchParams(new URL(location.href).search).get('play');
 	var level = new URLSearchParams(new URL(location.href).search).get('l');
@@ -2746,260 +2569,242 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	//	获取元数据
 	console.log('Fetching MetaData:', play);
-	var chartMetaXHR = new XMLHttpRequest();
-	chartMetaXHR.open(
-		'GET',
-		'https://charts.phicommunity.com.cn/' + play + '/meta.json',
-		true
-	);
-	chartMetaXHR.addEventListener('error', () => {
-		alert('谱面信息获取失败！');
-	});
-	chartMetaXHR.addEventListener('load', () => {
-		window.chartMetadata = JSON.parse(chartMetaXHR.responseText);
-		document.getElementById('input-name').value = chartMetadata.name; //歌名
-		document.getElementById('input-level').value =
-			level.toUpperCase() +
-			' Lv.' +
-			Math.floor(chartMetadata[level.toLowerCase() + 'Ranking'] || 0); //难度
-		var chartDesigner;
-		if (chartMetadata.chartDesigner != undefined) {
-			//谱面设计者
-			chartDesigner = chartMetadata.chartDesigner;
-		} else {
-			chartDesigner = chartMetadata[level + 'ChartDesigner'];
-		}
-		document.getElementById('input-designer').value = chartDesigner;
-		document.getElementById('input-illustrator').value =
-			chartMetadata.illustrator; //曲绘
-		//	获取谱面
-		console.log('Fetching Chart:', play);
-		var chartXHR = new XMLHttpRequest();
-		chartXHR.open(
-			'GET',
-			'https://charts.phicommunity.com.cn/' +
-				play +
-				'/' +
-				chartMetadata['chart' + level.toUpperCase()],
-			true
-		);
-		chartXHR.addEventListener('load', () => {
-			window.chartString = chartXHR.responseText;
-			try {
-				Renderer.chart = chart123(JSON.parse(chartXHR.responseText));
-			} catch (error) {
-				//	JSON解析出错了就换PEC解析（
-				Renderer.chart = chart123(
-					pec2json(chartXHR.responseText, undefined).data
-				);
+	fetch('https://charts.phicommunity.com.cn/' + play + '/meta.json')
+		.then((res) => res.json())
+		.then((meta) => {
+			window.chartMetadata = meta;
+			document.getElementById('input-name').value = meta.name; //歌名
+			document.getElementById('input-level').value =
+				level.toUpperCase() +
+				' Lv.' +
+				Math.floor(meta[level.toLowerCase() + 'Ranking'] || 0); //难度
+			var chartDesigner;
+			if (meta.chartDesigner != undefined) {
+				//谱面设计者
+				chartDesigner = meta.chartDesigner;
+			} else {
+				chartDesigner = meta[level + 'ChartDesigner'];
 			}
-			// prerenderChart(Renderer.chart);
-		});
-		chartXHR.addEventListener('error', () => {
-			alert('谱面获取失败！');
-		});
-		chartXHR.send();
+			document.getElementById('input-designer').value = chartDesigner;
+			document.getElementById('input-illustrator').value =
+				meta.illustrator; //曲绘
+			//	获取谱面
+			console.log('Fetching Chart:', play);
+			fetch(
+				'https://charts.phicommunity.com.cn/' +
+					play +
+					'/' +
+					meta['chart' + level.toUpperCase()]
+			)
+				.then((res) => res.text())
+				.then((text) => {
+					window.chartString = text;
+					try {
+						Renderer.chart = chart123(JSON.parse(text));
+					} catch (error) {
+						//	JSON解析出错了就换PEC解析（
+						Renderer.chart = chart123(
+							pec2json(text, undefined).data
+						);
+					}
+				})
+				.catch(() => {
+					alert('谱面获取失败！');
+				});
 
-		//	获取曲绘
-		console.log('Fetching illustration:', chartMetadata['illustration']);
-		document.body.setAttribute(
-			'style',
-			'--background: url(' +
-				encodeURI(
-					'https://charts.phicommunity.com.cn/' +
-						chartMetadata['codename'] +
-						'/' +
-						chartMetadata['illustration']
-				) +
-				')'
-		);
-		fetch(
-			'https://charts.phicommunity.com.cn/' +
-				chartMetadata['codename'] +
-				'/' +
-				chartMetadata['illustration']
-		)
-			.then((response) => {
-				response.blob().then((blob) => {
+			//	获取曲绘
+			console.log(
+				'Fetching illustration:',
+				meta['illustration']
+			);
+			document.body.setAttribute(
+				'style',
+				'--background: url(' +
+					encodeURI(
+						'https://charts.phicommunity.com.cn/' +
+							meta['codename'] +
+							'/' +
+							meta['illustration']
+					) +
+					')'
+			);
+			fetch(
+				'https://charts.phicommunity.com.cn/' +
+					meta['codename'] +
+					'/' +
+					meta['illustration']
+			)
+				.then((response) => response.blob())
+				.then((blob) => {
 					createImageBitmap(blob).then((img) => {
 						Renderer.bgImage = img;
 						createImageBitmap(imgBlur(img)).then((imgBlur) => {
 							Renderer.bgImageBlur = imgBlur;
 						});
 					});
+				})
+				.catch((error) => {
+					alert('无法获取曲绘，原因是：\n' + error);
 				});
-			})
-			.catch((error) => {
-				alert('无法获取曲绘，原因是：\n' + error);
-			});
-		//	判定线贴图
-		window.chartLine = [];
-		window.chartLineData = [];
-		window.chartLineTextureDecoded = new Array(window.chartLine.length);
+			//	判定线贴图
+			window.chartLine = [];
+			window.chartLineData = [];
+			window.chartLineTextureDecoded = new Array(window.chartLine.length);
 
-		if (chartMetadata.lineTexture) {
-			console.log('Line Texture Detected');
-			var chartLineDataXHR = new XMLHttpRequest();
-			chartLineDataXHR.open(
-				'GET',
-				'https://charts.phicommunity.com.cn/' +
-					chartMetadata['codename'] +
-					'/' +
-					chartMetadata['lineTexture'],
-				true
-			);
-			chartLineDataXHR.addEventListener('error', () => {
-				alert('判定线贴图获取失败！');
-			});
-			chartLineDataXHR.addEventListener('load', () => {
-				window.chartLineData = JSON.parse(
-					chartLineDataXHR.responseText
-				);
-				window.chartLine = JSON.parse(chartLineDataXHR.responseText);
-				window.chartLineTextureDecoded = new Array(
-					window.chartLine.length
-				);
-				for (let i = 0; i < window.chartLine.length; i++) {
-					console.log(
-						'Fetching chart line texture:',
-						'https://charts.phicommunity.com.cn/' +
-							chartMetadata['codename'] +
-							'/' +
-							chartLine[i].Image.toString()
-					);
-					fetch(
-						'https://charts.phicommunity.com.cn/' +
-							chartMetadata['codename'] +
-							'/' +
-							chartLine[i].Image.toString()
-					)
-						.then((response) => {
-							response.blob().then((blob) => {
-								createImageBitmap(blob).then((img) => {
-									window.chartLineTextureDecoded[i] = img;
-									window.bgs[chartLine[i].Image.toString()] =
-										img;
-								});
-							});
-						})
-						.catch((error) => {
-							alert(
-								'无法获取判定线贴图#' +
-									i.toString() +
-									'，原因是：\n' +
-									error
+			if (meta.lineTexture) {
+				console.log('Line Texture Detected');
+				fetch('https://charts.phicommunity.com.cn/' +meta['codename'] +'/' +meta['lineTexture'])
+					.then((res) => res.json())
+					.then(data=>{
+						window.chartLineData = data;
+						window.chartLine = data
+						window.chartLineTextureDecoded = new Array(
+							window.chartLine.length
+						);
+						for (let i = 0; i < window.chartLine.length; i++) {
+							console.log(
+								'Fetching chart line texture:',
+								'https://charts.phicommunity.com.cn/' +
+									meta['codename'] +
+									'/' +
+									chartLine[i].Image.toString()
 							);
-						});
-				}
-			});
-			chartLineDataXHR.send();
-		}
-		//	获取图片并写入对象bgs
-		window.bgs = {};
-		//	获取歌曲
-		console.log('Fetching Audio:', chartMetadata['musicFile']);
-		fetch(
-			'https://charts.phicommunity.com.cn/' +
-				chartMetadata['codename'] +
-				'/' +
-				chartMetadata['musicFile']
-		)
-			.then((response) => {
-				response.arrayBuffer().then((arrayBuffer) => {
+							fetch(
+								'https://charts.phicommunity.com.cn/' +
+									meta['codename'] +
+									'/' +
+									chartLine[i].Image.toString()
+							)
+								.then((response) => response.blob())
+								.then((blob) => {
+									createImageBitmap(blob).then((img) => {
+										window.chartLineTextureDecoded[i] = img;
+										window.bgs[chartLine[i].Image.toString()] =
+											img;
+									});
+								})
+								.catch((error) => {
+									alert(
+										'无法获取判定线贴图#' +
+											i.toString() +
+											'，原因是：\n' +
+											error
+									);
+								});
+						}
+
+					});
+			}
+			//	获取图片并写入对象bgs
+			window.bgs = {};
+			//	获取歌曲
+			console.log('Fetching Audio:', meta['musicFile']);
+			fetch(
+				'https://charts.phicommunity.com.cn/' +
+					meta['codename'] +
+					'/' +
+					meta['musicFile']
+			)
+				.then((response) => response.arrayBuffer())
+				.then((arrayBuffer) => {
 					actx.decodeAudioData(arrayBuffer).then((audioBuff) => {
 						Renderer.bgMusic = audioBuff;
 					});
+				})
+				.catch((error) => {
+					alert('无法获取歌曲，原因是：\n' + error);
 				});
-			})
-			.catch((error) => {
-				alert('无法获取歌曲，原因是：\n' + error);
-			});
-		var tapToStartFrame = document.createElement('div');
-		tapToStartFrame.classList.add('tapToStartFrame');
-		tapToStartFrame.innerHTML = `
-		<div class="songName">${chartMetadata.name}</div>
+			var tapToStartFrame = document.createElement('div');
+			tapToStartFrame.classList.add('tapToStartFrame');
+			tapToStartFrame.innerHTML = `
+		<div class="songName">${meta.name}</div>
 		<div class="judgeLine"></div>
 		<div class="detail">
-			Illustration designed by ${chartMetadata.illustrator} <br />
+			Illustration designed by ${meta.illustrator} <br />
 			Level designed by ${chartDesigner}
 		</div>
 		<div style="display:flex;flex-direction:row;">点按以开始 <div style="color:#6cf;" onclick="alert('移动端浏览器禁止了无手势自动播放音频，所以我们需要你的手势来开始播放音频并全屏网页')"> 为什么？ </div></div>
 		`;
-		tapToStartFrame.addEventListener('click', () => {
-			var LoadCompleteItems = 0;
-			for (let i in Renderer) {
-				if (Renderer[i] != undefined) {
-					LoadCompleteItems++;
-				}
-			}
-			if (LoadCompleteItems == 12 && window.ResourcesLoad >= 100) {
-				tapToStartFrame.remove();
-				if (localStorage.autoFullscreen != 'false') {
-					full.toggle();
-				}
-				document.getElementById('btn-play').click();
-			} else {
-				console.log('LoadNotComplete');
-			}
-		});
-		// 应用设置
-		for (let i = 0; i < Object.keys(localStorage).length; i++) {
-			const key = Object.keys(localStorage)[i];
-			const value = localStorage[Object.keys(localStorage)[i]];
-			if (key == 'phi') {
-				continue;
-			}
-			if (key.match('eruda')) {
-				continue;
-			}
-			console.log('Applying settings:', key, value);
-			const elem = document.querySelector('#' + key);
-			try {
-				// console.log(elem.type);
-				if (elem.type == 'checkbox') {
-					if (value == 'true') {
-						elem.setAttribute('checked', value);
-					} else {
-						elem.removeAttribute('checked');
+			tapToStartFrame.addEventListener('click', () => {
+				var LoadCompleteItems = 0;
+				for (let i in Renderer) {
+					if (Renderer[i] != undefined) {
+						LoadCompleteItems++;
 					}
+				}
+				if (LoadCompleteItems == 12 && window.ResourcesLoad >= 100) {
+					tapToStartFrame.remove();
+					if (localStorage.autoFullscreen != 'false') {
+						full.toggle();
+					}
+					document.getElementById('btn-play').click();
+				} else {
+					console.log('LoadNotComplete');
+				}
+			});
+			// 应用设置
+			for (let i = 0; i < Object.keys(localStorage).length; i++) {
+				const key = Object.keys(localStorage)[i];
+				const value = localStorage[Object.keys(localStorage)[i]];
+				if (key == 'phi') {
 					continue;
 				}
-				if (elem.type == 'text' || elem.type == 'number') {
-					elem.setAttribute('value', value);
+				if (key.match('eruda')) {
 					continue;
 				}
-				if (elem.type == 'select-one') {
-					for (let j = 0; j < elem.children.length; j++) {
-						// console.log(elem.children[j].getAttribute("selected"))
-						// 先遍历删掉原来的选项
-						if (elem.children[j].getAttribute('selected') != null) {
-							elem.children[j].removeAttribute('selected');
+				console.log('Applying settings:', key, value);
+				const elem = document.querySelector('#' + key);
+				try {
+					// console.log(elem.type);
+					if (elem.type == 'checkbox') {
+						if (value == 'true') {
+							elem.setAttribute('checked', value);
+						} else {
+							elem.removeAttribute('checked');
 						}
+						continue;
 					}
-					// console.log(elem)
-					// console.log(elem.children[parseFloat(value)-1])
-					elem.children[parseFloat(value) - 1].setAttribute(
-						'selected',
-						'true'
+					if (elem.type == 'text' || elem.type == 'number') {
+						elem.setAttribute('value', value);
+						continue;
+					}
+					if (elem.type == 'select-one') {
+						for (let j = 0; j < elem.children.length; j++) {
+							// console.log(elem.children[j].getAttribute("selected"))
+							// 先遍历删掉原来的选项
+							if (
+								elem.children[j].getAttribute('selected') !=
+								null
+							) {
+								elem.children[j].removeAttribute('selected');
+							}
+						}
+						// console.log(elem)
+						// console.log(elem.children[parseFloat(value)-1])
+						elem.children[parseFloat(value) - 1].setAttribute(
+							'selected',
+							'true'
+						);
+						continue;
+					}
+				} catch (error) {
+					console.warn(
+						"Error occured when applying settings '" + key + "':\n",
+						error
 					);
-					continue;
 				}
-			} catch (error) {
-				console.warn(
-					"Error occured when applying settings '" + key + "':\n",
-					error
-				);
 			}
-		}
-		if (window.localStorage.getItem('useOldUI') == 'true') {
-			document.body.setAttribute('style', 'background: #000 !important;');
-			document.querySelector(
-				'#select-global-alpha'
-			).children[0].selected = true;
-		}
-		document.body.appendChild(tapToStartFrame);
-	});
-	chartMetaXHR.send();
+			if (window.localStorage.getItem('useOldUI') == 'true') {
+				document.body.setAttribute(
+					'style',
+					'background: #000 !important;'
+				);
+				document.querySelector(
+					'#select-global-alpha'
+				).children[0].selected = true;
+			}
+			document.body.appendChild(tapToStartFrame);
+		});
 });
 
 function replay() {
@@ -3186,4 +2991,25 @@ async function loadPhiCommunityResources() {
 		); //#9ed5f3
 	}
 	message.sendMessage('核心资源加载完成!');
+}
+
+function exit () {
+	fetch('../assets/audio/Exit.mp3')
+		.then(res => res.arrayBuffer())
+		.then(arrayBuffer => {
+			const actx = new (window.AudioContext ||
+				window.webkitAudioContext ||
+				window.mozAudioContext ||
+				window.msAudioContext)();
+			actx.decodeAudioData(arrayBuffer, function (buffer) {
+				var source = actx.createBufferSource();
+				source.buffer = buffer;
+				source.loop = false;
+				source.connect(actx.destination);
+				source.start(0);
+			});
+		});
+	setTimeout(() => {
+		location.href = '../songSelect/index.html';
+	}, 500);
 }

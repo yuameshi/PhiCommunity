@@ -1,19 +1,17 @@
 window.addEventListener('DOMContentLoaded', () => {
-	fetch('https://api.github.com/repos/HanHan233/PhiCommunity/commits').then(
-		(response) => {
-			response.json().then((data) => {
-				const changeLogFrame=document.querySelector('div#changelogContainer');
-				data.forEach(commit => {
-					const item=document.createElement('a');
-					item.classList.add('item');
-					item.href=commit.html_url;
-					item.setAttribute('data-sha',commit.sha.slice(0,7));
-					item.innerText=commit.commit.message;
-					changeLogFrame.appendChild(item);
-				});
+	fetch('https://api.github.com/repos/HanHan233/PhiCommunity/commits')
+		.then(res=>res.json())
+		.then(data=>{
+			const changeLogFrame=document.querySelector('div#changelogContainer');
+			data.forEach(commit => {
+				const item=document.createElement('a');
+				item.classList.add('item');
+				item.href=commit.html_url;
+				item.setAttribute('data-sha',commit.sha.slice(0,7));
+				item.innerText=commit.commit.message;
+				changeLogFrame.appendChild(item);
 			});
-		}
-	);
+		});
 	const addBtn = document.querySelector('#installPWA');
 	addBtn.style.display = 'none';
 	window.addEventListener('beforeinstallprompt', (e) => {

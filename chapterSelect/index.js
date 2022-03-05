@@ -18,23 +18,21 @@ window.addEventListener('DOMContentLoaded', () => {
 			location.href =
 				'https://github.com/HanHan233/PhiCommunity-Charts-Repo';
 		});
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', './ChapterSelect0.mp3', true);
-	xhr.responseType = 'arraybuffer';
-	xhr.onload = function () {
-		const actx = new (window.AudioContext ||
-			window.webkitAudioContext ||
-			window.mozAudioContext ||
-			window.msAudioContext)();
-		actx.decodeAudioData(this.response, function (buffer) {
-			var source = actx.createBufferSource();
-			source.buffer = buffer;
-			source.loop = true;
-			source.connect(actx.destination);
-			source.start(0);
+	fetch('./ChapterSelect0.mp3')
+		.then(res => res.arrayBuffer())
+		.then(arrayBuffer => {
+			const actx = new (window.AudioContext ||
+				window.webkitAudioContext ||
+				window.mozAudioContext ||
+				window.msAudioContext)();
+			actx.decodeAudioData(arrayBuffer, function (buffer) {
+				var source = actx.createBufferSource();
+				source.buffer = buffer;
+				source.loop = true;
+				source.connect(actx.destination);
+				source.start(0);
+			});
 		});
-	};
-	xhr.send();
 	const body = document.getElementById('body');
 	if (window.DeviceOrientationEvent) {
 		console.log(

@@ -30,22 +30,22 @@ function SongList({ defaultLevel = 'ez' }) {
 	function switchSong(id) {
 		if (id === selected) return;
 		document.querySelector('#loadingBar').classList.remove('hidden');
-		const playTapSoundXHR = new XMLHttpRequest();
-		playTapSoundXHR.open('GET', '../assets/audio/selectSongItem.mp3', true);
-		playTapSoundXHR.responseType = 'arraybuffer';
-		playTapSoundXHR.onload = function () {
-			const actx = new (window.AudioContext ||
-				window.webkitAudioContext ||
-				window.mozAudioContext ||
-				window.msAudioContext)();
-			actx.decodeAudioData(this.response, function (buffer) {
-				let source = actx.createBufferSource();
-				source.buffer = buffer;
-				source.connect(actx.destination);
-				source.start(0);
+		fetch('../assets/audio/selectSongItem.mp3')
+			.then(res => res.arrayBuffer())
+			.then(arrayBuffer => {
+				const actx = new (window.AudioContext ||
+					window.webkitAudioContext ||
+					window.mozAudioContext ||
+					window.msAudioContext)();
+				actx.decodeAudioData(arrayBuffer, function (buffer) {
+					var source = actx.createBufferSource();
+					source.buffer = buffer;
+					source.loop = false;
+					source.connect(actx.destination);
+					source.start(0);
+				});
+				
 			});
-		};
-		playTapSoundXHR.send();
 		if (selected !== undefined) items[selected].unSelect();
 
 		if (!listElement.classList['selected'])
@@ -118,69 +118,67 @@ function SongList({ defaultLevel = 'ez' }) {
 				} catch (e) {
 					null;
 				}
-				window.playSongXHRObj = new XMLHttpRequest();
-				window.playSongXHRObj.open('GET', songUrl, true);
-				window.playSongXHRObj.responseType = 'arraybuffer';
-				window.playSongXHRObj.onload = function () {
-					const gainNode = window.slicesAudioContext.createGain();
-					window.slicesAudioContext.decodeAudioData(
-						this.response,
-						function (buffer) {
-							try {
-								window.sliceAudioContextSource.stop();
-							} catch (e) {
-								null;
-							}
-							window.sliceAudioContextSource =
-								window.slicesAudioContext.createBufferSource();
-							window.sliceAudioContextSource.buffer = buffer;
-							window.sliceAudioContextSource.connect(gainNode);
-							gainNode.connect(
-								window.slicesAudioContext.destination
-							);
-							window.sliceAudioContextSource.start(
-								0,
-								songMeta['sliceAudioStart']
-							);
-							gainNode.gain.setValueAtTime(
-								0.01,
-								window.slicesAudioContext.currentTime
-							);
-							gainNode.gain.linearRampToValueAtTime(
-								1,
-								window.slicesAudioContext.currentTime + 1
-							);
-							clearInterval(window.sliceAudioInterval);
-							window.sliceAudioInterval = setInterval(() => {
-								gainNode.gain.linearRampToValueAtTime(
+				fetch(songUrl)
+					.then((response) => response.arrayBuffer())
+					.then((arrayBuffer) => {
+						const gainNode = window.slicesAudioContext.createGain();
+						window.slicesAudioContext.decodeAudioData(
+							arrayBuffer,
+							function (buffer) {
+								try {
+									window.sliceAudioContextSource.stop();
+								} catch (e) {
+									null;
+								}
+								window.sliceAudioContextSource =
+									window.slicesAudioContext.createBufferSource();
+								window.sliceAudioContextSource.buffer = buffer;
+								window.sliceAudioContextSource.connect(gainNode);
+								gainNode.connect(
+									window.slicesAudioContext.destination
+								);
+								window.sliceAudioContextSource.start(
+									0,
+									songMeta['sliceAudioStart']
+								);
+								gainNode.gain.setValueAtTime(
 									0.01,
+									window.slicesAudioContext.currentTime
+								);
+								gainNode.gain.linearRampToValueAtTime(
+									1,
 									window.slicesAudioContext.currentTime + 1
 								);
-								setTimeout(() => {
-									window.sliceAudioContextSource.stop();
-									window.sliceAudioContextSource =
-										window.slicesAudioContext.createBufferSource();
-									window.sliceAudioContextSource.buffer =
-										buffer;
-									window.sliceAudioContextSource.connect(
-										gainNode
-									);
-									window.sliceAudioContextSource.start(
-										0,
-										songMeta['sliceAudioStart']
-									);
+								clearInterval(window.sliceAudioInterval);
+								window.sliceAudioInterval = setInterval(() => {
 									gainNode.gain.linearRampToValueAtTime(
-										1,
-										window.slicesAudioContext.currentTime +
-											1
+										0.01,
+										window.slicesAudioContext.currentTime + 1
 									);
-								}, 500);
-							}, 15000);
-						}
-					);
-					document.querySelector('#loadingBar').classList.add('hidden');
-				};
-				window.playSongXHRObj.send();
+									setTimeout(() => {
+										window.sliceAudioContextSource.stop();
+										window.sliceAudioContextSource =
+											window.slicesAudioContext.createBufferSource();
+										window.sliceAudioContextSource.buffer =
+											buffer;
+										window.sliceAudioContextSource.connect(
+											gainNode
+										);
+										window.sliceAudioContextSource.start(
+											0,
+											songMeta['sliceAudioStart']
+										);
+										gainNode.gain.linearRampToValueAtTime(
+											1,
+											window.slicesAudioContext.currentTime +
+												1
+										);
+									}, 500);
+								}, 15000);
+							}
+						);
+						document.querySelector('#loadingBar').classList.add('hidden');
+					});
 			})
 			.catch((err) => {
 				console.err(

@@ -27,19 +27,19 @@ html::before{
 div.leftArea{
 	position: fixed;
 	top: 0;
-	left: -20%;
-	padding-left: 20%;
-	height: 100%;
-	width: 40%;
-	min-width: 500px;
+	left: 0;
+	padding: 100px 1%;
+	height: calc(100% - 200px);
+	width: 35%;
 	background: rgba(0, 0, 0, 0.5);
 	/* border: 1px #6cf solid; */
 	color: #FFF;
-	padding-top: 100px;
+	overflow-y: scroll;
+	scrollbar-width: none;
 }
 
-#settingItems {
-	margin-left: 15%;
+div.leftArea::-webkit-scrollbar {
+	display: none;
 }
 div.item{
 	width: 100%;
@@ -198,8 +198,5 @@ div.aboutContainer>div.device>span#device{
 	}
 	div.leftArea{
 		width: 100%;
-	}
-	div.leftArea>div#settingItems{
-		margin-right: 15%;
 	}
 }

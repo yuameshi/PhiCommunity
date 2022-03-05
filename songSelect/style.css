@@ -98,13 +98,17 @@ div.sortMode::after {
 }
 div.songList {
 	display: flex;
-	position: absolute;
-	flex-flow: column;
-	margin-top: 100px;
-	margin-bottom: 100px;
-	overflow: hidden;
-	width: 100%;
-	/* overflow-y: scroll; */
+    position: absolute;
+    flex-flow: column;
+    padding: 100px 0;
+    width: 100%;
+    height: calc(100% - 200px);
+    overflow-y: scroll;
+	overflow-x: hidden;
+	scrollbar-width: none;
+}
+div.songList::-webkit-scrollbar {
+	display: none;
 }
 div.settingBtn::after {
 	background-image: url(../assets/images/Settings.svg) !important;

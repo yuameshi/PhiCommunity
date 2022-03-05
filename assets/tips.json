@@ -116,7 +116,7 @@
 	"echo 416e6e75616c2066696e616e63696c20737570706f722d416e6e75616c2066696e616e63696c20737570706f72",
 	"iOS用户注意了，请开启引导式访问以获得最佳体验",
 	"adb shell settings put system screen_brightness 1000",
-	"adb shell am start -a android.intent.action.VIEW -d https://cf.phicommunity.com.cn/whilePlaying/?play=只有你知道&l=in&c=fanmade",
+	"adb shell am start -a android.intent.action.VIEW -d https://cf.phicommunity.com.cn/whilePlaying/?play=只有你知道&l=in",
 	"adb shell am start -a android.intent.action.VIEW -d https://cf.phicommunity.com.cn/songSelect/",
 	"爷┉是┉你┉椰┉叶~",
 	"歌终有一收，禁止造假成绩！",

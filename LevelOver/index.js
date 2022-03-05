@@ -74,13 +74,11 @@ window.addEventListener('DOMContentLoaded', () => {
 			'../whilePlaying/index.html?play=' +
 			play +
 			'&l=' +
-			playLevelString +
-			'&c=' +
-			parsedURLParams.get('c');
+			playLevelString;
 	});
 	document.getElementById('backInResultBtn').addEventListener('click', () => {
 		location.href =
-			'../songSelect/index.html?c=' + parsedURLParams.get('c');
+			'../songSelect/index.html';
 	});
 	//	判断等级（范围来自萌娘百科）
 	if (score == 0) {
@@ -127,115 +125,110 @@ window.addEventListener('DOMContentLoaded', () => {
 	// }
 	// gradeImage
 	//	获取歌曲信息
-	var songInfoXHR = new XMLHttpRequest();
-	songInfoXHR.open(
-		'GET',
-		'https://charts.phicommunity.com.cn/' + play + '/meta.json',
-		true
-	);
-	songInfoXHR.addEventListener('load', () => {
-		window.window.playResult = {
-			score: score,
-			grade: grade,
-			play: play,
-			playLevel: playLevel,
-			songInfo: JSON.parse(songInfoXHR.responseText),
-			maxCombo: maxCombo,
-			accuracy: accuracy,
-			perFect: perFect,
-			good: good,
-			bad: bad,
-			miss: miss,
-			early: early,
-			late: late,
-			playLevelString: playLevelString,
-			mode: mode,
-		};
-		console.log(window.playResult);
-		//	操作DOM修改可见部分数据
-		var xhr = new XMLHttpRequest();
-		xhr.open('GET', './LevelOver.mp3', true);
-		xhr.responseType = 'arraybuffer';
-		xhr.onload = function () {
-			const actx = new (window.AudioContext ||
-				window.webkitAudioContext ||
-				window.mozAudioContext ||
-				window.msAudioContext)();
-			actx.decodeAudioData(this.response, function (buffer) {
-				var source = actx.createBufferSource();
-				source.buffer = buffer;
-				source.loop = true;
-				source.connect(actx.destination);
-				source.start(0);
-			});
-		};
-		xhr.send();
-		document.body.setAttribute(
-			'style',
-			`--background:url(${encodeURI(
-				'https://charts.phicommunity.com.cn/' +
-					window.playResult.play +
-					'/' +
-					window.playResult.songInfo.illustration
-			)});`
-		);
-		document
-			.querySelector('#songImg')
-			.setAttribute(
-				'src',
-				encodeURI(
+	fetch('https://charts.phicommunity.com.cn/' + play + '/meta.json')
+		.then((response) => response.json())
+		.then((data) => {
+			window.window.playResult = {
+				score: score,
+				grade: grade,
+				play: play,
+				playLevel: playLevel,
+				songInfo: data,
+				maxCombo: maxCombo,
+				accuracy: accuracy,
+				perFect: perFect,
+				good: good,
+				bad: bad,
+				miss: miss,
+				early: early,
+				late: late,
+				playLevelString: playLevelString,
+				mode: mode,
+			};
+			console.log(window.playResult);
+			//	操作DOM修改可见部分数据
+			fetch('./LevelOver.mp3')
+				.then((res) => res.arrayBuffer())
+				.then((arrayBuffer) => {
+					const actx = new (window.AudioContext ||
+						window.webkitAudioContext ||
+						window.mozAudioContext ||
+						window.msAudioContext)();
+					actx.decodeAudioData(arrayBuffer, function (buffer) {
+						var source = actx.createBufferSource();
+						source.buffer = buffer;
+						source.loop = true;
+						source.connect(actx.destination);
+						source.start(0);
+					});
+				});
+			document.body.setAttribute(
+				'style',
+				`--background:url(${encodeURI(
 					'https://charts.phicommunity.com.cn/' +
-						play +
+						window.playResult.play +
 						'/' +
 						window.playResult.songInfo.illustration
-				)
+				)});`
 			);
-		document.querySelector('#score').innerText = score
-			.toString()
-			.padStart(7, '0');
-		document.querySelector('#gradeImage').src =
-			'../assets/images/' + grade + '.svg';
-		document.querySelector('#maxCombo').innerText = maxCombo;
-		document.querySelector('#accuracy').innerText = accuracy + '%';
-		document.querySelector('#perfect').innerText = perFect;
-		document.querySelector('#good').innerText = good;
-		document.querySelector('#bad').innerText = bad;
-		document.querySelector('#miss').innerText = miss;
-		document.querySelector('#early').innerText = early;
-		document.querySelector('#late').innerText = late;
-		document.querySelector('div.songName#songName').innerText =
-			window.playResult.songInfo.name;
-		document.querySelector('div.levelString#levelString').innerText =
-			window.playResult.playLevelString.toUpperCase() +
-			' Lv.' +
-			Math.floor(
-				window.playResult.songInfo[
-					window.playResult.playLevelString.toLowerCase() + 'Ranking'
-				] || 0
-			);
-		// 加载歌曲元信息（计算RKS等）
-		var deltaRKS, deltaData;
-		if (window.playResult.accuracy >= 70) {
-			deltaRKS = (
-				Math.pow((window.playResult.accuracy - 55) / 45, 2) *
-				(window.playResult.songInfo[
-					window.playResult.playLevelString.toLowerCase() + 'Ranking'
-				] || 0)
-			).toFixed(2);
-		} else {
-			deltaRKS = 0;
-		}
-		if (window.playResult.score < 880000) {
-			deltaData = 0;
-		}
-		document.querySelector('#rks').innerText = deltaRKS;
-		console.log('ΔRKS:', deltaRKS);
-		console.log('ΔData(KB):', deltaData);
-	});
-	songInfoXHR.addEventListener('error', () => {
-		alert('歌曲信息获取失败！');
-	});
-	songInfoXHR.send();
+			document
+				.querySelector('#songImg')
+				.setAttribute(
+					'src',
+					encodeURI(
+						'https://charts.phicommunity.com.cn/' +
+							play +
+							'/' +
+							window.playResult.songInfo.illustration
+					)
+				);
+			document.querySelector('#score').innerText = score
+				.toString()
+				.padStart(7, '0');
+			document.querySelector('#gradeImage').src =
+				'../assets/images/' + grade + '.svg';
+			document.querySelector('#maxCombo').innerText = maxCombo;
+			document.querySelector('#accuracy').innerText = accuracy + '%';
+			document.querySelector('#perfect').innerText = perFect;
+			document.querySelector('#good').innerText = good;
+			document.querySelector('#bad').innerText = bad;
+			document.querySelector('#miss').innerText = miss;
+			document.querySelector('#early').innerText = early;
+			document.querySelector('#late').innerText = late;
+			document.querySelector('div.songName#songName').innerText =
+				window.playResult.songInfo.name;
+			document.querySelector('div.levelString#levelString').innerText =
+				window.playResult.playLevelString.toUpperCase() +
+				' Lv.' +
+				Math.floor(
+					window.playResult.songInfo[
+						window.playResult.playLevelString.toLowerCase() +
+							'Ranking'
+					] || 0
+				);
+			// 加载歌曲元信息（计算RKS等）
+			var deltaRKS, deltaData;
+			if (window.playResult.accuracy >= 70) {
+				deltaRKS = (
+					Math.pow((window.playResult.accuracy - 55) / 45, 2) *
+					(window.playResult.songInfo[
+						window.playResult.playLevelString.toLowerCase() +
+							'Ranking'
+					] || 0)
+				).toFixed(2);
+			} else {
+				deltaRKS = 0;
+			}
+			if (window.playResult.score < 880000) {
+				deltaData = 0;
+			}
+			document.querySelector('#rks').innerText = deltaRKS;
+			console.log('ΔRKS:', deltaRKS);
+			console.log('ΔData(KB):', deltaData);
+		})
+		.catch(() => {
+			alert('歌曲信息获取失败！');
+		});
 });
 // window.onresize = function () {
 // 	//	自动缩放

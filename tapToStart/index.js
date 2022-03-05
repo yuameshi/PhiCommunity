@@ -1,14 +1,12 @@
 window.addEventListener('DOMContentLoaded', () => {
-	fetch('https://api.github.com/repos/HanHan233/PhiCommunity/commits?per_page=1').then(
-		(response) => {
-			response.json().then((data) => {
-				document.querySelector('#ver').innerText = data[0].sha.slice(
-					0,
-					7
-				);
-			});
-		}
-	);
+	fetch('https://api.github.com/repos/HanHan233/PhiCommunity/commits?per_page=1')
+		.then((response) => response.json())
+		.then((data) => {
+			document.querySelector('#ver').innerText = data[0].sha.slice(
+				0,
+				7
+			);
+		});
 	try {
 		document.querySelector('#device').innerText =
 			'Platform: ' +
@@ -21,23 +19,21 @@ window.addEventListener('DOMContentLoaded', () => {
 			navigator.userAgent.slice(navigator.userAgent.lastIndexOf(' '));
 	}
 	document.querySelector('#device').title = navigator.userAgent;
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', './TapToStart.mp3', true);
-	xhr.responseType = 'arraybuffer';
-	xhr.onload = function () {
-		const actx = new (window.AudioContext ||
-			window.webkitAudioContext ||
-			window.mozAudioContext ||
-			window.msAudioContext)();
-		actx.decodeAudioData(this.response, function (buffer) {
-			let source = actx.createBufferSource();
-			source.buffer = buffer;
-			source.loop = true;
-			source.connect(actx.destination);
-			source.start(0);
+	fetch('./TapToStart.mp3')
+		.then((res) => res.arrayBuffer())
+		.then((arrayBuffer) => {
+			const actx = new (window.AudioContext ||
+				window.webkitAudioContext ||
+				window.mozAudioContext ||
+				window.msAudioContext)();
+			actx.decodeAudioData(arrayBuffer, function (buffer) {
+				var source = actx.createBufferSource();
+				source.buffer = buffer;
+				source.loop = true;
+				source.connect(actx.destination);
+				source.start(0);
+			});
 		});
-	};
-	xhr.send();
 	document.body.addEventListener('click', () => {
 		console.log('Clicked! Redirecting to MainPage');
 		var fadeInElem = document.createElement('div');

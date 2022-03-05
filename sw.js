@@ -78,8 +78,8 @@ const cacheFileList = [
 	'/whilePlaying/assets/TapHL.png',
 ];
 self.addEventListener('fetch', function (e) {
-	if(e.request.url.match('charts.phi')){
-		console.log('Fetching charts data event detected, trying to response from cache.');
+	if(e.request.url.match('charts')){
+		// console.log('Fetching charts data event detected, trying to response from cache.');
 		e.respondWith(
 			caches.open('phi-charts-cache').then((cache) => {
 				return cache.match(e.request.url).then((response) => {

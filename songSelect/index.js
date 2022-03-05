@@ -45,126 +45,116 @@ window.addEventListener('DOMContentLoaded', () => {
 	window.chapterName = new URLSearchParams(new URL(location.href).search).get(
 		'c'
 	);
-	var songListXHR = new XMLHttpRequest();
-	songListXHR.open(
-		'GET',
-		'https://api.github.com/repos/HanHan233/PhiCommunity-Charts-Repo/contents',
-		// "https://charts.pgr.han-han.xyz/" + chapterName + ".json",
-		true
-	);
-	songListXHR.addEventListener('load', () => {
-		const response = JSON.parse(songListXHR.responseText);
-		window.songCodeNameList = new Array();
-		// console.log(response);
-		for (let i = 0; i < response.length; i++) {
-			if (
-				response[i].name.match(/.github|README.md|CNAME|_headers/) !=
-				null
-			) {
-				continue;
+	fetch('https://api.github.com/repos/HanHan233/PhiCommunity-Charts-Repo/contents')
+		.then((res) => res.json())
+		.then((response) => {
+			window.songCodeNameList = new Array();
+			// console.log(response);
+			for (let i = 0; i < response.length; i++) {
+				if (
+					response[i].name.match(/.github|README.md|CNAME|_headers/) !=
+					null
+				) {
+					continue;
+				}
+				window.songCodeNameList.push(response[i].name);
 			}
-			window.songCodeNameList.push(response[i].name);
-		}
-		// window.songCodeNameList = JSON.parse(songListXHR.responseText);
-		window.songMetaList = new Array();
-
-		for (let i = 0; i < window.songCodeNameList.length; i++) {
-			window.songMetaList.push(getSongMeta(window.songCodeNameList[i]));
-		}
-
-		const songListElement = songList.element;
-		document
-			.getElementsByClassName('leftArea')[0]
-			.appendChild(songListElement);
-
-		for (let i = 0; i < window.songMetaList.length; i++) {
-			songList.createSong(
-				i,
-				window.songMetaList[i],
-				window.songCodeNameList[i]
-			);
-		}
-
-		let currentOrder = defaultOrder;
-		document.querySelector('div.sortMode').innerText =
-			sortMode[defaultOrder][1];
-		document
-			.querySelector('div.sortMode')
-			.addEventListener('click', (e) => {
-				currentOrder = (currentOrder + 1) % sortMode.length;
-				songList.setOrder(sortMode[currentOrder][0]);
-				e.target.innerText = sortMode[currentOrder][1];
-			});
-		window.slicesAudioContext = new (window.AudioContext ||
-			window.webkitAudioContext ||
-			window.mozAudioContext ||
-			window.msAudioContext)();
-		//	强行切换成第一首歌
-		songList.switchSong(0);
-		// songList.switchLevel('in'.match('in'));
-		loadingEmbedFrame.remove();
-		// songList.setOrder(sortMode[currentOrder][0]);
-		//	调整宽度/缩放
-		document
-			.querySelector('#rightArea')
-			.style.setProperty(
-				'--scale',
-				Math.round(window.devicePixelRatio) / 3.5
-			);
-		// console.log(
-		// 	"Resize:",(window.innerHeight / window.innerWidth)*
-		// 	Math.round(window.devicePixelRatio)
-		// );
-		// window.onresize = function () {
-		// 	document
-		// 			.querySelector("#rightArea")
-		// 			.style.setProperty(
-		// 				"--scale",
-		// 				window.devicePixelRatio
-		// 			);
-		// };
-		//	添加桌面端鼠标滚轮滚动
-		document.body.addEventListener('wheel', (e) => {
-			/* console.log(
-				"Scrolling",
-				e.wheelDeltaY,
-				parseFloat(songList.element.style.top || 0)
-			); */
-			let newYCoord =
-				parseFloat(songList.element.style.top || 0) + e.wheelDeltaY / 3;
-			if (newYCoord <= 0 || e.wheelDeltaY < 0)
-				songList.element.style.top = newYCoord + 'px';
+			// window.songCodeNameList = JSON.parse(songListXHR.responseText);
+			window.songMetaList = new Array();
+	
+			for (let i = 0; i < window.songCodeNameList.length; i++) {
+				fetch(encodeURI('https://charts.phicommunity.com.cn/' + window.songCodeNameList[i] + '/meta.json'))
+					.then((res) => res.json())
+					.then(json=>{
+						window.songMetaList.push(json);
+					});
+			}
+			const detectLoadCompleteInterval=setInterval(()=>{
+				if(window.songMetaList.length==window.songCodeNameList.length){
+					const songListElement = songList.element;
+					document
+						.getElementsByClassName('leftArea')[0]
+						.appendChild(songListElement);
+			
+					for (let i = 0; i < window.songMetaList.length; i++) {
+						songList.createSong(
+							i,
+							window.songMetaList[i],
+							window.songCodeNameList[i]
+						);
+					}
+			
+					let currentOrder = defaultOrder;
+					document.querySelector('div.sortMode').innerText =
+						sortMode[defaultOrder][1];
+					document
+						.querySelector('div.sortMode')
+						.addEventListener('click', (e) => {
+							currentOrder = (currentOrder + 1) % sortMode.length;
+							songList.setOrder(sortMode[currentOrder][0]);
+							e.target.innerText = sortMode[currentOrder][1];
+						});
+					window.slicesAudioContext = new (window.AudioContext ||
+						window.webkitAudioContext ||
+						window.mozAudioContext ||
+						window.msAudioContext)();
+					//	强行切换成第一首歌
+					songList.switchSong(0);
+					// songList.switchLevel('in'.match('in'));
+					loadingEmbedFrame.remove();
+					// songList.setOrder(sortMode[currentOrder][0]);
+					//	调整宽度/缩放
+					document
+						.querySelector('#rightArea')
+						.style.setProperty(
+							'--scale',
+							Math.round(window.devicePixelRatio) / 3.5
+						);
+					// console.log(
+					// 	"Resize:",(window.innerHeight / window.innerWidth)*
+					// 	Math.round(window.devicePixelRatio)
+					// );
+					// window.onresize = function () {
+					// 	document
+					// 			.querySelector("#rightArea")
+					// 			.style.setProperty(
+					// 				"--scale",
+					// 				window.devicePixelRatio
+					// 			);
+					// };
+					//	添加桌面端鼠标滚轮滚动
+					document.body.addEventListener('wheel', (e) => {
+						/* console.log(
+							"Scrolling",
+							e.wheelDeltaY,
+							parseFloat(songList.element.style.top || 0)
+						); */
+						let newYCoord =
+							parseFloat(songList.element.style.top || 0) + e.wheelDeltaY / 3;
+						if (newYCoord <= 0 || e.wheelDeltaY < 0)
+							songList.element.style.top = newYCoord + 'px';
+					});
+			
+					//	添加移动端触屏滑动
+					let pY, cY;
+					document.body.addEventListener('touchstart', (e) => {
+						pY = e.changedTouches['0'].clientY;
+					});
+			
+					document.body.addEventListener('touchmove', (e) => {
+						cY = e.changedTouches['0'].clientY;
+						let nY =
+							parseFloat(songList.element.style.top || 0) - 0.1 * (pY - cY);
+						if (nY < 0) songList.element.style.top = nY + 'px';
+					});
+					clearInterval(detectLoadCompleteInterval);
+				}
+			},100);
+		})
+		.catch(() => {
+			alert('曲目列表获取失败！');
 		});
-
-		//	添加移动端触屏滑动
-		let pY, cY;
-		document.body.addEventListener('touchstart', (e) => {
-			pY = e.changedTouches['0'].clientY;
-		});
-
-		document.body.addEventListener('touchmove', (e) => {
-			cY = e.changedTouches['0'].clientY;
-			let nY =
-				parseFloat(songList.element.style.top || 0) - 0.1 * (pY - cY);
-			if (nY < 0) songList.element.style.top = nY + 'px';
-		});
-	});
-	songListXHR.addEventListener('error', () => {
-		alert('曲目列表获取失败！');
-	});
-	songListXHR.send();
 });
-
-function getSongMeta(songCodeName) {
-	var getSongMetaXHR = new XMLHttpRequest();
-	getSongMetaXHR.open(
-		'GET',
-		encodeURI('https://charts.phicommunity.com.cn/' + songCodeName + '/meta.json'),
-		false
-	);
-	getSongMetaXHR.send();
-	return JSON.parse(getSongMetaXHR.responseText);
-}
 
 function changeLevel(event) {
 	const e = event;
@@ -216,22 +206,21 @@ document.querySelector('div.playBtn').addEventListener('click', () => {
 		null;
 	}
 	document.querySelector('#readyToLoadOverlay').classList.add('go');
-	const playClickedSound = new XMLHttpRequest();
-	playClickedSound.open('GET', '../assets/audio/Start.mp3', true);
-	playClickedSound.responseType = 'arraybuffer';
-	playClickedSound.onload = function () {
-		const actx = new (window.AudioContext ||
-			window.webkitAudioContext ||
-			window.mozAudioContext ||
-			window.msAudioContext)();
-		actx.decodeAudioData(this.response, function (buffer) {
-			let source = actx.createBufferSource();
-			source.buffer = buffer;
-			source.connect(actx.destination);
-			source.start(0);
+	fetch('../assets/audio/Start.mp3')
+		.then(res => res.arrayBuffer())
+		.then(arrayBuffer => {
+			const actx = new (window.AudioContext ||
+				window.webkitAudioContext ||
+				window.mozAudioContext ||
+				window.msAudioContext)();
+			actx.decodeAudioData(arrayBuffer, function (buffer) {
+				var source = actx.createBufferSource();
+				source.buffer = buffer;
+				source.loop = false;
+				source.connect(actx.destination);
+				source.start(0);
+			});
 		});
-	};
-	playClickedSound.send();
 	setTimeout(() => {
 		location.href =
 			'../whilePlaying/index.html?play=' +
@@ -239,7 +228,6 @@ document.querySelector('div.playBtn').addEventListener('click', () => {
 				.querySelector('div.songItem.selected')
 				.getAttribute('data-codename') +
 			'&l=' +
-			window.levelSelected +
-			'&c=fanmade';
+			window.levelSelected;
 	}, 2000);
 });

@@ -1,52 +1,49 @@
 window.addEventListener('DOMContentLoaded', function () {
-	fetch('./calibrate.mp3').then((response) => {
-		response.blob().then((blob) => {
-			window.caliBrateAudioBlobURL = URL.createObjectURL(blob);
+	fetch('./calibrate.mp3')
+		.then((response) =>response.arrayBuffer())
+		.then((arrayBuffer) => {
+			window.caliBrateAudioArrayBuffer = arrayBuffer;
+		})
+		.catch(() => {
+			alert('错误：无法加载校准音频');
 		});
-	});
 });
 document
 	.querySelector('button#startBtn')
 	.addEventListener('click', function () {
-		if (window.caliBrateAudioBlobURL == undefined) {
+		if (window.caliBrateAudioArrayBuffer == undefined) {
 			alert('抱歉，校准音频尚在加载中，请稍后');
 			return;
 		}
-		const calibrateSoundXHR = new XMLHttpRequest();
-		calibrateSoundXHR.open('GET', window.caliBrateAudioBlobURL, true);
-		calibrateSoundXHR.responseType = 'arraybuffer';
-		calibrateSoundXHR.onload = function () {
-			window.calibrateActx = null;
-			window.calibrateActx = new (window.AudioContext ||
-				window.webkitAudioContext ||
-				window.mozAudioContext ||
-				window.msAudioContext)();
-			window.calibrateActx.decodeAudioData(
-				this.response,
-				function (buffer) {
-					window.calibraceACtxSource =
-						window.calibrateActx.createBufferSource();
-					window.calibraceACtxSource.buffer = buffer;
-					window.calibraceACtxSource.connect(
-						window.calibrateActx.destination
-					);
-					window.actxStartTime = window.calibrateActx.currentTime;
-					window.calibraceACtxSource.start(0);
-					window.calibraceACtxSource.addEventListener(
-						'ended',
-						function () {
-							document
-								.querySelector('button#startBtn')
-								.removeAttribute('disabled');
-							document
-								.querySelector('button#clickBtn')
-								.removeEventListener('click', calibrate);
-						}
-					);
-				}
-			);
-		};
-		calibrateSoundXHR.send();
+		window.calibrateActx = null;
+		window.calibrateActx = new (window.AudioContext ||
+			window.webkitAudioContext ||
+			window.mozAudioContext ||
+			window.msAudioContext)();
+		window.calibrateActx.decodeAudioData(
+			window.caliBrateAudioArrayBuffer,
+			function (buffer) {
+				window.calibraceACtxSource =
+					window.calibrateActx.createBufferSource();
+				window.calibraceACtxSource.buffer = buffer;
+				window.calibraceACtxSource.connect(
+					window.calibrateActx.destination
+				);
+				window.actxStartTime = window.calibrateActx.currentTime;
+				window.calibraceACtxSource.start(0);
+				window.calibraceACtxSource.addEventListener(
+					'ended',
+					function () {
+						document
+							.querySelector('button#startBtn')
+							.removeAttribute('disabled');
+						document
+							.querySelector('button#clickBtn')
+							.removeEventListener('click', calibrate);
+					}
+				);
+			}
+		);
 		document
 			.querySelector('button#startBtn')
 			.setAttribute('disabled', 'disabled');
