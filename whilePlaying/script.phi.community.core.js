@@ -1513,10 +1513,8 @@ btnPause.addEventListener('click', function () {
 			`;
 			document.querySelector('div#backInPlayingBtn').addEventListener('click', exit);
 			document.querySelector('div#restartBtn').addEventListener('click',replay);
-			document.querySelector('div#resumeBtn').addEventListener('click',btnPause.click());
-			document
-				.querySelector('div#pauseOverlay.pauseOverlay')
-				.classList.remove('readyToResume');
+			document.querySelector('div#resumeBtn').addEventListener('click',()=>{btnPause.click();});
+			document.querySelector('div#pauseOverlay.pauseOverlay').classList.remove('readyToResume');
 		}, 3000);
 	}
 });
@@ -2543,7 +2541,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	// loadPhiCommunityResources();
 	document.querySelector('div#backInPlayingBtn').addEventListener('click', exit);
 	document.querySelector('div#restartBtn').addEventListener('click',replay);
-	document.querySelector('div#resumeBtn').addEventListener('click',btnPause.click());
+	document.querySelector('div#resumeBtn').addEventListener('click',()=>{btnPause.click();});
 	//	获取游玩谱面和难度信息
 	const play = new URLSearchParams(new URL(location.href).search).get('play');
 	var level = new URLSearchParams(new URL(location.href).search).get('l');
@@ -2815,7 +2813,7 @@ function replay() {
 	try {
 		Renderer.chart = chart123(JSON.parse(window.chartString));
 	} catch (e) {
-		Renderer.chart = chart123(pec2json(window.chartString, undefined));
+		Renderer.chart = chart123(pec2json(window.chartString, undefined).data);
 	}
 	btnPlay.click();
 }
