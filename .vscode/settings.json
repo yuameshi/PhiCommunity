@@ -2,5 +2,6 @@
 	"liveServer.settings.port": 62012,
 	"editor.tabSize": 4,
 	"editor.insertSpaces": false,
-	"editor.detectIndentation": true
+	"editor.detectIndentation": true,
+	"liveServer.settings.multiRootWorkspaceName": "PhiCommunity"
 }
