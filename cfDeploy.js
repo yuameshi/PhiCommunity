@@ -12,7 +12,7 @@ function listFile(filePath) {
 				var filedir = path.join(filePath, filename);
 				fs.stat(filedir, function (eror, stats) {
 					if (eror) {
-						console.warn('获取文件stats失败');
+						console.warn('Cannot get stat of file: ' + filedir);
 					} else {
 						var isFile = stats.isFile();
 						var isDir = stats.isDirectory();
@@ -28,7 +28,7 @@ function listFile(filePath) {
 										.readFileSync(filedir)
 										.toString();
 									if (
-										fileData.match(
+										fileData.includes(
 											'https://charts.phicommunity.com.cn/'
 										)
 									) {
