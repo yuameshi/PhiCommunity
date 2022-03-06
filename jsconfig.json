@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+	  "target": "es2017",
+	  "allowSyntheticDefaultImports": false,
+	  "baseUrl": "./",
+	  "paths": {
+		"assets/*": ["assets/*"],
+	  }
+	},
+	"exclude": ["node_modules", "dist"],
+	"include": ["src", "public/sw.js"]
+  }
+  

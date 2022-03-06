@@ -1,0 +1,40 @@
+{
+	"name": "phi-community",
+	"version": "1.0.0",
+	"description": "A community driven project to make a game like phigros.",
+	"author": "HanHan233",
+	"license": "GPL-3.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/HanHan233/PhiCommunity.git"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "webpack serve --open --mode=development",
+		"watch": "webpack --watch --mode=development",
+		"build": "webpack --mode=production",
+		"cf-build": "webpack --mode=production && node ./cfDeploy.js"
+	},
+	"bugs": {
+		"url": "https://github.com/HanHan233/PhiCommunity/issues"
+	},
+	"homepage": "https://github.com/HanHan233/PhiCommunity#readme",
+	"devDependencies": {
+		"clean-webpack-plugin": "^4.0.0",
+		"copy-webpack-plugin": "^10.2.4",
+		"css-loader": "^6.6.0",
+		"file-loader": "^6.2.0",
+		"html-webpack-plugin": "^5.5.0",
+		"http-server": "^14.1.0",
+		"mini-css-extract-plugin": "^2.6.0",
+		"style-loader": "^3.3.1",
+		"url-loader": "^4.1.1",
+		"webpack": "^5.69.1",
+		"webpack-cli": "^4.9.2",
+		"webpack-dev-server": "^4.7.4"
+	},
+	"dependencies": {
+		"oggmented": "^1.0.1",
+		"stackblur-canvas": "^2.5.0"
+	}
+}
