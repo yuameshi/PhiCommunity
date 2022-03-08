@@ -95,7 +95,7 @@ function Slider({ range, defaultValue = range[0], offset = 1, onValueChange }) {
 		set(
 			Math.round(
 				range[0] +
-					((e.targetTouches[0].pageX - container.clientLeft - 150) /
+					((e.targetTouches[0].pageX - container.clientLeft - 70) /
 						(container.clientWidth - 100)) *
 						total
 			)
