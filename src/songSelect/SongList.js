@@ -231,7 +231,6 @@ function SongList({ defaultLevel = 'ez' }) {
 			items.forEach(({ element }) => (element.style.order = ''));
 			break;
 		}
-		listElement.style.top = -items[selected].element.offsetTop + 'px';
 	}
 }
 

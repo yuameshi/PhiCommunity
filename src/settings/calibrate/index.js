@@ -113,9 +113,9 @@ document
 		);
 		if (result) {
 			localStorage.setItem('input-offset', finalResult);
-			location.href = './index.html';
+			location.href = '../settings/index.html';
 		}
 		if (!result) {
-			location.href = './index.html';
+			location.href = '../settings/index.html';
 		}
 	});
