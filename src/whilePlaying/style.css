@@ -23,7 +23,7 @@ body {
 	-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	transition: all 0.3s linear;
+	/*transition: all 0.3s linear;*/
 }
 body::before {
 	content: '';
