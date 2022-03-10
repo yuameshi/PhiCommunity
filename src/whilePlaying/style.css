@@ -38,19 +38,19 @@ body::before {
 	z-index: -1;
 }
 canvas.canvas#canvas {
-	height: 100%;
-	width: calc(100vh * 1.778);
+	height: 100% !important;
+	width: auto !important;
 	background-color: transparent;
 }
 .loadingEmbedFrame {
 	position: fixed;
 	height: 100%;
 	width: 100%;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    border: none;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	border: none;
 	transform: none;
 	object-fit: cover;
 	z-index: 999999999;

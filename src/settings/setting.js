@@ -88,6 +88,11 @@ export const settings = [
 		codename: 'usePlayerFriendlyUI',
 	},
 	{
+		type: 'toggle',
+		title: '开启低分辨率模式',
+		codename: 'enableLowRes',
+	},
+	{
 		type: 'slide',
 		title: '界面宽高比',
 		codename: 'select-aspect-ratio',

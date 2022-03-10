@@ -245,17 +245,15 @@ document.addEventListener('fullscreenchange', resizeCanvas);
 function resizeCanvas() {
 	const width = document.documentElement.clientWidth;
 	const height = document.documentElement.clientHeight;
-	// const defaultWidth = Math.min(854, width * 1);
-	var defaultHeight = height;
-	// const defaultHeight = defaultWidth / ( 16 / 9);
-	var defaultWidth = defaultHeight * (16 / 9);
-	if (width < defaultWidth) {
-		defaultWidth = width;
-		defaultHeight = defaultWidth / (16 / 9);
+	const defaultWidth = Math.min(854, width * 0.8);
+	const defaultHeight = defaultWidth / (selectaspectratio.value || 16 / 9);
+	var realWidth = Math.floor(full.check(canvas) ? width : defaultWidth);
+	var realHeight = Math.floor(full.check(canvas) ? height : defaultHeight);
+	if (localStorage.getItem('enableLowRes') == 'true') {
+		realHeight = realHeight / 4;
+		realWidth = realWidth / 4;
 	}
-	console.log('Resize canvas:', width, height, defaultWidth, defaultHeight);
-	const realWidth = Math.floor(full.check(canvas) ? width : defaultWidth);
-	const realHeight = Math.floor(full.check(canvas) ? height : defaultHeight);
+	console.log('Resize canvas:', realHeight, realWidth);
 	canvas.style.cssText += `;width:${realWidth}px;height:${realHeight}px`;
 	canvas.width = realWidth * devicePixelRatio;
 	canvas.height = realHeight * devicePixelRatio;
@@ -471,13 +469,13 @@ class Judgements extends Array {
 							clickEvents1.push(
 								hyperMode.checked
 									? ClickEvent1.getClickGreat(
-											i.projectX,
-											i.projectY
-									  )
+										i.projectX,
+										i.projectY
+									)
 									: ClickEvent1.getClickPerfect(
-											i.projectX,
-											i.projectY
-									  )
+										i.projectX,
+										i.projectY
+									)
 							);
 						} else if (
 							i.realTime - realTime > -0.04 ||
@@ -502,13 +500,13 @@ class Judgements extends Array {
 							clickEvents1.push(
 								hyperMode.checked
 									? ClickEvent1.getClickGreat(
-											i.projectX,
-											i.projectY
-									  )
+										i.projectX,
+										i.projectY
+									)
 									: ClickEvent1.getClickPerfect(
-											i.projectX,
-											i.projectY
-									  )
+										i.projectX,
+										i.projectY
+									)
 							);
 						} else {
 							i.status = 3; //console.log("Good(Late)", i.name);
@@ -576,13 +574,13 @@ class Judgements extends Array {
 							clickEvents1.push(
 								hyperMode.checked
 									? ClickEvent1.getClickGreat(
-											i.projectX,
-											i.projectY
-									  )
+										i.projectX,
+										i.projectY
+									)
 									: ClickEvent1.getClickPerfect(
-											i.projectX,
-											i.projectY
-									  )
+										i.projectX,
+										i.projectY
+									)
 							);
 						else if (i.status2 % 4 == 3)
 							clickEvents1.push(
@@ -631,13 +629,13 @@ class Judgements extends Array {
 								clickEvents1.push(
 									hyperMode.checked
 										? ClickEvent1.getClickGreat(
-												i.projectX,
-												i.projectY
-										  )
+											i.projectX,
+											i.projectY
+										)
 										: ClickEvent1.getClickPerfect(
-												i.projectX,
-												i.projectY
-										  )
+											i.projectX,
+											i.projectY
+										)
 								);
 								i.status3 = Date.now();
 							} else if (
@@ -660,13 +658,13 @@ class Judgements extends Array {
 								clickEvents1.push(
 									hyperMode.checked
 										? ClickEvent1.getClickGreat(
-												i.projectX,
-												i.projectY
-										  )
+											i.projectX,
+											i.projectY
+										)
 										: ClickEvent1.getClickPerfect(
-												i.projectX,
-												i.projectY
-										  )
+											i.projectX,
+											i.projectY
+										)
 								);
 								i.status3 = Date.now();
 							} else {
@@ -1688,8 +1686,8 @@ function calcqwq(now) {
 								? 0.45
 								: 0
 							: i.status % 4 == 2
-							? 0.45
-							: 1;
+								? 0.45
+								: 1;
 				else
 					i.alpha = Math.max(
 						1 -
@@ -2440,40 +2438,40 @@ function chart123(chart) {
 	switch (
 		newChart.formatVersion //加花括号以避免beautify缩进bug
 	) {
-		case 1: {
-			newChart.formatVersion = 3;
-			for (const i of newChart.judgeLineList) {
-				let y = 0;
-				for (const j of i.speedEvents) {
-					if (j.startTime < 0) j.startTime = 0;
-					j.floorPosition = y;
-					y +=
-						(((j.endTime - j.startTime) * j.value) / i.bpm) * 1.875;
-				}
-				for (const j of i.judgeLineDisappearEvents) {
-					j.start2 = 0;
-					j.end2 = 0;
-				}
-				for (const j of i.judgeLineMoveEvents) {
-					j.start2 = (j.start % 1e3) / 520;
-					j.end2 = (j.end % 1e3) / 520;
-					j.start = parseInt(j.start / 1e3) / 880;
-					j.end = parseInt(j.end / 1e3) / 880;
-				}
-				for (const j of i.judgeLineRotateEvents) {
-					j.start2 = 0;
-					j.end2 = 0;
-				}
+	case 1: {
+		newChart.formatVersion = 3;
+		for (const i of newChart.judgeLineList) {
+			let y = 0;
+			for (const j of i.speedEvents) {
+				if (j.startTime < 0) j.startTime = 0;
+				j.floorPosition = y;
+				y +=
+					(((j.endTime - j.startTime) * j.value) / i.bpm) * 1.875;
 			}
-			break;
+			for (const j of i.judgeLineDisappearEvents) {
+				j.start2 = 0;
+				j.end2 = 0;
+			}
+			for (const j of i.judgeLineMoveEvents) {
+				j.start2 = (j.start % 1e3) / 520;
+				j.end2 = (j.end % 1e3) / 520;
+				j.start = parseInt(j.start / 1e3) / 880;
+				j.end = parseInt(j.end / 1e3) / 880;
+			}
+			for (const j of i.judgeLineRotateEvents) {
+				j.start2 = 0;
+				j.end2 = 0;
+			}
 		}
-		case 3: {
-			break;
-		}
-		case 3473:
-			break;
-		default:
-			throw `Unsupported formatVersion: ${newChart.formatVersion}`;
+		break;
+	}
+	case 3: {
+		break;
+	}
+	case 3473:
+		break;
+	default:
+		throw `Unsupported formatVersion: ${newChart.formatVersion}`;
 	}
 	return newChart;
 }
@@ -2660,7 +2658,7 @@ window.addEventListener('DOMContentLoaded', () => {
 					.then((res) => res.json())
 					.then(data=>{
 						window.chartLineData = data;
-						window.chartLine = data
+						window.chartLine = data;
 						window.chartLineTextureDecoded = new Array(
 							window.chartLine.length
 						);
@@ -2792,7 +2790,7 @@ window.addEventListener('DOMContentLoaded', () => {
 					}
 				} catch (error) {
 					console.warn(
-						"Error occured when applying settings '" + key + "':\n",
+						'Error occured when applying settings \'' + key + '\':\n',
 						error
 					);
 				}
