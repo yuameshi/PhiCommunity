@@ -1659,7 +1659,6 @@ function calcqwq(now) {
 			return i.floorPosition - line.positionY;
 		}
 
-		// eslint-disable-next-line no-inner-declarations
 		function setAlpha(i, dx, dy) {
 			i.projectX = line.offsetX + dx * i.cosr;
 			i.offsetX = i.projectX + dy * i.sinr;
