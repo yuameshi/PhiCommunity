@@ -245,10 +245,10 @@ document.addEventListener('fullscreenchange', resizeCanvas);
 function resizeCanvas() {
 	const width = document.documentElement.clientWidth;
 	const height = document.documentElement.clientHeight;
-	const defaultWidth = Math.min(854, width * 0.8);
-	const defaultHeight = defaultWidth / (selectaspectratio.value || 16 / 9);
-	var realWidth = Math.floor(full.check(canvas) ? width : defaultWidth);
-	var realHeight = Math.floor(full.check(canvas) ? height : defaultHeight);
+	const defaultWidth = height * (selectaspectratio.value || (16 / 9) );
+	const defaultHeight = height
+	var realWidth = Math.floor(width > defaultWidth ? defalutWidth : width);
+	var realHeight = Math.floor(height > defaultHeight ? defaultHeight : height);
 	if (localStorage.getItem('enableLowRes') == 'true') {
 		realHeight = realHeight / 4;
 		realWidth = realWidth / 4;
