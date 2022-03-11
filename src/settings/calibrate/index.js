@@ -42,6 +42,7 @@ document
 						document
 							.querySelector('button#clickBtn')
 							.removeEventListener('click', calibrate);
+						window.calibrateActx = null;
 					}
 				);
 			}
@@ -60,24 +61,24 @@ function calibrate(e) {
 	const currentTime= window.calibrateActx.currentTime - window.actxStartTime;
 	console.log(currentTime);
 	var stage = 1;
-	if (currentTime > 0 && currentTime <= 2.2) {
+	if (currentTime > 0 && currentTime <= 2) {
 		console.log('Calibration stage 1',e);
 		stage = 1;
 	}
-	if (currentTime > 2.2 && currentTime <= 4.2) {
+	if (currentTime > 2 && currentTime <= 4) {
 		console.log('Calibration stage 2',e);
 		stage = 2;
 	}
-	if (currentTime > 4.2 && currentTime <= 6.2) {
+	if (currentTime > 4 && currentTime <= 6) {
 		console.log('Calibration stage 3',e);
 		stage = 3;
 	}
-	if (currentTime > 6.2 && currentTime <= 8.2) {
+	if (currentTime > 6 && currentTime <= 8) {
 		console.log('Calibration stage 4',e);
 		stage = 4;
 	}
 	const result = document.querySelector('#result' + stage);
-	result.innerText = Math.round((currentTime - stage*2)*1000);
+	result.innerText = Math.round((currentTime - (stage*2-0.5))*1000);
 }
 document
 	.querySelector('button#cancelBtn')
