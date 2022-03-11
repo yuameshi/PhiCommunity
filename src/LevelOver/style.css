@@ -465,7 +465,7 @@ div.extraInfo > div.text {
 	transform: skew(15deg);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 576px) {
 	.mainContent {
 		flex-direction: column !important;
 		height: 80% !important;

@@ -10,6 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				window.cacheList = array;
 				const item = document.createElement('div');
 				item.classList.add('item');
+				item.setAttribute('title', request.url);
 				item.setAttribute('data-url', request.url);
 				item.setAttribute(
 					'data-file-name',

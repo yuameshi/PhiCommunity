@@ -110,7 +110,7 @@ div.popupContent {
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
-div.popupContent>img{
+div.popupContent > img {
 	width: 100%;
 	height: auto;
 }
@@ -147,7 +147,7 @@ div#changelogContainer > a.item {
 	text-decoration: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 576px) {
 	div.btnsContainer {
 		display: flex;
 		justify-content: center;
