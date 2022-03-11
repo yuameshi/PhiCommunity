@@ -246,15 +246,21 @@ function resizeCanvas() {
 	const width = document.documentElement.clientWidth;
 	const height = document.documentElement.clientHeight;
 	const defaultWidth = height * (selectaspectratio.value || (16 / 9) );
-	const defaultHeight = height
-	var realWidth = Math.floor(width > defaultWidth ? defalutWidth : width);
-	var realHeight = Math.floor(height > defaultHeight ? defaultHeight : height);
+	const defaultHeight = height;
+	var realHeight=height,realWidth=width;
+	if(width > defaultWidth){
+		realWidth=defaultWidth
+	}
+	if(height > defaultHeight){
+		realHeight=defaultHeight;
+	}
+	//var realWidth = Math.floor((width > defaultWidth) ? defalutWidth : width);
+	//var realHeight = Math.floor((height > defaultHeight) ? defaultHeight : height);
 	if (localStorage.getItem('enableLowRes') == 'true') {
 		realHeight = realHeight / 4;
 		realWidth = realWidth / 4;
 	}
 	console.log('Resize canvas:', realHeight, realWidth);
-	canvas.style.cssText += `;width:${realWidth}px;height:${realHeight}px`;
 	canvas.width = realWidth * devicePixelRatio;
 	canvas.height = realHeight * devicePixelRatio;
 	canvasos.width =
