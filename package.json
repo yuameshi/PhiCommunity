@@ -10,10 +10,10 @@
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "webpack serve --open --mode=development",
-		"watch": "webpack --watch --mode=development",
-		"build": "webpack --mode=production",
-		"cf-build": "webpack --mode=production && node ./cfDeploy.js"
+		"start": "webpack serve --config ./config/webpack.dev.js --open ",
+		"watch": "webpack --config ./config/webpack.prod.js --watch",
+		"build": "webpack --config ./config/webpack.prod.js ",
+		"cf-build": "webpack build && node ./cfDeploy.js"
 	},
 	"bugs": {
 		"url": "https://github.com/HanHan233/PhiCommunity/issues"
@@ -31,7 +31,9 @@
 		"url-loader": "^4.1.1",
 		"webpack": "^5.69.1",
 		"webpack-cli": "^4.9.2",
-		"webpack-dev-server": "^4.7.4"
+		"webpack-dev-server": "^4.7.4",
+		"webpack-merge": "^5.8.0",
+		"workbox-webpack-plugin": "^6.5.1"
 	},
 	"dependencies": {
 		"oggmented": "^1.0.1",

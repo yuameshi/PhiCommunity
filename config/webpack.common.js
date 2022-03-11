@@ -5,9 +5,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const path = require('path');
 
+const resolve = (...paths) => path.resolve(__dirname, '..', ...paths);
+const resolveSrc = (...paths) => path.resolve(__dirname, '../src', ...paths);
+
 const pagePlugins = [
 	new HtmlWebpackPlugin({
-		template: './src/index.html',
+		template: resolve('src/index.html'),
 		filename: 'index.html',
 		chunks: ['index'],
 	}),
@@ -21,11 +24,11 @@ const pagePlugins = [
 		'settings',
 		'songSelect',
 		'tapToStart',
-		'whilePlaying'
+		'whilePlaying',
 	].map(
 		(pagename) =>
 			new HtmlWebpackPlugin({
-				template: `./src/${pagename}/index.html`,
+				template: resolveSrc(pagename, 'index.html'),
 				filename: `${pagename}/index.html`,
 				chunks: [pagename],
 			})
@@ -35,7 +38,7 @@ const pagePlugins = [
 	...['calibrate', 'statistic'].map(
 		(pagename) =>
 			new HtmlWebpackPlugin({
-				template: `./src/settings/${pagename}/index.html`,
+				template: resolveSrc('settings', pagename, 'index.html'),
 				filename: `settings/${pagename}/index.html`,
 				chunks: [pagename],
 			})
@@ -43,28 +46,28 @@ const pagePlugins = [
 ];
 module.exports = {
 	entry: {
-		index: './src/index.redirect.js',
-		aboutUs: './src/aboutUs/index.js',
-		cacheControl: './src/cacheControl/index.js',
-		chapterSelect: './src/chapterSelect/index.js',
-		LevelOver: './src/LevelOver/index.js',
-		loadingChartScreen: './src/loadingChartScreen/index.js',
-		loadingScreen: './src/loadingScreen/index.js',
-		settings: './src/settings/index.js',
-		songSelect: './src/songSelect/index.js',
-		tapToStart: './src/tapToStart/index.js',
-		calibrate: './src/settings/calibrate/index.js',
-		statistic: './src/settings/statistic/index.js',
-		whilePlaying: './src/whilePlaying/script.phi.community.core.js',
+		index: resolveSrc('index.redirect.js'),
+		aboutUs: resolveSrc('aboutUs/index.js'),
+		cacheControl: resolveSrc('cacheControl/index.js'),
+		chapterSelect: resolveSrc('chapterSelect/index.js'),
+		LevelOver: resolveSrc('LevelOver/index.js'),
+		loadingChartScreen: resolveSrc('loadingChartScreen/index.js'),
+		loadingScreen: resolveSrc('loadingScreen/index.js'),
+		settings: resolveSrc('settings/index.js'),
+		songSelect: resolveSrc('songSelect/index.js'),
+		tapToStart: resolveSrc('tapToStart/index.js'),
+		calibrate: resolveSrc('settings/calibrate/index.js'),
+		statistic: resolveSrc('settings/statistic/index.js'),
+		whilePlaying: resolveSrc('whilePlaying/script.phi.community.core.js'),
 	},
 	output: {
-		path: path.resolve(__dirname, './dist'),
+		path: resolve('dist'),
 		filename: 'js/[name].[chunkhash].js',
 		assetModuleFilename: 'assets/[name][ext]',
 	},
 	resolve: {
 		alias: {
-			assets: path.resolve(__dirname, 'assets'),
+			assets: resolve('assets'),
 		},
 	},
 	performance: {
@@ -74,7 +77,6 @@ module.exports = {
 		assetFilter: (assetFilename) =>
 			assetFilename.match(/\.(css|js|mp3|wav|ogg|png|jpg|webp|svg)$/i),
 	},
-	devtool: 'inline-source-map',
 	plugins: [
 		new CleanWebpackPlugin(),
 		...pagePlugins,
@@ -83,13 +85,13 @@ module.exports = {
 		}),
 		new CopyWebpackPlugin({
 			patterns: [
-				path.join(__dirname, 'public'),
+				resolve('public'),
 				{
-					from: path.join(__dirname, 'assets'),
+					from: resolve('assets'),
 					to: 'assets/[path][name][ext]',
 				},
 				{
-					from: path.join(__dirname, 'src/whilePlaying/assets'),
+					from: resolve('src/whilePlaying/assets'),
 					to: 'whilePlaying/assets/[path][name][ext]',
 				},
 			],
