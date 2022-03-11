@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="module" async="async">
+		import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
+	</script>
+	<script type="text/javascript" async="async" src="https://unpkg.com/mediainfo.js/dist/mediainfo.min.js"></script>
+	<title>上传谱面 - PhiCommunity</title>
+</head>
+
+<body>
+	<div
+		class="backBtn"
+		onclick="location.href='../chapterSelect/index.html'"
+	></div>
+	<div class="body">
+		<div class="leftArea" id="leftArea">
+			<div id="leftUploadField"></div>
+		</div>
+		<div class="main" id="main">
+			<notice-warning title="请注意">
+				<ol>
+                    <li>
+                        对于Re:PhiEdit导出的PEC谱面可能需要做一些特殊的修正，请参考<a href="https://ilovecpp-my.sharepoint.com/:b:/g/personal/admin_han-han_xyz/EU6w76wDBIxMr0hhdeYP650BVg-UzIrQG3VhYiiTUmPCtA?e=y0CBjB" target="_blank">这份文档</a>，在按此说明导出合适的PEC谱面后，前往lchzh3473的模拟器测试是否能正常播放，再进行提交。
+                    </li>
+                    <li>提交前请确保您已经获得曲师、谱师和曲绘画师的授权。</li>
+                </ol>
+			</notice-warning>
+			<drag-uploader style="width: 100%; height:60%" image="true" accept=".jpg,.jpeg,.png,.webp" max-size="524288">
+			</drag-uploader>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -21,6 +21,7 @@ const pagePlugins = [
 		'settings',
 		'songSelect',
 		'tapToStart',
+		'uploadCharts',
 		'whilePlaying'
 	].map(
 		(pagename) =>
@@ -53,6 +54,7 @@ module.exports = {
 		settings: './src/settings/index.js',
 		songSelect: './src/songSelect/index.js',
 		tapToStart: './src/tapToStart/index.js',
+		uploadCharts: './src/uploadCharts/index.js',
 		calibrate: './src/settings/calibrate/index.js',
 		statistic: './src/settings/statistic/index.js',
 		whilePlaying: './src/whilePlaying/script.phi.community.core.js',

@@ -1,0 +1,61 @@
+@import url(assets/css/css.css);
+html,
+body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+html {
+	background: url(assets/images/ElementSqare.Half.Size.webp) center center
+		no-repeat fixed;
+	background-size: cover;
+	backdrop-filter: blur(15px);
+}
+html::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: url(assets/images/ElementSqare.Half.Size.webp) center center
+		no-repeat fixed;
+	background-size: cover;
+	filter: blur(10px);
+	z-index: -1;
+}
+.body {
+	display: flex;
+}
+.leftArea {
+	padding-top: 70px;
+	height: 100%;
+	width: 35%;
+	background: rgba(0, 0, 0, 0.5);
+	color: #ffffff;
+	scrollbar-width: none;
+}
+.leftArea::-webkit-scrollbar {
+	display: none;
+}
+.main {
+	margin-left: 1%;
+	width: 63%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+@media screen and (max-width: 768px) {
+	div.body {
+		display: block;
+	}
+	div.leftArea {
+		width: 100%;
+	}
+	div.main {
+		width: 98%;
+	}
+}
