@@ -7,7 +7,6 @@ window.addEventListener('DOMContentLoaded', async () => {
 		.querySelector('#delAllCache')
 		.addEventListener('click', delAllCache);
 	const container = document.querySelector('div#container');
-
 	const cacheKeys = await caches.keys();
 
 	cacheKeys.forEach(async (cacheKey) => {
@@ -18,6 +17,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 			cacheList = cacheList.concat(array);
 			const item = document.createElement('div');
 			item.classList.add('item');
+			item.setAttribute('title', request.url);
 			item.setAttribute('data-url', request.url);
 			item.setAttribute(
 				'data-file-name',

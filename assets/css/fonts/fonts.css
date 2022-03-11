@@ -14,3 +14,11 @@
 * {
 	font-family: Phi;
 }
+
+* {
+	user-select: none;
+}
+
+input{
+	user-select: unset;
+}

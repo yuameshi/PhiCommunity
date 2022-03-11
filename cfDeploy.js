@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+console.log('Start processing...');
+
 listFile(process.cwd());
 
 function listFile(filePath) {

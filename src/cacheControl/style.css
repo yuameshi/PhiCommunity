@@ -22,8 +22,8 @@ html::before {
 	left: 0;
 	bottom: 0;
 	right: 0;
-	background: url(assets/images/ElementSqare.Half.Size.webp) no-repeat
-		center center fixed;
+	background: url(assets/images/ElementSqare.Half.Size.webp) no-repeat center
+		center fixed;
 	background-size: cover;
 	filter: blur(10px) brightness(0.5);
 	z-index: -1;
@@ -45,18 +45,31 @@ div#container {
 }
 div#container > div.item::before {
 	order: 0;
+	width: 10%;
 	content: attr(data-file-name);
 	margin-right: 0 50px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 div#container > div.item::after {
 	order: 1;
+	width: calc(90% - 48px);
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
 	content: attr(data-url);
 	margin: 0 50px;
 }
 div#container > div.item > .deleteBtn {
 	order: 2;
+	width: 48px;
+	text-align: center;
 	outline: none;
 	cursor: pointer;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 div#container > div.item {
 	width: 100%;
@@ -67,4 +80,22 @@ div#container > div.item {
 	color: #000;
 	text-decoration: none;
 	margin: 5px 0;
+}
+
+@media screen and (max-width: 576px) {
+	div#container > div.item::before {
+		order: 0;
+		width: calc(100% - 48px);
+		content: attr(data-file-name);
+		margin-right: 0 50px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+	div#container > div.item::after {
+		display: none;
+	}
+	div#container > div.item > .deleteBtn {
+		width: 48px;
+	}
 }

@@ -98,12 +98,12 @@ div.sortMode::after {
 }
 div.songList {
 	display: flex;
-    position: absolute;
-    flex-flow: column;
-    padding: 100px 0;
-    width: 100%;
-    height: calc(100% - 200px);
-    overflow-y: scroll;
+	position: absolute;
+	flex-flow: column;
+	padding: 100px 0;
+	width: 100%;
+	height: calc(100% - 200px);
+	overflow-y: scroll;
 	overflow-x: hidden;
 	scrollbar-width: none;
 }
@@ -448,7 +448,7 @@ div.readyToLoadOverlay.go {
 		right: -100%;
 	}
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 576px) {
 	body {
 		padding: 0;
 	}
