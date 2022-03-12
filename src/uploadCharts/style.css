@@ -28,30 +28,210 @@ html::before {
 .body {
 	display: flex;
 	background: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+	scrollbar-width: none;
+}
+.body::-webkit-scrollbar {
+	display: none;
+}
+.customComponent {
+	display: block;
+	width: 100%;
 }
 .leftArea {
+	padding: 0 1%;
+	width: 100%;
+	color: #ffffff;
+}
+.leftArea > #leftUploadField {
+	width: 98%;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
-	padding-top: 70px;
-	width: 46%;
-	color: #ffffff;
-	scrollbar-width: none;
-}
-.leftArea::-webkit-scrollbar {
-	display: none;
 }
 .main {
 	margin-left: 1%;
-	width: 63%;
+	width: 100%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-start;
+	justify-content: center;
 	align-items: center;
 }
-@media screen and (max-width: 768px) {
+.hidden {
+	display: none;
+}
+.chart {
+	width: 70%;
+}
+.chartField {
+	width: 88%;
+	margin-right: 20px;
+}
+div.submitBtn {
+	position: fixed;
+	right: 0px;
+	bottom: 15px;
+	width: fit-content;
+	width: -moz-fit-content;
+	height: 44px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1;
+	background-color: #fff;
+	cursor: pointer;
+}
+div.detailBar {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #00000055;
+	color: #fff;
+	margin-top: 15px;
+	width: 88%;
+	height: 64px;
+}
+div.levelChooser {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: fit-content;
+	width: -moz-fit-content;
+	height: 100%;
+	background-color: #fff;
+	color: #000;
+	padding-left: 5px;
+}
+div.levelChooser > div.levelItem {
+	width: 72px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	margin: 0 2% 0 2%;
+	cursor: pointer;
+}
+div.levelChooser > div.levelItem.ez {
+	margin-left: 0;
+}
+div.levelChooser > div.levelItem.at {
+	margin-left: 0;
+}
+div.levelChooser > div.selected {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 120%;
+	background-color: #6cf;
+	color: #fff;
+}
+div.levelChooser > div.levelItem.selected.ez {
+	background-color: #51af44;
+}
+div.levelChooser > div.levelItem.selected.hd {
+	background-color: #3173b3;
+}
+div.levelChooser > div.levelItem.selected.in {
+	background-color: #be2d23;
+}
+div.levelChooser > div.levelItem.selected.at {
+	background-color: #3a3637;
+}
+div.levelChooser > div.levelItem::before {
+	font-size: 26px;
+	content: attr(data-level);
+}
+div.levelChooser > div.levelItem::after {
+	font-size: 16px;
+	line-height: 0;
+	transform: scale(0.8);
+}
+div.levelChooser > div.levelItem.ez::after {
+	content: 'EZ';
+}
+div.levelChooser > div.levelItem.hd::after {
+	content: 'HD';
+}
+div.levelChooser > div.levelItem.in::after {
+	content: 'IN';
+}
+div.levelChooser > div.levelItem.at::after {
+	content: 'AT';
+}
+div.score {
+	width: 200px;
+	height: 100%;
+	display: flex;
+	font-size: 22px;
+	justify-content: center;
+	align-items: center;
+	order: 0;
+}
+div.score::before {
+	content: attr(data-acc);
+	font-size: 12px;
+	transform: scale(0.8);
+	order: 1;
+	display: flex;
+	color: #999;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: -10px;
+}
+div#chart-container {
+	padding: 3px;
+	display: flex;
+	width: 92%;
+	height: 206px;
+	position: relative;
+	border-radius: 8px;
+}
+div#chart-container.ez {
+	background-color: #51af44;
+}
+div#chart-container.hd {
+	background-color: #3173b3;
+}
+div#chart-container.in {
+	background-color: #be2d23;
+}
+div#chart-container.at {
+	background-color: #3a3637;
+}
+div#arrow {
+	display: block;
+	width: 0;
+	height: 0;
+	border: 18px solid transparent;
+	position: relative;
+}
+div#arrow.ez {
+	left: 18px;
+	border-bottom-color: #51af44;
+}
+div#arrow.hd {
+	left: 94px;
+	border-bottom-color: #3173b3;
+}
+div#arrow.in {
+	left: 170px;
+	border-bottom-color: #be2d23;
+}
+div#arrow.at {
+	left: 240px;
+	border-bottom-color: #3a3637;
+}
+@media screen and (max-width: 830px) {
 	div.body {
 		display: block;
 	}
@@ -59,6 +239,7 @@ html::before {
 		width: 100%;
 	}
 	div.main {
+		justify-content: flex-start;
 		width: 98%;
 	}
 }

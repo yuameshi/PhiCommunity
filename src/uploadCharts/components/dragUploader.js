@@ -9,11 +9,14 @@ export class Uploader extends HTMLElement {
 		content.style = 'width:100%;height:100%';
 		content.innerHTML = `
 			<input type="file" id="__filechooser" accept="*" style="display: none"></input>
+			<div id="__required-mark" class="required-mark">*</div>
+			<div id="__field-label" class="field-label"></div>
 			<div class="uploader" id="__uploader">
 				<span id="__icon" class="icon">image</span>
 				<slot id="__tip" name="tip" class="tip">将文件 <em>拖放</em> 到此处，或 <em>点击此处</em> 选择文件</slot>
+				<div id="__uploader-click"></div>
 				<div id="__file-bar" class="file-bar">
-					<p id="__file-name"></p>
+					<p id="__file-name">未上传文件</p>
 					<button id="__file-delete" class="file-delete" onclick="deleteFile">删除文件</button>
 				</div>
 			</div>
@@ -21,6 +24,28 @@ export class Uploader extends HTMLElement {
 		/* 创建样式 */
 		const style = document.createElement('style');
 		style.textContent = `
+			#__uploader-click {
+				cursor: pointer;
+				position: absolute;
+				top: 0;
+				background: transparent;
+				width: 100%;
+				height: calc(100% - 42px);
+			}
+			.field-label {
+				display: inline-flex;
+				font-family: Phi;
+				margin: 0;
+				color: #ffffff;
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 16px;
+			}
+			.required-mark {
+				color: #00ffd8;
+				display: inline-flex;
+				margin-left: 3%;
+			}
 			.uploader {
 				position: relative;
 				display: flex;
@@ -37,8 +62,6 @@ export class Uploader extends HTMLElement {
 				width: 96%;
 				height: 100%;
 				text-align: center;
-				cursor: pointer;
-				position: relative;
 				overflow: hidden;
 			}
 			.uploader__isDragover {
@@ -55,7 +78,6 @@ export class Uploader extends HTMLElement {
 				transform: translate(-50%, -50%);
 				background-color: #eaeaeacc;
 				box-shadow: inset 0 0 2rem 2rem #0000001a;
-				border: 2px dashed #409eff;
 			}
 			.icon {
 				pointer-events: none;
@@ -63,7 +85,7 @@ export class Uploader extends HTMLElement {
 				font-weight: normal;
 				font-style: normal;
 				font-size: 6.6rem;
-				color: #979899;
+				color: #575758;
 				display: inline-block;
 				line-height: 1;
 				text-transform: none;
@@ -77,6 +99,7 @@ export class Uploader extends HTMLElement {
 				font-feature-settings: 'liga';
 			}
 			.tip {
+				color: #000000;
 				pointer-events: none;
 				display: flex;
 			}
@@ -86,7 +109,7 @@ export class Uploader extends HTMLElement {
 				font-style: normal;
 			}
 			.file-bar {
-				display: none;
+				display: flex;
 				justify-content: space-around;
 				align-items: center;
 				position: absolute;
@@ -97,6 +120,7 @@ export class Uploader extends HTMLElement {
 				color: #ffffff;
 			}
 			.file-bar .file-delete {
+				display: none;
 				height: 32px;
 				background-color: #e08bbe;
 				border-radius: 6px;
@@ -112,10 +136,19 @@ export class Uploader extends HTMLElement {
 		const accept = this.getAttribute('accept');
 		const maxSize = Number(this.getAttribute('max-size'));
 		const type = this.getAttribute('type');
+		const label = this.getAttribute('label');
 		content
 			.querySelector('#__filechooser')
 			.setAttribute('accept', accept ? accept : '*');
 		content.querySelector('#__icon').textContent = icon ? icon : 'cloud_upload';
+		if (!this.hasAttribute('required')) {
+			content.querySelector('#__required-mark').remove();
+		}
+		if (label) {
+			content.querySelector('#__field-label').textContent = label;
+		} else {
+			content.querySelector('#__field-label').remove();
+		}
 		/* 加载元素 */
 		var dragoverCover = document.createElement('div');
 		dragoverCover.className = 'uploader__isDragover';
@@ -130,11 +163,12 @@ export class Uploader extends HTMLElement {
 		/* 监听事件 */
 		const that = this;
 		this.$dropbox = shadow.getElementById('__uploader');
+		this.$dropboxClick = shadow.getElementById('__uploader-click')
 		this.$fileChooser = shadow.getElementById('__filechooser');
 		this.$fileBar = shadow.getElementById('__file-bar');
 		this.$tip = shadow.getElementById('__tip');
 		this.$icon = shadow.getElementById('__icon');
-		this.$dropbox.addEventListener(
+		this.$dropboxClick.addEventListener(
 			'dragenter',
 			(e) => {
 				that.$dropbox.appendChild(dragoverCover);
@@ -143,7 +177,7 @@ export class Uploader extends HTMLElement {
 			},
 			false
 		);
-		this.$dropbox.addEventListener(
+		this.$dropboxClick.addEventListener(
 			'dragleave',
 			(e) => {
 				that.$dropbox.removeChild(dragoverCover);
@@ -152,7 +186,7 @@ export class Uploader extends HTMLElement {
 			},
 			false
 		);
-		this.$dropbox.addEventListener(
+		this.$dropboxClick.addEventListener(
 			'dragover',
 			(e) => {
 				e.stopPropagation();
@@ -160,7 +194,7 @@ export class Uploader extends HTMLElement {
 			},
 			false
 		);
-		this.$dropbox.addEventListener(
+		this.$dropboxClick.addEventListener(
 			'drop',
 			(e) => {
 				that.$dropbox.removeChild(dragoverCover);
@@ -170,7 +204,7 @@ export class Uploader extends HTMLElement {
 			},
 			false
 		);
-		this.$dropbox.addEventListener(
+		this.$dropboxClick.addEventListener(
 			'click',
 			(e) => {
 				that.$fileChooser.click();
@@ -183,6 +217,8 @@ export class Uploader extends HTMLElement {
 			'change',
 			function (e) {
 				handleFiles(e.path[0].files);
+				e.stopPropagation();
+				e.preventDefault();
 			},
 			false
 		);
@@ -191,10 +227,10 @@ export class Uploader extends HTMLElement {
 		const handleFiles = (files) => {
 			const file = files[0];
 			if (!new RegExp(`(${accept.replaceAll(',', '|').replaceAll('.', '\\.')})$`).test(file.name)) {
-				alert(`不支持的文件格式，支持的格式为：${accept}`);
+				alert(`不支持的文件格式，支持的格式为：${accept.replaceAll(',', ', ')}`);
 				return ;
 			}
-			if (file.size > maxSize) {
+			if (maxSize && file.size > maxSize) {
 				alert(`文件过大，文件大小限制为：${maxSize} B`);
 				return ;
 			}

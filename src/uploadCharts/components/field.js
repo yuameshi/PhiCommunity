@@ -7,14 +7,14 @@ export class InputField extends HTMLElement {
 		/* 创建模板 */
 		var content = document.createElement('div');
 		content.innerHTML = `
-			<span id="__inpur-required-mark" class="input-required">*</span>
-			<div id="__input-label" class="input-label"></div>
+			<span id="__required-mark" class="required-mark">*</span>
+			<div id="__field-label" class="field-label"></div>
 			<input type="text" id="__input-field" class="input-field"></input>
 		`;
 		/* 创建样式 */
 		const style = document.createElement('style');
 		style.textContent = `
-			.input-label {
+			.field-label {
 				display: inline-flex;
 				font-family: Phi;
 				margin: 0;
@@ -23,7 +23,7 @@ export class InputField extends HTMLElement {
 				font-size: 14px;
 				line-height: 16px;
 			}
-			.input-required {
+			.required-mark {
 				color: #00ffd8;
 				display: inline-flex;
 				margin-left: 3%;
@@ -31,7 +31,7 @@ export class InputField extends HTMLElement {
 			.input-field {
 				font-family: Phi;
 				font-size: 14px;
-				width: 93%;
+				width: 95%;
 				margin: 8px 2% 12px;
 				border: 0;
 				padding: 2px 6px;
@@ -47,24 +47,28 @@ export class InputField extends HTMLElement {
 		/* 加载属性 */
 		const placeholder = this.getAttribute('placeholder');
 		const label = this.getAttribute('label');
-		const required = this.hasAttribute('required');
 		this.$inputField = content.querySelector('#__input-field');
-		this.$inputLabel = content.querySelector('#__input-label');
 		if (this.hasAttribute('title')) {
 			this.$inputField.classList.add('input-field__title');
 		}
+		if (!this.hasAttribute('required')) {
+			content.querySelector('#__required-mark').remove();
+		}
+		if (this.hasAttribute('number')) {
+			this.$inputField.setAttribute('type', 'number');
+		}
 		this.$inputField.setAttribute('placeholder', placeholder ? placeholder : '');
 		if (label) {
-			this.$inputLabel.textContent = label;
+			content.querySelector('#__field-label').textContent = label;
 		} else {
-			content.removeChild(this.$inputLabel);
+			content.querySelector('#__field-label').remove();
+			content.querySelector('#__required-mark').remove();
 		}
 		/* 加载元素 */
 		shadow.appendChild(style);
 		shadow.appendChild(content);
 
 		/* 监听事件 */
-		const that = this;
 		this.$inputField.addEventListener(
 			'input',
 			(e) => {

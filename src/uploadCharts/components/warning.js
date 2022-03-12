@@ -8,13 +8,14 @@ export class Warning extends HTMLElement {
 		var content = document.createElement('div');
 		content.className = 'warning';
 		content.innerHTML = `
-			<summary id="__title">请注意</summary>
+			<summary id="__title">警告</summary>
 			<slot id="__content"></slot>
 		`;
 		/* 创建样式 */
 		const style = document.createElement('style');
 		style.textContent = `
 			.warning {
+				color: #000000;
 				background-color: #ffffff;
 				text-size-adjust: none;
 				line-height: 1.6;
@@ -56,6 +57,12 @@ export class Warning extends HTMLElement {
 				word-wrap: normal;
 				direction: ltr;
 			}
+			.warning > summary > #__closeBtn {
+				position: absolute;
+				cursor: pointer;
+				right: 8px;
+				color: #575758;
+			}
 		`;
 		
 		/* 加载属性 */
@@ -63,8 +70,22 @@ export class Warning extends HTMLElement {
 		if (title) {
 			content.querySelector('#__title').innerText = title;
 		}
+		if (this.hasAttribute('closeable')) {
+			var closeBtn = document.createElement('span');
+			closeBtn.textContent = '×';
+			closeBtn.id = '__closeBtn';
+			content.querySelector('#__title').appendChild(closeBtn);
+		}
 		/* 加载元素 */
 		shadow.appendChild(style);
 		shadow.appendChild(content);
+
+		/* 监听事件 */
+		this.$closeBtn = shadow.getElementById('__closeBtn');
+		this.$closeBtn.addEventListener('click', (e) => {
+			content.remove();
+			e.stopPropagation();
+			e.preventDefault();
+		})
 	}
 }

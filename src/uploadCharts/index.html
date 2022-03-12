@@ -5,10 +5,6 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<script type="module" async="async">
-		import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
-	</script>
-	<script type="text/javascript" async="async" src="https://unpkg.com/mediainfo.js/dist/mediainfo.min.js"></script>
 	<title>上传谱面 - PhiCommunity</title>
 </head>
 
@@ -19,29 +15,55 @@
 	></div>
 	<div class="body">
 		<div class="leftArea" id="leftArea">
-			<div id="leftUploadField" style="width: 98%">
-				<input-field id="codename" required title label="代号（文件夹名称）"></input-field>
-				<input-field id="name" required label="曲名"></input-field>
-				<input-field id="artist" required label="曲师"></input-field>
-				<drag-uploader id="musicUploader" style="display: block; width: 98%; height: 180px; padding: 0 4px" required icon="audio_file" type="audio" accept=".mp3,.wav,.ogg" max-size="5242880">
-				</drag-uploader>
-				<input-field id="sliceAudioStart" required label="曲绘画师"></input-field>
-			</div>
+			<div id="leftUploadField">
+				<input-field class="customComponent" name="codename" required title label="代号（文件夹名称）" style="position: relative; top: 12px; left: 36px; width: 80%;"></input-field>
+				<notice-warning title="请注意" closeable>
+					<ol>
+						<li>
+							对于Re:PhiEdit导出的PEC谱面可能需要做一些特殊的修正，请参考<a href="https://ilovecpp-my.sharepoint.com/:b:/g/personal/admin_han-han_xyz/EU6w76wDBIxMr0hhdeYP650BVg-UzIrQG3VhYiiTUmPCtA?e=y0CBjB" target="_blank">这份文档</a>，在按此说明导出合适的PEC谱面后，前往lchzh3473的模拟器测试是否能正常播放，再进行提交。
+						</li>
+						<li>提交前请确保您已经获得曲师、谱师和曲绘画师的授权。</li>
+					</ol>
+				</notice-warning>
+				<input-field class="customComponent" name="name" required label="曲名"></input-field>
+				<input-field class="customComponent" name="artist" required label="曲师"></input-field>
+				<drag-uploader class="customComponent" name="musicFile" style="height: 180px; padding: 0 4px; margin-bottom: 24px" required label="音乐文件" icon="audio_file" type="audio" accept=".mp3,.wav,.ogg" max-size="5242880"></drag-uploader>
+				<input-field class="customComponent" name="sliceAudioStart" style="margin-top: 20px" number required label="预览音频切片开始时间（秒）"></input-field>
+				</div>
 		</div>
 		<div class="main" id="main">
-			<notice-warning title="请注意">
-				<ol>
-                    <li>
-                        对于Re:PhiEdit导出的PEC谱面可能需要做一些特殊的修正，请参考<a href="https://ilovecpp-my.sharepoint.com/:b:/g/personal/admin_han-han_xyz/EU6w76wDBIxMr0hhdeYP650BVg-UzIrQG3VhYiiTUmPCtA?e=y0CBjB" target="_blank">这份文档</a>，在按此说明导出合适的PEC谱面后，前往lchzh3473的模拟器测试是否能正常播放，再进行提交。
-                    </li>
-                    <li>提交前请确保您已经获得曲师、谱师和曲绘画师的授权。</li>
-                </ol>
-			</notice-warning>
-			<drag-uploader id="illustUploader" style="width: 100%; height:360px" required icon="image" type="image" accept=".jpg,.jpeg,.png,.webp" max-size="524288">
+			<drag-uploader class="customComponent" name="illustration" style="height:360px; margin-bottom: 24px" required label="曲绘" icon="image" type="image" accept=".jpg,.jpeg,.png,.webp" max-size="524288">
 			</drag-uploader>
-			<input-field id="illustrator" style="margin-top: 20px; width: 100%" required label="曲绘画师"></input-field>
+			<input-field class="customComponent" name="illustrator" style="margin-top: 20px" required label="曲绘画师"></input-field>
+			<div class="detailBar">
+				<div class="levelChooser">
+					<div id="ez" class="levelItem ez selected"></div>
+					<div id="hd" class="levelItem hd"></div>
+					<div id="in" class="levelItem in"></div>
+					<div id="at" class="levelItem at"></div>
+				</div>
+				<div class="score" data-acc="100.00%">1000000</div>
+			</div>
+			<div style="display: block; width: 88%"><div id="arrow" class="ez"></div></div>
+			<div id="chart-container" class="ez">
+				<drag-uploader class="chart selected" id="chartEZ" name="chartEZ" class="customComponent" style="height: 164px; padding: 0 4px" label="EZ谱面" accept=".pec,.json"></drag-uploader>
+				<drag-uploader class="chart hidden" id="chartHD" name="chartHD" class="customComponent" style="height: 164px; padding: 0 4px" label="HD谱面" accept=".pec,.json"></drag-uploader>
+				<drag-uploader class="chart hidden" id="chartIN" name="chartIN" class="customComponent" style="height: 164px; padding: 0 4px" label="IN谱面" accept=".pec,.json"></drag-uploader>
+				<drag-uploader class="chart hidden" id="chartAT" name="chartAT" class="customComponent" style="height: 164px; padding: 0 4px" label="AT谱面" accept=".pec,.json"></drag-uploader>
+				<div style="display: flex; flex-direction: column; width: 30%">
+					<input-field class="chartField selected" id="ezRanking" name="ezRanking" number label="EZ定数"></input-field>
+					<input-field class="chartField hidden" id="hdRanking" name="hdRanking" number label="HD定数"></input-field>
+					<input-field class="chartField hidden" id="inRanking" name="inRanking" number label="IN定数"></input-field>
+					<input-field class="chartField hidden" id="atRanking" name="atRanking" number label="AT定数"></input-field>
+					<input-field class="chartField selected" id="ezChartDesigner" name="ezChartDesigner" label="EZ谱师"></input-field>
+					<input-field class="chartField hidden" id="hdChartDesigner" name="hdChartDesigner" label="HD谱师"></input-field>
+					<input-field class="chartField hidden" id="inChartDesigner" name="inChartDesigner" label="IN谱师"></input-field>
+					<input-field class="chartField hidden" id="atChartDesigner" name="atChartDesigner" label="AT谱师"></input-field>
+				</div>
+			</div>
 		</div>
 	</div>
+	<div class="submitBtn">通过 GitHub 提交谱面</div>
 </body>
 
 </html>
