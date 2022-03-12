@@ -12,6 +12,10 @@ export class Uploader extends HTMLElement {
 			<div class="uploader" id="__uploader">
 				<span id="__icon" class="icon">image</span>
 				<slot id="__tip" name="tip" class="tip">将文件 <em>拖放</em> 到此处，或 <em>点击此处</em> 选择文件</slot>
+				<div id="__file-bar" class="file-bar">
+					<p id="__file-name"></p>
+					<button id="__file-delete" class="file-delete" onclick="deleteFile">删除文件</button>
+				</div>
 			</div>
 		`;
 		/* 创建样式 */
@@ -27,9 +31,10 @@ export class Uploader extends HTMLElement {
 				user-select: none;
 				background-color: #ffffff80;
 				border: 2px dashed #d9d9d9;
+				margin: 8px 2%;
 				border-radius: 6px;
 				box-sizing: border-box;
-				width: 100%;
+				width: 96%;
 				height: 100%;
 				text-align: center;
 				cursor: pointer;
@@ -76,9 +81,29 @@ export class Uploader extends HTMLElement {
 				display: flex;
 			}
 			.tip > em {
-				color: #409eff;
+				color: #0d10cd;
 				font-weight: bold;
 				font-style: normal;
+			}
+			.file-bar {
+				display: none;
+				justify-content: space-around;
+				align-items: center;
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				height: 42px;
+				background-color: #000000c0;
+				color: #ffffff;
+			}
+			.file-bar .file-delete {
+				height: 32px;
+				background-color: #e08bbe;
+				border-radius: 6px;
+				border: 1px solid red;
+			}
+			.file-bar .file-delete:hover {
+				background-color: #bb749e;
 			}
 		`;
 
@@ -86,11 +111,11 @@ export class Uploader extends HTMLElement {
 		const icon = this.getAttribute('icon');
 		const accept = this.getAttribute('accept');
 		const maxSize = Number(this.getAttribute('max-size'));
-		const isImage = Boolean(this.getAttribute('image'));
+		const type = this.getAttribute('type');
 		content
 			.querySelector('#__filechooser')
 			.setAttribute('accept', accept ? accept : '*');
-		content.querySelector('#__icon').textContent = icon ? icon : 'image';
+		content.querySelector('#__icon').textContent = icon ? icon : 'cloud_upload';
 		/* 加载元素 */
 		var dragoverCover = document.createElement('div');
 		dragoverCover.className = 'uploader__isDragover';
@@ -106,6 +131,7 @@ export class Uploader extends HTMLElement {
 		const that = this;
 		this.$dropbox = shadow.getElementById('__uploader');
 		this.$fileChooser = shadow.getElementById('__filechooser');
+		this.$fileBar = shadow.getElementById('__file-bar');
 		this.$tip = shadow.getElementById('__tip');
 		this.$icon = shadow.getElementById('__icon');
 		this.$dropbox.addEventListener(
@@ -172,16 +198,29 @@ export class Uploader extends HTMLElement {
 				alert(`文件过大，文件大小限制为：${maxSize} B`);
 				return ;
 			}
-			if (isImage) {
+			this.$fileBar.style = 'display: flex';
+			shadow.getElementById("__file-name").textContent = file.name;
+			shadow.dispatchEvent(new CustomEvent('afterread', {
+				composed: true,
+				detail: file
+			}));
+			if (type === 'image') {
 				const reader = new FileReader();
 				reader.readAsDataURL(file);
-				reader.onload = function () {
+				reader.onload = function (e) {
+					if (!e.target.result) {
+						alert('文件读取失败，请检查文件是否损坏。');
+						return ;
+					}
 					that.$icon.style = 'display: none';
 					that.$tip.style = 'display: none';
-					that.$dropbox.style.background = `url(${this.result}) center center no-repeat`;
+					that.$dropbox.style.background = `url(${e.target.result}) center center no-repeat`;
 					that.$dropbox.style.backgroundSize = 'cover';
 				};
 			}
 		};
+		const deleteFile = () => {
+			console.log('deleteFile')
+		}
 	}
 }

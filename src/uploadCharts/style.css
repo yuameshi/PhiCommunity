@@ -27,12 +27,15 @@ html::before {
 }
 .body {
 	display: flex;
+	background: rgba(0, 0, 0, 0.5);
 }
 .leftArea {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
 	padding-top: 70px;
-	height: 100%;
-	width: 35%;
-	background: rgba(0, 0, 0, 0.5);
+	width: 46%;
 	color: #ffffff;
 	scrollbar-width: none;
 }
@@ -42,7 +45,7 @@ html::before {
 .main {
 	margin-left: 1%;
 	width: 63%;
-	height: 100vh;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;

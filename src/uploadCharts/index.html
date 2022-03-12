@@ -19,7 +19,14 @@
 	></div>
 	<div class="body">
 		<div class="leftArea" id="leftArea">
-			<div id="leftUploadField"></div>
+			<div id="leftUploadField" style="width: 98%">
+				<input-field id="codename" required title label="代号（文件夹名称）"></input-field>
+				<input-field id="name" required label="曲名"></input-field>
+				<input-field id="artist" required label="曲师"></input-field>
+				<drag-uploader id="musicUploader" style="display: block; width: 98%; height: 180px; padding: 0 4px" required icon="audio_file" type="audio" accept=".mp3,.wav,.ogg" max-size="5242880">
+				</drag-uploader>
+				<input-field id="sliceAudioStart" required label="曲绘画师"></input-field>
+			</div>
 		</div>
 		<div class="main" id="main">
 			<notice-warning title="请注意">
@@ -30,8 +37,9 @@
                     <li>提交前请确保您已经获得曲师、谱师和曲绘画师的授权。</li>
                 </ol>
 			</notice-warning>
-			<drag-uploader style="width: 100%; height:60%" image="true" accept=".jpg,.jpeg,.png,.webp" max-size="524288">
+			<drag-uploader id="illustUploader" style="width: 100%; height:360px" required icon="image" type="image" accept=".jpg,.jpeg,.png,.webp" max-size="524288">
 			</drag-uploader>
+			<input-field id="illustrator" style="margin-top: 20px; width: 100%" required label="曲绘画师"></input-field>
 		</div>
 	</div>
 </body>
