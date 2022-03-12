@@ -65,7 +65,7 @@ module.exports = {
 	output: {
 		path: resolve('dist'),
 		filename: 'js/[name].[chunkhash].js',
-		assetModuleFilename: 'assets/[path]/[name][ext]',
+		assetModuleFilename: 'assets/packed/[name].[contenthash:4][ext]',
 	},
 	resolve: {
 		alias: {
@@ -92,10 +92,6 @@ module.exports = {
 					from: resolve('assets'),
 					to: 'assets/[path][name][ext]',
 				},
-				{
-					from: resolve('src/whilePlaying/assets'),
-					to: 'whilePlaying/assets/[path][name][ext]',
-				},
 			],
 		}),
 	],
@@ -115,7 +111,7 @@ module.exports = {
 					{
 						loader: 'file-loader',
 						options: {
-							name: '[path][name].[ext]',
+							name: 'assets/packed/[name].[contenthash:4].[ext]',
 							esModule: false,
 						},
 					},
