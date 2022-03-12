@@ -8,6 +8,6 @@
 	  }
 	},
 	"exclude": ["node_modules", "dist"],
-	"include": ["src", "public/sw.js"]
+	"include": ["src", "src/sw.js"]
   }
   

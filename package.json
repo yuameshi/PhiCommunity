@@ -13,7 +13,7 @@
 		"start": "webpack serve --config ./config/webpack.dev.js --open ",
 		"watch": "webpack --config ./config/webpack.prod.js --watch",
 		"build": "webpack --config ./config/webpack.prod.js ",
-		"cf-build": "webpack --config ./config/webpack.prod.js && node ./cfDeploy.js"
+		"cf-build": "npm run build && node ./cfDeploy.js"
 	},
 	"bugs": {
 		"url": "https://github.com/HanHan233/PhiCommunity/issues"
@@ -37,6 +37,10 @@
 	},
 	"dependencies": {
 		"oggmented": "^1.0.1",
-		"stackblur-canvas": "^2.5.0"
+		"stackblur-canvas": "^2.5.0",
+		"workbox-core": "^6.5.1",
+		"workbox-precaching": "^6.5.1",
+		"workbox-routing": "^6.5.1",
+		"workbox-strategies": "^6.5.1"
 	}
 }
