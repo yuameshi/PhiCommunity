@@ -72,6 +72,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	const late = good - early;
 	var grade;
 	document.getElementById('retryBtn').addEventListener('click', () => {
+		window.actx.close();
 		location.href =
 			'../whilePlaying/index.html?play=' +
 			play +
@@ -79,6 +80,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			playLevelString;
 	});
 	document.getElementById('backInResultBtn').addEventListener('click', () => {
+		window.actx.close();
 		location.href =
 			'../songSelect/index.html';
 	});
@@ -152,15 +154,15 @@ window.addEventListener('DOMContentLoaded', () => {
 			fetch(LevelOver_mp3)
 				.then((res) => res.arrayBuffer())
 				.then((arrayBuffer) => {
-					const actx = new (window.AudioContext ||
+					window.actx = new (window.AudioContext ||
 						window.webkitAudioContext ||
 						window.mozAudioContext ||
 						window.msAudioContext)();
-					actx.decodeAudioData(arrayBuffer, function (buffer) {
-						var source = actx.createBufferSource();
+					window.actx.decodeAudioData(arrayBuffer, function (buffer) {
+						var source = window.actx.createBufferSource();
 						source.buffer = buffer;
 						source.loop = true;
-						source.connect(actx.destination);
+						source.connect(window.actx.destination);
 						source.start(0);
 					});
 				});

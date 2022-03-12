@@ -36,6 +36,7 @@ document
 				window.calibraceACtxSource.addEventListener(
 					'ended',
 					function () {
+						window.calibrateActx.close();
 						document
 							.querySelector('button#startBtn')
 							.removeAttribute('disabled');

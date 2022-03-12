@@ -19,15 +19,15 @@ function autoScroll() {
 	fetch(AboutUs_mp3)
 		.then(res => res.arrayBuffer())
 		.then(arrayBuffer => {
-			const actx = new (window.AudioContext ||
+			window.actx = new (window.AudioContext ||
 				window.webkitAudioContext ||
 				window.mozAudioContext ||
 				window.msAudioContext)();
-			actx.decodeAudioData(arrayBuffer, function (buffer) {
-				var source = actx.createBufferSource();
+			window.actx.decodeAudioData(arrayBuffer, function (buffer) {
+				var source = window.actx.createBufferSource();
 				source.buffer = buffer;
 				source.loop = true;
-				source.connect(actx.destination);
+				source.connect(window.actx.destination);
 				source.start(0);
 			});
 		});
@@ -46,6 +46,7 @@ function autoScroll() {
 			'0.' + (10 - window.clickToExitCounter);
 		if (window.clickToExitCounter <= 0) {
 			setTimeout(() => {
+				window.actx.close();
 				location.href = '../chapterSelect/index.html';
 			}, 1000);
 		}
@@ -66,6 +67,7 @@ function autoScroll() {
 			console.log('The END!');
 			clearInterval(autoScrollInterval);
 			setTimeout(() => {
+				window.actx.close();
 				location.href = '../chapterSelect/index.html';
 			}, 3000);
 		}

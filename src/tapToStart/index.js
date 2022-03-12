@@ -25,15 +25,15 @@ window.addEventListener('DOMContentLoaded', () => {
 	fetch(tapToStart_mp3)
 		.then((res) => res.arrayBuffer())
 		.then((arrayBuffer) => {
-			const actx = new (window.AudioContext ||
+			window.actx = new (window.AudioContext ||
 				window.webkitAudioContext ||
 				window.mozAudioContext ||
 				window.msAudioContext)();
-			actx.decodeAudioData(arrayBuffer, function (buffer) {
-				var source = actx.createBufferSource();
+			window.actx.decodeAudioData(arrayBuffer, function (buffer) {
+				var source = window.actx.createBufferSource();
 				source.buffer = buffer;
 				source.loop = true;
-				source.connect(actx.destination);
+				source.connect(window.actx.destination);
 				source.start(0);
 			});
 		});
@@ -43,6 +43,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		fadeInElem.classList.add('fadeIn');
 		document.body.appendChild(fadeInElem);
 		setTimeout(() => {
+			window.actx.close();
 			if (window.localStorage.length == 0) {
 				location.href = '../settings/index.html';
 			} else {
