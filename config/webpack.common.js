@@ -63,7 +63,7 @@ module.exports = {
 	output: {
 		path: resolve('dist'),
 		filename: 'js/[name].[chunkhash].js',
-		assetModuleFilename: 'assets/[name][ext]',
+		assetModuleFilename: 'assets/[path]/[name][ext]',
 	},
 	resolve: {
 		alias: {
