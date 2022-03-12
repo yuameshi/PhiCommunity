@@ -1,5 +1,9 @@
 import './style.css';
-import LevelOver_mp3 from './LevelOver.mp3';
+import LevelOver_EZ_ogg from './ez.ogg';
+import LevelOver_HD_ogg from './hd.ogg';
+import LevelOver_IN_ogg from './in.ogg';
+import LevelOver_AT_ogg from './at.ogg';
+import LevelOver_SP_ogg from './sp.ogg';
 import { gameLevels } from '../constants.js';
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -149,7 +153,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			};
 			console.log(window.playResult);
 			//	操作DOM修改可见部分数据
-			fetch(LevelOver_mp3)
+			if (gameLevels=0)
+            {
+			fetch(LevelOver_EZ_ogg)
 				.then((res) => res.arrayBuffer())
 				.then((arrayBuffer) => {
 					const actx = new (window.AudioContext ||
@@ -164,6 +170,79 @@ window.addEventListener('DOMContentLoaded', () => {
 						source.start(0);
 					});
 				});
+			}
+			else if (gameLevels=1)
+            {
+				fetch(LevelOver_HD_ogg)
+					.then((res) => res.arrayBuffer())
+					.then((arrayBuffer) => {
+						const actx = new (window.AudioContext ||
+							window.webkitAudioContext ||
+							window.mozAudioContext ||
+							window.msAudioContext)();
+						actx.decodeAudioData(arrayBuffer, function (buffer) {
+							var source = actx.createBufferSource();
+							source.buffer = buffer;
+							source.loop = true;
+							source.connect(actx.destination);
+							source.start(0);
+						});
+					});
+				}
+				else if (gameLevels=2)
+				{
+					fetch(LevelOver_IN_ogg)
+						.then((res) => res.arrayBuffer())
+						.then((arrayBuffer) => {
+							const actx = new (window.AudioContext ||
+								window.webkitAudioContext ||
+								window.mozAudioContext ||
+								window.msAudioContext)();
+							actx.decodeAudioData(arrayBuffer, function (buffer) {
+								var source = actx.createBufferSource();
+								source.buffer = buffer;
+								source.loop = true;
+								source.connect(actx.destination);
+								source.start(0);
+							});
+						});
+					}
+					else if (gameLevels=3)
+					{
+						fetch(LevelOver_AT_ogg)
+							.then((res) => res.arrayBuffer())
+							.then((arrayBuffer) => {
+								const actx = new (window.AudioContext ||
+									window.webkitAudioContext ||
+									window.mozAudioContext ||
+									window.msAudioContext)();
+								actx.decodeAudioData(arrayBuffer, function (buffer) {
+									var source = actx.createBufferSource();
+									source.buffer = buffer;
+									source.loop = true;
+									source.connect(actx.destination);
+									source.start(0);
+								});
+							});
+						}
+						else
+						{
+							fetch(LevelOver_SP_ogg)
+								.then((res) => res.arrayBuffer())
+								.then((arrayBuffer) => {
+									const actx = new (window.AudioContext ||
+										window.webkitAudioContext ||
+										window.mozAudioContext ||
+										window.msAudioContext)();
+									actx.decodeAudioData(arrayBuffer, function (buffer) {
+										var source = actx.createBufferSource();
+										source.buffer = buffer;
+										source.loop = true;
+										source.connect(actx.destination);
+										source.start(0);
+									});
+								});
+							}
 			document.body.setAttribute(
 				'style',
 				`--background:url(${encodeURI(
