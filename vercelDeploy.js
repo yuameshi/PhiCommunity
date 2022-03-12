@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-
+String.prototype.replaceAll = function(s1,s2){    
+	return this.replace(new RegExp(s1,'gm'),s2);    
+};
 console.log('Start processing...');
 
 listFile(process.cwd());
@@ -42,7 +44,7 @@ function listFile(filePath) {
 											filedir,
 											fileData.toString().replaceAll(
 												'https://charts.phicommunity.com.cn/',
-												'https://cf.charts.phicommunity.com.cn/'
+												'https://vercel.charts.phicommunity.com.cn/'
 											)
 										);
 									}

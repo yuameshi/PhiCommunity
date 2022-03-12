@@ -10,7 +10,7 @@ const resolveSrc = (...paths) => path.resolve(__dirname, '../src', ...paths);
 
 const pagePlugins = [
 	new HtmlWebpackPlugin({
-		template: resolve('src/index.html'),
+		template: resolveSrc('index.html'),
 		filename: 'index.html',
 		chunks: ['index'],
 	}),
@@ -65,7 +65,7 @@ module.exports = {
 	output: {
 		path: resolve('dist'),
 		filename: 'js/[name].[chunkhash].js',
-		assetModuleFilename: 'assets/[name][ext]',
+		assetModuleFilename: 'assets/[path]/[name][ext]',
 	},
 	resolve: {
 		alias: {

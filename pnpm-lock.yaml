@@ -10,17 +10,26 @@ specifiers:
   mini-css-extract-plugin: ^2.6.0
   oggmented: ^1.0.1
   stackblur-canvas: ^2.5.0
+  string-replace-loader: ^3.1.0
   style-loader: ^3.3.1
   url-loader: ^4.1.1
   webpack: ^5.69.1
   webpack-cli: ^4.9.2
   webpack-dev-server: ^4.7.4
   webpack-merge: ^5.8.0
+  workbox-core: ^6.5.1
+  workbox-precaching: ^6.5.1
+  workbox-routing: ^6.5.1
+  workbox-strategies: ^6.5.1
   workbox-webpack-plugin: ^6.5.1
 
 dependencies:
   oggmented: registry.npmmirror.com/oggmented/1.0.1
   stackblur-canvas: registry.npmmirror.com/stackblur-canvas/2.5.0
+  workbox-core: registry.npmmirror.com/workbox-core/6.5.1
+  workbox-precaching: registry.npmmirror.com/workbox-precaching/6.5.1
+  workbox-routing: registry.npmmirror.com/workbox-routing/6.5.1
+  workbox-strategies: registry.npmmirror.com/workbox-strategies/6.5.1
 
 devDependencies:
   clean-webpack-plugin: registry.npmmirror.com/clean-webpack-plugin/4.0.0_webpack@5.70.0
@@ -30,6 +39,7 @@ devDependencies:
   html-webpack-plugin: registry.npmmirror.com/html-webpack-plugin/5.5.0_webpack@5.70.0
   http-server: registry.npmmirror.com/http-server/14.1.0
   mini-css-extract-plugin: registry.npmmirror.com/mini-css-extract-plugin/2.6.0_webpack@5.70.0
+  string-replace-loader: registry.npmmirror.com/string-replace-loader/3.1.0_webpack@5.70.0
   style-loader: registry.npmmirror.com/style-loader/3.3.1_webpack@5.70.0
   url-loader: registry.npmmirror.com/url-loader/4.1.1_file-loader@6.2.0+webpack@5.70.0
   webpack: registry.npmmirror.com/webpack/5.70.0_webpack-cli@4.9.2
@@ -5530,6 +5540,19 @@ packages:
     engines: {node: '>= 0.6'}
     dev: true
 
+  registry.npmmirror.com/string-replace-loader/3.1.0_webpack@5.70.0:
+    resolution: {integrity: sha512-5AOMUZeX5HE/ylKDnEa/KKBqvlnFmRZudSOjVJHxhoJg9QYTwl1rECx7SLR8BBH7tfxb4Rp7EM2XVfQFxIhsbQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/string-replace-loader/-/string-replace-loader-3.1.0.tgz}
+    id: registry.npmmirror.com/string-replace-loader/3.1.0
+    name: string-replace-loader
+    version: 3.1.0
+    peerDependencies:
+      webpack: ^5
+    dependencies:
+      loader-utils: registry.npmmirror.com/loader-utils/2.0.2
+      schema-utils: registry.npmmirror.com/schema-utils/3.1.1
+      webpack: registry.npmmirror.com/webpack/5.70.0_webpack-cli@4.9.2
+    dev: true
+
   registry.npmmirror.com/string.prototype.matchall/4.0.6:
     resolution: {integrity: sha512-6WgDX8HmQqvEd7J+G6VtAahhsQIssiZ8zl7zKh1VDMFyL3hRTJP4FTNA3RbIp2TOQ9AYNDcc7e3fH0Qbup+DBg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/string.prototype.matchall/-/string.prototype.matchall-4.0.6.tgz}
     name: string.prototype.matchall
@@ -6287,7 +6310,6 @@ packages:
     resolution: {integrity: sha512-qObXZ39aFJ2N8X7IUbGrJHKWguliCuU1jOXM/I4MTT84u9BiKD2rHMkIzgeRP1Ixu9+cXU4/XHJq3Cy0Qqc5hw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/workbox-core/-/workbox-core-6.5.1.tgz}
     name: workbox-core
     version: 6.5.1
-    dev: true
 
   registry.npmmirror.com/workbox-expiration/6.5.1:
     resolution: {integrity: sha512-iY/cTADAQATMmPkUBRmQdacqq0TJd2wMHimBQz+tRnPGHSMH+/BoLPABPnu7O7rT/g/s59CUYYRGxe3mEgoJCA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/workbox-expiration/-/workbox-expiration-6.5.1.tgz}
@@ -6325,7 +6347,6 @@ packages:
       workbox-core: registry.npmmirror.com/workbox-core/6.5.1
       workbox-routing: registry.npmmirror.com/workbox-routing/6.5.1
       workbox-strategies: registry.npmmirror.com/workbox-strategies/6.5.1
-    dev: true
 
   registry.npmmirror.com/workbox-range-requests/6.5.1:
     resolution: {integrity: sha512-57Da/qRbd9v33YlHX0rlSUVFmE4THCjKqwkmfhY3tNLnSKN2L5YBS3qhWeDO0IrMNgUj+rGve2moKYXeUqQt4A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/workbox-range-requests/-/workbox-range-requests-6.5.1.tgz}
@@ -6354,7 +6375,6 @@ packages:
     version: 6.5.1
     dependencies:
       workbox-core: registry.npmmirror.com/workbox-core/6.5.1
-    dev: true
 
   registry.npmmirror.com/workbox-strategies/6.5.1:
     resolution: {integrity: sha512-JNaTXPy8wXzKkr+6za7/eJX9opoZk7UgY261I2kPxl80XQD8lMjz0vo9EOcBwvD72v3ZhGJbW84ZaDwFEhFvWA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/workbox-strategies/-/workbox-strategies-6.5.1.tgz}
@@ -6362,7 +6382,6 @@ packages:
     version: 6.5.1
     dependencies:
       workbox-core: registry.npmmirror.com/workbox-core/6.5.1
-    dev: true
 
   registry.npmmirror.com/workbox-streams/6.5.1:
     resolution: {integrity: sha512-7jaTWm6HRGJ/ewECnhb+UgjTT50R42E0/uNCC4eTKQwnLO/NzNGjoXTdQgFjo4zteR+L/K6AtFAiYKH3ZJbAYw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/workbox-streams/-/workbox-streams-6.5.1.tgz}

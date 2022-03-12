@@ -5,33 +5,37 @@ window.addEventListener('DOMContentLoaded', () => {
 	document
 		.querySelector('div#startToPlayBtn')
 		.addEventListener('click', () => {
+			window.actx.close();
 			location.href = '../songSelect/index.html';
 		});
 	document
 		.querySelector('div#cacheControl')
 		.addEventListener('click', () => {
+			window.actx.close();
 			location.href = '../cacheControl/index.html';
 		});
 	document.querySelector('div#settingBtn').addEventListener('click', () => {
+		window.actx.close();
 		location.href = '../settings/index.html';
 	});
 	document
 		.querySelector('div#uploadChartsBtn')
 		.addEventListener('click', () => {
+			window.actx.close();
 			location.href = '../uploadCharts/index.html';
 		});
 	fetch(ChapterSelect0_mp3)
 		.then(res => res.arrayBuffer())
 		.then(arrayBuffer => {
-			const actx = new (window.AudioContext ||
+			window.actx = new (window.AudioContext ||
 				window.webkitAudioContext ||
 				window.mozAudioContext ||
 				window.msAudioContext)();
-			actx.decodeAudioData(arrayBuffer, function (buffer) {
-				var source = actx.createBufferSource();
+			window.actx.decodeAudioData(arrayBuffer, function (buffer) {
+				var source = window.actx.createBufferSource();
 				source.buffer = buffer;
 				source.loop = true;
-				source.connect(actx.destination);
+				source.connect(window.actx.destination);
 				source.start(0);
 			});
 		});
