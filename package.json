@@ -13,7 +13,8 @@
 		"start": "webpack serve --config ./config/webpack.dev.js --open ",
 		"watch": "webpack --config ./config/webpack.prod.js --watch",
 		"build": "webpack --config ./config/webpack.prod.js ",
-		"cf-build": "npm run build && node ./cfDeploy.js"
+		"cf-build": "npm run build && node ./cfDeploy.js",
+		"vercel-build": "npm run build && node ./vercelDeploy.js"
 	},
 	"bugs": {
 		"url": "https://github.com/HanHan233/PhiCommunity/issues"
