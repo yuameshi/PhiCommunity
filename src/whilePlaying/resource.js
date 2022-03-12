@@ -1,47 +1,95 @@
-const resource = {
-	JudgeLine: 'assets/JudgeLine.png',
-	ProgressBar: 'assets/ProgressBar.png',
-	SongsNameBar: 'assets/SongNameBar.png',
-	Pause: 'assets/Pause.png',
-	clickRaw: 'assets/clickRaw.png',
-	Tap: 'assets/Tap.png',
-	Tap2: 'assets/Tap2.png',
-	TapHL: 'assets/TapHL.png',
-	Drag: 'assets/Drag.png',
-	DragHL: 'assets/DragHL.png',
-	HoldHead: 'assets/HoldHead.png',
-	HoldHeadHL: 'assets/HoldHeadHL.png',
-	Hold: 'assets/Hold.png',
-	HoldHL: 'assets/HoldHL.png',
-	HoldEnd: 'assets/HoldEnd.png',
-	Flick: 'assets/Flick.png',
-	FlickHL: 'assets/FlickHL.png',
-	NoImage: 'assets/0.png',
-	mute: 'assets/mute.ogg',
-	HitSong0: 'assets/Tap.ogg',
-	HitSong1: 'assets/Drag.ogg',
-	HitSong2: 'assets/Flick.ogg',
+import JudgeLine from './assets/JudgeLine.png';
+import ProgressBar from './assets/ProgressBar.png';
+import SongsNameBar from './assets/SongNameBar.png';
+import Pause from './assets/Pause.png';
+import clickRaw from './assets/clickRaw.png';
+import Tap from './assets/Tap.png';
+import Tap2 from './assets/Tap2.png';
+import TapHL from './assets/TapHL.png';
+import Drag from './assets/Drag.png';
+import DragHL from './assets/DragHL.png';
+import HoldHead from './assets/HoldHead.png';
+import HoldHeadHL from './assets/HoldHeadHL.png';
+import Hold from './assets/Hold.png';
+import HoldHL from './assets/HoldHL.png';
+import HoldEnd from './assets/HoldEnd.png';
+import Flick from './assets/Flick.png';
+import FlickHL from './assets/FlickHL.png';
+import NoImage from './assets/0.png';
+import mute from './assets/mute.ogg';
+import HitSong0 from './assets/Tap.ogg';
+import HitSong1 from './assets/Drag.ogg';
+import HitSong2 from './assets/Flick.ogg';
+
+import FlickHL_friendly from './assets/playerFirendlyNote/FlickHL.png';
+import HoldHL_friendly from './assets/playerFirendlyNote/HoldHL.png';
+import HoldHeadHL_friendly from './assets/playerFirendlyNote/HoldHeadHL.png';
+import TapHL_friendly from './assets/playerFirendlyNote/TapHL.png';
+
+import clickRaw_old from './assets/oldui/clickRaw.png';
+import Drag_old from './assets/oldui/Drag.png';
+import DragHL_old from './assets/oldui/Drag2HL.png';
+import Flick_old from './assets/oldui/Flick.png';
+import FlickHL_old from './assets/oldui/Flick2HL.png';
+import Hold_old from './assets/oldui/HoldBody.png';
+import HoldHL_old from './assets/oldui/HoldBody.png';
+import HoldHead_old from './assets/oldui/Tap.png';
+import HoldHeadHL_old from './assets/oldui/Tap2HL.png';
+import HoldEnd_old from './assets/oldui/HoldEnd.png';
+import Tap_old from './assets/oldui/Tap.png';
+import Tap2_old from './assets/oldui/Tap2.png';
+import TapHL_old from './assets/oldui/Tap2HL.png';
+
+let resource = {
+	JudgeLine,
+	ProgressBar,
+	SongsNameBar,
+	Pause,
+	clickRaw,
+	Tap,
+	Tap2,
+	TapHL,
+	Drag,
+	DragHL,
+	HoldHead,
+	HoldHeadHL,
+	Hold,
+	HoldHL,
+	HoldEnd,
+	Flick,
+	FlickHL,
+	NoImage,
+	mute,
+	HitSong0,
+	HitSong1,
+	HitSong2,
 };
 if (localStorage.getItem('usePlayerFriendlyUI') == 'true') {
-	resource.FlickHL = 'assets/playerFirendlyNote/FlickHL.png';
-	resource.HoldHL = 'assets/playerFirendlyNote/HoldHL.png';
-	resource.HoldHeadHL = 'assets/playerFirendlyNote/HoldHeadHL.png';
-	resource.TapHL = 'assets/playerFirendlyNote/TapHL.png';
+	resource = {
+		...resource,
+		FlickHL: FlickHL_friendly,
+		HoldHL: HoldHL_friendly,
+		HoldHeadHL: HoldHeadHL_friendly,
+		TapHL: TapHL_friendly,
+	};
 }
 if (localStorage.getItem('useOldUI') == 'true') {
-	resource.clickRaw = 'assets/oldui/clickRaw.png';
-	resource.Drag = 'assets/oldui/Drag.png';
-	resource.DragHL = 'assets/oldui/Drag2HL.png';
-	resource.Flick = 'assets/oldui/Flick.png';
-	resource.FlickHL = 'assets/oldui/Flick2HL.png';
-	resource.Hold = 'assets/oldui/HoldBody.png';
-	resource.HoldHL = 'assets/oldui/HoldBody.png';
-	resource.HoldHead = 'assets/oldui/Tap.png';
-	resource.HoldHeadHL = 'assets/oldui/Tap2HL.png';
-	resource.HoldEnd = 'assets/oldui/HoldEnd.png';
-	resource.Tap = 'assets/oldui/Tap.png';
-	resource.Tap2 = 'assets/oldui/Tap2.png';
-	resource.TapHL = 'assets/oldui/Tap2HL.png';
+	resource = {
+		...resource,
+		clickRaw: clickRaw_old,
+		Drag: Drag_old,
+		DragHL: DragHL_old,
+		Flick: Flick_old,
+		FlickHL: FlickHL_old,
+		Hold: Hold_old,
+		HoldHL: HoldHL_old,
+		HoldHead: HoldHead_old,
+		HoldHeadHL: HoldHeadHL_old,
+		HoldEnd: HoldEnd_old,
+		Tap: Tap_old,
+		Tap2: Tap2_old,
+		TapHL: TapHL_old,
+	};
 }
 
 export default resource;
