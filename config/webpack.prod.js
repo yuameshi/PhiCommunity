@@ -1,33 +1,16 @@
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common');
-const { GenerateSW } = require('workbox-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
+
+const path = require('path');
 
 module.exports = merge(common, {
 	mode: 'production',
 	plugins: [
-		new GenerateSW({
-			cacheId: 'phi',
-			runtimeCaching: [
-				{
-					urlPattern: /^https:\/\/(cf.)?charts/,
-					handler: 'CacheFirst',
-					options: {
-						cacheableResponse: {
-							statuses: [200],
-						},
-					},
-				},
-				{
-					urlPattern: /^https:\/\/cdn/,
-					handler: 'NetworkFirst',
-					options: {
-						networkTimeoutSeconds: 2,
-						cacheableResponse: {
-							statuses: [200],
-						},
-					},
-				},
-			],
+		new InjectManifest({
+			swSrc: path.resolve(__dirname, '../src', 'sw.js'),
+			swDest: 'service-worker.js',
+			exclude: [/service-worker\.js/, /sw\.js/],
 		}),
 	],
 });
