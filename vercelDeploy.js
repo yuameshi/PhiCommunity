@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-
+String.prototype.replaceAll = function(s1,s2){    
+	return this.replace(new RegExp(s1,'gm'),s2);    
+};
 console.log('Start processing...');
 
 listFile(process.cwd());
