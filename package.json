@@ -13,7 +13,7 @@
 		"start": "webpack serve --config ./config/webpack.dev.js --open ",
 		"watch": "webpack --config ./config/webpack.prod.js --watch",
 		"build": "webpack --config ./config/webpack.prod.js ",
-		"cf-build": "webpack build && node ./cfDeploy.js"
+		"cf-build": "webpack --config ./config/webpack.prod.js && node ./cfDeploy.js"
 	},
 	"bugs": {
 		"url": "https://github.com/HanHan233/PhiCommunity/issues"
