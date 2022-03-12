@@ -46,8 +46,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			location.href = 'https://phicommunity.com.cn';
 		});
 	if (location.href.match('cf')) {
-		//	检测是否为CF节点
 		document.querySelector('button#gotoCFPages').style.display = 'none';
+	} else if (location.href.match('vercel')) {
+		document.querySelector('button#gotoVercel').style.display = 'none';
 	} else {
 		document.querySelector('button#gotoGHPages').style.display = 'none';
 	}
