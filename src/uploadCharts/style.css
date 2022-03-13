@@ -27,6 +27,7 @@ html::before {
 }
 .body {
 	display: flex;
+	flex-direction: column;
 	background: rgba(0, 0, 0, 0.5);
 	position: fixed;
 	top: 0;
@@ -43,6 +44,16 @@ html::before {
 	display: block;
 	width: 100%;
 }
+.main {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	overflow-x: hidden;
+	scrollbar-width: none;
+}
+.main::-webkit-scrollbar {
+	display: none;
+}
 .leftArea {
 	padding: 0 1%;
 	width: 40%;
@@ -55,7 +66,7 @@ html::before {
 	justify-content: flex-start;
 	align-items: center;
 }
-.main {
+.rightArea {
 	margin-left: 1%;
 	width: 60%;
 	height: 100%;
@@ -65,7 +76,7 @@ html::before {
 	align-items: center;
 }
 .hidden {
-	display: none;
+	display: none !important;
 }
 .chart {
 	width: 70%;
@@ -191,9 +202,12 @@ div#chart-container {
 	padding: 3px;
 	display: flex;
 	width: 92%;
-	height: 206px;
+	height: fit-content;
+	height: -moz-fit-content;
+	padding-bottom: 41px;
 	position: relative;
 	border-radius: 8px;
+	transition: background-color .2s ease;
 }
 div#chart-container.ez {
 	background-color: #51af44;
@@ -213,6 +227,8 @@ div#arrow {
 	height: 0;
 	border: 18px solid transparent;
 	position: relative;
+	transition: left .2s ease,
+		border-bottom-color .2s ease;
 }
 div#arrow.ez {
 	left: 18px;
@@ -230,14 +246,15 @@ div#arrow.at {
 	left: 240px;
 	border-bottom-color: #3a3637;
 }
-@media screen and (max-width: 830px) {
-	div.body {
-		display: block;
+@media screen and (max-width: 876px) {
+	div.main {
+		flex-direction: column;
+		margin-bottom: 68px;
 	}
 	div.leftArea {
 		width: 100%;
 	}
-	div.main {
+	div.rightArea {
 		justify-content: flex-start;
 		width: 98%;
 	}

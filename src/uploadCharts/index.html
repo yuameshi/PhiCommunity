@@ -14,51 +14,54 @@
 		onclick="location.href='../chapterSelect/index.html'"
 	></div>
 	<div class="body">
-		<div class="leftArea" id="leftArea">
-			<div id="leftUploadField">
-				<input-field class="customComponent" name="codename" required title label="代号（文件夹名称）" style="position: relative; top: 12px; left: 36px; width: 80%;"></input-field>
-				<notice-warning title="请注意" closeable>
-					<ol>
-						<li>
-							对于Re:PhiEdit导出的PEC谱面可能需要做一些特殊的修正，请参考<a href="https://ilovecpp-my.sharepoint.com/:b:/g/personal/admin_han-han_xyz/EU6w76wDBIxMr0hhdeYP650BVg-UzIrQG3VhYiiTUmPCtA?e=y0CBjB" target="_blank">这份文档</a>，在按此说明导出合适的PEC谱面后，前往lchzh3473的模拟器测试是否能正常播放，再进行提交。
-						</li>
-						<li>提交前请确保您已经获得曲师、谱师和曲绘画师的授权。</li>
-					</ol>
-				</notice-warning>
-				<input-field class="customComponent" name="name" required label="曲名"></input-field>
-				<input-field class="customComponent" name="artist" required label="曲师"></input-field>
-				<drag-uploader class="customComponent" name="musicFile" style="height: 180px; padding: 0 4px; margin-bottom: 24px" required label="音乐文件" icon="audio_file" type="audio" accept=".mp3,.wav,.ogg" max-size="5242880"></drag-uploader>
-				<input-field class="customComponent" name="sliceAudioStart" style="margin-top: 20px" number required label="预览音频切片开始时间（秒）"></input-field>
+		<div class="main">
+			<div class="leftArea">
+				<div id="leftUploadField">
+					<input-field class="customComponent" id="codename" required title label="代号（文件夹名称）" style="position: relative; top: 12px; left: 36px; width: 80%;"></input-field>
+					<notice-warning title="请注意" closeable>
+						<ol>
+							<li>
+								对于Re:PhiEdit导出的PEC谱面可能需要做一些特殊的修正，请参考<a href="https://ilovecpp-my.sharepoint.com/:b:/g/personal/admin_han-han_xyz/EU6w76wDBIxMr0hhdeYP650BVg-UzIrQG3VhYiiTUmPCtA?e=y0CBjB" target="_blank">这份文档</a>，在按此说明导出合适的PEC谱面后，前往lchzh3473的模拟器测试是否能正常播放，再进行提交。
+							</li>
+							<li>提交前请确保您已经获得曲师、谱师和曲绘画师的授权。</li>
+						</ol>
+					</notice-warning>
+					<input-field class="customComponent" id="name" required label="曲名"></input-field>
+					<input-field class="customComponent" id="artist" required label="曲师"></input-field>
+					<drag-uploader class="customComponent" id="musicFile" style="height: 180px; padding: 0 4px; margin-bottom: 24px" required label="音乐文件" icon="audio_file" type="audio" accept=".mp3,.wav,.ogg" max-size="5242880"></drag-uploader>
+					<input-field class="customComponent" id="sliceAudioStart" style="margin-top: 20px" number min="0" required label="预览音频切片开始时间（秒）"></input-field>
+					<drag-uploader inline class="customComponent" id="lineTexture" style="padding: 0 4px; margin-bottom: 24px" label="判定线贴图" accept=".json"></drag-uploader>
 				</div>
-		</div>
-		<div class="main" id="main">
-			<drag-uploader class="customComponent" name="illustration" style="height:360px; margin-bottom: 24px" required label="曲绘" icon="image" type="image" accept=".jpg,.jpeg,.png,.webp" max-size="524288">
-			</drag-uploader>
-			<input-field class="customComponent" name="illustrator" style="margin-top: 20px" required label="曲绘画师"></input-field>
-			<div class="detailBar">
-				<div class="levelChooser">
-					<div id="ez" class="levelItem ez selected"></div>
-					<div id="hd" class="levelItem hd"></div>
-					<div id="in" class="levelItem in"></div>
-					<div id="at" class="levelItem at"></div>
-				</div>
-				<div class="score" data-acc="100.00%">1000000</div>
 			</div>
-			<div style="display: block; width: 88%"><div id="arrow" class="ez"></div></div>
-			<div id="chart-container" class="ez">
-				<drag-uploader class="chart selected" id="chartEZ" name="chartEZ" class="customComponent" style="height: 164px; padding: 0 4px" label="EZ谱面" accept=".pec,.json"></drag-uploader>
-				<drag-uploader class="chart hidden" id="chartHD" name="chartHD" class="customComponent" style="height: 164px; padding: 0 4px" label="HD谱面" accept=".pec,.json"></drag-uploader>
-				<drag-uploader class="chart hidden" id="chartIN" name="chartIN" class="customComponent" style="height: 164px; padding: 0 4px" label="IN谱面" accept=".pec,.json"></drag-uploader>
-				<drag-uploader class="chart hidden" id="chartAT" name="chartAT" class="customComponent" style="height: 164px; padding: 0 4px" label="AT谱面" accept=".pec,.json"></drag-uploader>
-				<div style="display: flex; flex-direction: column; width: 30%">
-					<input-field class="chartField selected" id="ezRanking" name="ezRanking" number label="EZ定数"></input-field>
-					<input-field class="chartField hidden" id="hdRanking" name="hdRanking" number label="HD定数"></input-field>
-					<input-field class="chartField hidden" id="inRanking" name="inRanking" number label="IN定数"></input-field>
-					<input-field class="chartField hidden" id="atRanking" name="atRanking" number label="AT定数"></input-field>
-					<input-field class="chartField selected" id="ezChartDesigner" name="ezChartDesigner" label="EZ谱师"></input-field>
-					<input-field class="chartField hidden" id="hdChartDesigner" name="hdChartDesigner" label="HD谱师"></input-field>
-					<input-field class="chartField hidden" id="inChartDesigner" name="inChartDesigner" label="IN谱师"></input-field>
-					<input-field class="chartField hidden" id="atChartDesigner" name="atChartDesigner" label="AT谱师"></input-field>
+			<div class="rightArea">
+				<drag-uploader class="customComponent" id="illustration" style="height:60vh; margin: 14px 0 32px;" required label="曲绘" icon="image" type="image" accept=".jpg,.jpeg,.png,.webp" max-size="1572864">
+					<input-field slot="file-bar" class="customComponent" id="illustrator" style="width: 40%" placeholder="曲绘画师（必填）"></input-field>
+				</drag-uploader>
+				<div class="detailBar">
+					<div class="levelChooser">
+						<div id="ez" class="levelItem ez selected"></div>
+						<div id="hd" class="levelItem hd"></div>
+						<div id="in" class="levelItem in"></div>
+						<div id="at" class="levelItem at"></div>
+					</div>
+					<div class="score" data-acc="100.00%">1000000</div>
+				</div>
+				<div style="display: block; width: 88%"><div id="arrow" class="hidden"></div></div>
+				<div id="chart-container" class="hidden">
+					<drag-uploader class="chart selected" id="chartEZ" class="customComponent" style="height: 164px; padding: 0 4px" label="EZ谱面" accept=".pec,.json"></drag-uploader>
+					<drag-uploader class="chart hidden" id="chartHD" class="customComponent" style="height: 164px; padding: 0 4px" label="HD谱面" accept=".pec,.json"></drag-uploader>
+					<drag-uploader class="chart hidden" id="chartIN" class="customComponent" style="height: 164px; padding: 0 4px" label="IN谱面" accept=".pec,.json"></drag-uploader>
+					<drag-uploader class="chart hidden" id="chartAT" class="customComponent" style="height: 164px; padding: 0 4px" label="AT谱面" accept=".pec,.json"></drag-uploader>
+					<div style="display: flex; flex-direction: column; width: 30%">
+						<input-field class="chartField selected" id="ezRanking" number label="EZ定数"></input-field>
+						<input-field class="chartField hidden" id="hdRanking" number label="HD定数"></input-field>
+						<input-field class="chartField hidden" id="inRanking" number label="IN定数"></input-field>
+						<input-field class="chartField hidden" id="atRanking" number label="AT定数"></input-field>
+						<input-field class="chartField selected" id="ezChartDesigner" label="EZ谱师"></input-field>
+						<input-field class="chartField hidden" id="hdChartDesigner" label="HD谱师"></input-field>
+						<input-field class="chartField hidden" id="inChartDesigner" label="IN谱师"></input-field>
+						<input-field class="chartField hidden" id="atChartDesigner" label="AT谱师"></input-field>
+					</div>
 				</div>
 			</div>
 		</div>

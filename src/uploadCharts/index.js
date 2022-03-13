@@ -9,64 +9,69 @@ window.addEventListener('DOMContentLoaded', () => {
 	var meta = new Object();
 	var files = new Object();
 
-	document
-		.querySelectorAll('drag-uploader')
-		.forEach((element) => element.addEventListener('afterread', (e) => {
-			files[e.target.attributes.name.value] = e.detail;
-			meta[e.target.attributes.name.value] = e.detail.name;
+	document.querySelectorAll('drag-uploader').forEach((element) =>
+		element.addEventListener('afterread', (e) => {
+			files[e.target.id] = e.detail;
+			meta[e.target.id] = e.detail.name;
 			e.stopPropagation();
 			e.preventDefault();
-		}));
-	document
-		.querySelectorAll('drag-uploader')
-		.forEach((element) => element.addEventListener('ondelete', (e) => {
-			files[e.target.attributes.name.value] = null;
-			meta[e.target.attributes.name.value] = null;
+		})
+	);
+	document.querySelectorAll('drag-uploader').forEach((element) =>
+		element.addEventListener('ondelete', (e) => {
+			files[e.target.id] = null;
+			meta[e.target.id] = null;
 			e.stopPropagation();
 			e.preventDefault();
-		}));
-	document
-		.querySelectorAll('input-field')
-		.forEach((element) => element.addEventListener('blur', (e) => {
-			meta[e.target.attributes.name.value] = e.detail.value;
-			const lv = /^([a-z]{2})Ranking$/.exec(e.target.attributes.name.value)
-			if (lv.length) {
+		})
+	);
+	document.querySelectorAll('input-field').forEach((element) =>
+		element.addEventListener('blur', (e) => {
+			meta[e.target.id] = e.detail.value;
+			const lv = /^([a-z]{2})Ranking$/.exec(e.target.id);
+			if (lv) {
 				document
 					.querySelector(`div#${lv[1]}`)
 					.setAttribute('data-level', e.detail.value);
 			}
 			e.stopPropagation();
 			e.preventDefault();
-		}));
-	document
-		.querySelectorAll('div.levelItem')
-		.forEach((element) => element.addEventListener('click', (e) => {
+		})
+	);
+
+	const arrow = document.querySelector('div#arrow');
+	const chartContainer = document.querySelector('div#chart-container');
+	document.querySelectorAll('div.levelItem').forEach((element) =>
+		element.addEventListener('click', (e) => {
+			if (
+				e.target.classList.contains('selected') &&
+				!arrow.classList.contains('hidden')
+			) {
+				arrow.classList.value = 'hidden';
+				chartContainer.classList.value = 'hidden';
+				return;
+			}
 			document
 				.querySelector('div.levelItem.selected')
 				.classList.remove('selected');
 			e.target.classList.add('selected');
-			document
-				.querySelector('div#arrow')
-				.className = e.target.id;
-			document
-				.querySelector('div#chart-container')
-				.className = e.target.id;
-			document
-				.querySelector('.chart.selected')
-				.classList.value = 'chart hidden';
-			document
-				.querySelector(`#chart${e.target.id.toUpperCase()}`)
-				.classList.value = 'chart selected';
+			arrow.className = e.target.id;
+			chartContainer.className = e.target.id;
+			document.querySelector('.chart.selected').classList.value =
+				'chart hidden';
+			document.querySelector(
+				`#chart${e.target.id.toUpperCase()}`
+			).classList.value = 'chart selected';
 			document
 				.querySelectorAll('.chartField.selected')
-				.forEach(element => {
+				.forEach((element) => {
 					element.classList.value = 'chartField hidden';
-				})
-			document
-				.querySelector(`#${e.target.id}Ranking`)
-				.classList.value = 'chartField selected';
-			document
-				.querySelector(`#${e.target.id}ChartDesigner`)
-				.classList.value = 'chartField selected';
-		}));
+				});
+			document.querySelector(`#${e.target.id}Ranking`).classList.value =
+				'chartField selected';
+			document.querySelector(
+				`#${e.target.id}ChartDesigner`
+			).classList.value = 'chartField selected';
+		})
+	);
 });

@@ -9,14 +9,21 @@ export class Uploader extends HTMLElement {
 		content.style = 'width:100%;height:100%';
 		content.innerHTML = `
 			<input type="file" id="__filechooser" accept="*" style="display: none"></input>
-			<div id="__required-mark" class="required-mark">*</div>
-			<div id="__field-label" class="field-label"></div>
+			<div style="margin-left: 3%">
+				<div id="__required-mark" class="required-mark">*</div>
+				<div id="__field-label" class="field-label"></div>
+			</div>
 			<div class="uploader" id="__uploader">
 				<span id="__icon" class="icon">image</span>
 				<slot id="__tip" name="tip" class="tip">将文件 <em>拖放</em> 到此处，或 <em>点击此处</em> 选择文件</slot>
 				<div id="__uploader-click"></div>
 				<div id="__file-bar" class="file-bar">
-					<p id="__file-name">未上传文件</p>
+					<div style="display: flex; align-items: center">
+						<span id="__err-icon" class="icon" style="display: none">report</span>
+						<p id="__file-name">未上传文件</p>
+					</div>
+					<slot name="file-bar"></slot>
+					<button id="__file-choose" class="file-choose">选择文件</button>
 					<button id="__file-delete" class="file-delete">删除文件</button>
 				</div>
 			</div>
@@ -32,6 +39,15 @@ export class Uploader extends HTMLElement {
 				width: 100%;
 				height: calc(100% - 42px);
 			}
+			#__icon {
+				font-size: 6.6rem;
+				color: #575758;
+			}
+			#__err-icon {
+				color: #ff0000;
+    			font-size: 1.6rem;
+				margin-right: 4px;
+			}
 			.field-label {
 				display: inline-flex;
 				font-family: Phi;
@@ -44,7 +60,6 @@ export class Uploader extends HTMLElement {
 			.required-mark {
 				color: #00ffd8;
 				display: inline-flex;
-				margin-left: 3%;
 			}
 			.uploader {
 				position: relative;
@@ -84,8 +99,6 @@ export class Uploader extends HTMLElement {
 				font-family: 'Material Icons';
 				font-weight: normal;
 				font-style: normal;
-				font-size: 6.6rem;
-				color: #575758;
 				display: inline-block;
 				line-height: 1;
 				text-transform: none;
@@ -119,6 +132,10 @@ export class Uploader extends HTMLElement {
 				background-color: #000000c0;
 				color: #ffffff;
 			}
+			.file-bar .file-choose {
+				display: none;
+				height: 32px;
+			}
 			.file-bar .file-delete {
 				display: none;
 				height: 32px;
@@ -136,18 +153,24 @@ export class Uploader extends HTMLElement {
 		const accept = this.getAttribute('accept');
 		const maxSize = Number(this.getAttribute('max-size'));
 		const type = this.getAttribute('type');
-		const label = this.getAttribute('label');
 		content
 			.querySelector('#__filechooser')
 			.setAttribute('accept', accept ? accept : '*');
 		content.querySelector('#__icon').textContent = icon ? icon : 'cloud_upload';
 		if (!this.hasAttribute('required')) {
-			content.querySelector('#__required-mark').remove();
+			content.querySelector('#__required-mark').style = 'display: none';
 		}
-		if (label) {
-			content.querySelector('#__field-label').textContent = label;
+		if (this.hasAttribute('label')) {
+			content.querySelector('#__field-label').textContent = this.getAttribute('label');
 		} else {
-			content.querySelector('#__field-label').remove();
+			content.querySelector('#__field-label').style = 'display: none';
+		}
+		if (this.hasAttribute('error')) {
+			content.querySelector('#__err-icon').style = 'display: initial';
+		}
+		if (this.hasAttribute('inline')) {
+			content.querySelector('#__uploader').style = 'height: 46px';
+			content.querySelector('#__file-choose').style = 'display: initial';
 		}
 		/* 加载元素 */
 		var dragoverCover = document.createElement('div');
@@ -166,8 +189,10 @@ export class Uploader extends HTMLElement {
 		this.$dropboxClick = shadow.getElementById('__uploader-click')
 		this.$fileChooser = shadow.getElementById('__filechooser');
 		this.$delBtn = shadow.getElementById('__file-delete');
+		this.$chooseBtn = shadow.getElementById('__file-choose');
 		this.$tip = shadow.getElementById('__tip');
 		this.$icon = shadow.getElementById('__icon');
+		this.$errIcon = shadow.getElementById('__err-icon');
 		this.$dropboxClick.addEventListener(
 			'dragenter',
 			(e) => {
@@ -231,6 +256,15 @@ export class Uploader extends HTMLElement {
 			},
 			false
 		)
+		this.$chooseBtn.addEventListener(
+			'click',
+			(e) => {
+				that.$fileChooser.click();
+				e.stopPropagation();
+				e.preventDefault();
+			},
+			false
+		)
 
 		/* 定义方法 */
 		const handleFiles = (files) => {
@@ -273,6 +307,22 @@ export class Uploader extends HTMLElement {
 			shadow.dispatchEvent(new CustomEvent('ondelete', {
 				composed: true
 			}));
+		}
+	}
+
+	static get observedAttributes() {
+		return ['error'];
+	}
+
+	get error() {
+		return this.hasAttribute('error');
+	}
+
+	set error(val) {
+		if (val) {
+		  	this.$errIcon.style = 'display:initial';
+		} else {
+			this.$errIcon.style = 'display:none';
 		}
 	}
 }
