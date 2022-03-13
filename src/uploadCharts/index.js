@@ -18,6 +18,14 @@ window.addEventListener('DOMContentLoaded', () => {
 			e.preventDefault();
 		}));
 	document
+		.querySelectorAll('drag-uploader')
+		.forEach((element) => element.addEventListener('ondelete', (e) => {
+			files[e.target.attributes.name.value] = null;
+			meta[e.target.attributes.name.value] = null;
+			e.stopPropagation();
+			e.preventDefault();
+		}));
+	document
 		.querySelectorAll('input-field')
 		.forEach((element) => element.addEventListener('blur', (e) => {
 			meta[e.target.attributes.name.value] = e.detail.value;

@@ -45,7 +45,7 @@ html::before {
 }
 .leftArea {
 	padding: 0 1%;
-	width: 100%;
+	width: 40%;
 	color: #ffffff;
 }
 .leftArea > #leftUploadField {
@@ -57,7 +57,7 @@ html::before {
 }
 .main {
 	margin-left: 1%;
-	width: 100%;
+	width: 60%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -78,11 +78,10 @@ div.submitBtn {
 	position: fixed;
 	right: 0px;
 	bottom: 15px;
-	width: fit-content;
-	width: -moz-fit-content;
+	width: 200px;
 	height: 44px;
 	display: flex;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
 	z-index: 1;
 	background-color: #fff;

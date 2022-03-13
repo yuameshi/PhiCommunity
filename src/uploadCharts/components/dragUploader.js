@@ -17,7 +17,7 @@ export class Uploader extends HTMLElement {
 				<div id="__uploader-click"></div>
 				<div id="__file-bar" class="file-bar">
 					<p id="__file-name">未上传文件</p>
-					<button id="__file-delete" class="file-delete" onclick="deleteFile">删除文件</button>
+					<button id="__file-delete" class="file-delete">删除文件</button>
 				</div>
 			</div>
 		`;
@@ -165,7 +165,7 @@ export class Uploader extends HTMLElement {
 		this.$dropbox = shadow.getElementById('__uploader');
 		this.$dropboxClick = shadow.getElementById('__uploader-click')
 		this.$fileChooser = shadow.getElementById('__filechooser');
-		this.$fileBar = shadow.getElementById('__file-bar');
+		this.$delBtn = shadow.getElementById('__file-delete');
 		this.$tip = shadow.getElementById('__tip');
 		this.$icon = shadow.getElementById('__icon');
 		this.$dropboxClick.addEventListener(
@@ -222,6 +222,15 @@ export class Uploader extends HTMLElement {
 			},
 			false
 		);
+		this.$delBtn.addEventListener(
+			'click',
+			(e) => {
+				deleteFile();
+				e.stopPropagation();
+				e.preventDefault();
+			},
+			false
+		)
 
 		/* 定义方法 */
 		const handleFiles = (files) => {
@@ -234,7 +243,7 @@ export class Uploader extends HTMLElement {
 				alert(`文件过大，文件大小限制为：${maxSize} B`);
 				return ;
 			}
-			this.$fileBar.style = 'display: flex';
+			this.$delBtn.style = 'display: initial';
 			shadow.getElementById("__file-name").textContent = file.name;
 			shadow.dispatchEvent(new CustomEvent('afterread', {
 				composed: true,
@@ -256,7 +265,14 @@ export class Uploader extends HTMLElement {
 			}
 		};
 		const deleteFile = () => {
-			console.log('deleteFile')
+			this.$icon.style = '';
+			this.$tip.style = '';
+			this.$dropbox.style.background = '';
+			this.$delBtn.style = '';
+			shadow.getElementById("__file-name").textContent = '未上传文件';
+			shadow.dispatchEvent(new CustomEvent('ondelete', {
+				composed: true
+			}));
 		}
 	}
 }
