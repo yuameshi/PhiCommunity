@@ -9,6 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	var meta = new Object();
 	var files = new Object();
 
+	// TODO: 提交时校验
 	document.querySelectorAll('drag-uploader').forEach((element) =>
 		element.addEventListener('afterread', (e) => {
 			files[e.target.id] = e.detail;

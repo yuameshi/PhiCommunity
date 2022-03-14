@@ -149,6 +149,7 @@ export class Uploader extends HTMLElement {
 		`;
 
 		/* 加载属性 */
+		// TODO: 增加音频预览
 		const icon = this.getAttribute('icon');
 		const accept = this.getAttribute('accept');
 		const maxSize = Number(this.getAttribute('max-size'));
