@@ -1,5 +1,9 @@
 import './style.css';
-import LevelOver_mp3 from './LevelOver.mp3';
+// import LevelOver_mp3 from './LevelOver.mp3';
+import LevelOver0 from './LevelOver0.ogg';
+import LevelOver1 from './LevelOver1.ogg';
+import LevelOver2 from './LevelOver2.ogg';
+import LevelOver3 from './LevelOver3.ogg';
 import { gameLevels } from '../constants.js';
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -162,7 +166,28 @@ window.addEventListener('DOMContentLoaded', () => {
 			};
 			console.log(window.playResult);
 			//	操作DOM修改可见部分数据
-			fetch(LevelOver_mp3)
+			let levelOverAudio=LevelOver0;
+			switch (playLevel) {
+			case 0:
+				levelOverAudio=LevelOver0;
+				break;
+	
+			case 1:
+				levelOverAudio=LevelOver1;
+				break;
+
+			case 2:
+				levelOverAudio=LevelOver2;
+				break;
+
+			case 3:
+				levelOverAudio=LevelOver3;
+				break;
+		
+			default:
+				break;
+			}
+			fetch(levelOverAudio)
 				.then((res) => res.arrayBuffer())
 				.then((arrayBuffer) => {
 					window.actx = new (window.AudioContext ||
