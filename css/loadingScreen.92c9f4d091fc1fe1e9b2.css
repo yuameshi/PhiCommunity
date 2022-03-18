@@ -97,9 +97,10 @@ div.avatarBar::after {
 	z-index: 10;
 }
 div.avatarBar > div.avatar {
+	--avatar: url(../assets/packed/Avatar.cdd7.svg);
 	height: 100%;
 	width: 100px;
-	background: url(../assets/packed/Avatar.cdd7.svg) no-repeat center center;
+	background: var(--avatar) no-repeat center center;
 	background-size: cover;
 	transform: skew(15deg);
 	margin: 0;
@@ -123,104 +124,86 @@ div.avatarBar > div.avatar::after {
 	transform: skew(-15deg) translateX(10px);
 }
 
-html {
-	background: url(../assets/packed/ElementSqare.Half.Size.f7ec.webp) center center
-		no-repeat fixed;
-	background-size: cover;
+html,
+body {
 	box-sizing: border-box;
 	height: 100%;
 	width: 100%;
-	backdrop-filter: blur(15px) brightness(0.5) contrast(0.5);
-	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+body {
+	background: url(../assets/packed/ElementSqare.Half.Size.f7ec.webp) center center
+		no-repeat fixed;
+	background-size: cover !important;
+	backdrop-filter: blur(1px);
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-direction: column;
+	color: #fff;
 }
-html::before {
+body::before {
 	content: '';
-	position: absolute;
-	height: 100vh;
-	width: 100vw;
+	position: fixed;
 	top: 0;
 	left: 0;
-	bottom: 0;
 	right: 0;
-	background: url(../assets/packed/ElementSqare.Half.Size.f7ec.webp) no-repeat center
-		center fixed;
+	bottom: 0;
+	background: url(../assets/packed/ElementSqare.Half.Size.f7ec.webp) center center
+		no-repeat fixed;
 	background-size: cover;
-	filter: blur(10px) brightness(0.5);
+	filter: blur(1px);
 	z-index: -1;
 }
-div.main {
-	height: 70vh;
-	width: 85vw;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	overflow-x: scroll;
-	z-index: 0;
-	background: #fff;
-	min-width: 320px;
-	min-height: 480px;
+div.tip::before {
+	content: 'Tip: ';
 }
-div#container {
-	width: 80%;
-}
-div#container > div.item::before {
-	order: 0;
-	width: 10%;
-	content: attr(data-file-name);
-	margin-right: 0 50px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-}
-div#container > div.item::after {
-	order: 1;
-	width: calc(90% - 48px);
-	display: flex;
-	justify-content: flex-start;
-	align-items: flex-start;
-	content: attr(data-url);
-	margin: 0 50px;
-}
-div#container > div.item > .deleteBtn {
-	order: 2;
-	width: 48px;
-	text-align: center;
-	outline: none;
-	cursor: pointer;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-}
-div#container > div.item {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
+div.tip {
 	color: #000;
-	text-decoration: none;
-	margin: 5px 0;
+	position: fixed;
+	left: 2%;
+	bottom: 5%;
+	text-shadow: 0 0 5px #000;
 }
-
-@media screen and (max-width: 576px) {
-	div#container > div.item::before {
-		order: 0;
-		width: calc(100% - 48px);
-		content: attr(data-file-name);
-		margin-right: 0 50px;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow: hidden;
+div.loadingBar {
+	position: fixed;
+	right: 2%;
+	bottom: 5%;
+	overflow: hidden;
+}
+div.loadingBarTxT {
+	color: #000;
+	z-index: 999;
+	animation: loadingBarTXTAnim 1s ease-in-out infinite;
+	text-shadow: 0 0 10px #000;
+}
+div.loadingBarBG {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	z-index: -1;
+	background-color: #fff;
+	animation: loadingBarBGAnim 1s ease-in-out infinite;
+}
+@keyframes loadingBarBGAnim {
+	0% {
+		left: -100%;
 	}
-	div#container > div.item::after {
-		display: none;
+	100% {
+		left: 200%;
 	}
-	div#container > div.item > .deleteBtn {
-		width: 48px;
+}
+@keyframes loadingBarTXTAnim {
+	0% {
+		color: #fff;
+	}
+	50% {
+		color: #000;
+	}
+	100% {
+		color: #fff;
 	}
 }
 

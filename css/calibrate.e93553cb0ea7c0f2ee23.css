@@ -97,9 +97,10 @@ div.avatarBar::after {
 	z-index: 10;
 }
 div.avatarBar > div.avatar {
+	--avatar: url(../assets/packed/Avatar.cdd7.svg);
 	height: 100%;
 	width: 100px;
-	background: url(../assets/packed/Avatar.cdd7.svg) no-repeat center center;
+	background: var(--avatar) no-repeat center center;
 	background-size: cover;
 	transform: skew(15deg);
 	margin: 0;
@@ -125,17 +126,24 @@ div.avatarBar > div.avatar::after {
 
 html,
 body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 16px;
 	height: 100%;
 	width: 100%;
+	/* overflow: hidden; */
+	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
+}
+* {
+	outline: none;
 }
 html {
 	background: url(../assets/packed/ElementSqare.Half.Size.f7ec.webp) center center
 		no-repeat fixed;
 	background-size: cover;
-	backdrop-filter: blur(15px);
 }
 html::before {
 	content: '';
@@ -150,180 +158,99 @@ html::before {
 	filter: blur(10px);
 	z-index: -1;
 }
-div.leftArea {
-	position: fixed;
-	top: 0;
-	left: 0;
-	padding: 100px 1%;
-	height: calc(100% - 200px);
-	width: 45%;
-	background: rgba(0, 0, 0, 0.5);
-	/* border: 1px #6cf solid; */
-	color: #fff;
-	overflow-y: scroll;
-	scrollbar-width: none;
+div.container {
+	height: 300px;
+	width: 500px;
+	background: #dddddf;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	overflow: hidden;
 }
-
-div.leftArea::-webkit-scrollbar {
-	display: none;
-}
-div.item {
+div.container div.title {
 	width: 100%;
-	height: 75px;
-	/* border: 1px #6cf solid; */
-	margin: 50px 0;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	flex-direction: column;
-}
-div.title::before {
-	content: attr(data-name);
-	padding-left: 20px;
-}
-div.title::after {
-	content: attr(data-value);
-	padding-right: 20px;
-}
-div.title {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-}
-div.slider {
-	width: 95%;
-	height: 30px;
-	color: #000;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: #00000056;
-}
-div.slider::before,
-div.slider::after,
-div.slideBlock {
-	display: block;
-	height: 120%;
-	width: 35px;
-	max-width: calc(10% - 15px);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #fff;
-	font-size: 1.4em;
-	cursor: pointer;
-}
-div.slider::before {
-	content: '-';
-	margin-right: 10px;
-}
-div.slider::after {
-	content: '+';
-	margin-left: 10px;
-}
-div.slideBlock::before {
-	content: '';
-	display: block;
-}
-div.slideBlock {
-	position: relative;
-	left: 0;
-	top: 0;
-	display: block;
-	height: 120%;
-	width: 35px;
-	background-color: #fff;
-}
-
-div.toggle {
-	height: 25px;
-	width: 65px;
-	display: flex;
-	justify-content: start;
-	align-items: center;
-	background-color: #000;
-	margin-right: 25px;
-	align-self: flex-end;
-	cursor: pointer;
-}
-
-div.toggle.checked {
-	justify-content: end;
-}
-div.toggle::before {
-	content: '';
-	display: block;
-	height: 30px;
-	width: 30px;
-	background-color: #fff;
-}
-div.toggle.checked::after {
-	content: ' ';
-	background: url(../assets/packed/Tick.e9a8.svg) no-repeat center center;
-	background-size: contain;
-	font-family: Arial, Helvetica, sans-serif;
-	order: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: calc(100% - 30px);
-	height: 100%;
-}
-div.toggle.checked::before {
-	order: 1;
-	content: '';
-	display: block;
-	height: 30px;
-	width: 30px;
-	background-color: #fff;
-}
-button.button {
-	height: 80%;
-	width: 200px;
-	margin-left: 10%;
-	align-self: flex-start;
-	font-size: 16px;
-	outline: none;
+	padding: 10px;
+	background: linear-gradient(to right, #0173ff, #588de4);
 	color: #fff;
-	border: 2px #fff solid;
-	background: transparent;
-	cursor: pointer;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
+	text-align: center;
+	font-weight: bold;
 }
-button.button > img {
-	height: 20px;
-	width: auto;
-	margin-right: 20px;
-}
-div.aboutContainer {
-	position: fixed;
-	width: 50%;
-	right: 0px;
-	top: 50%;
-	transform: translateY(-50%);
+div.container div.content {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
+	width: 100%;
+	height: max-content;
 }
-div.aboutContainer > div.device {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-div.aboutContainer > div.device > span#device {
+div.container div.content div.description {
+	font-size: 12px;
+	padding: 10px;
 	text-align: center;
 }
-@media screen and (max-width: 576px) {
-	div.aboutContainer {
-		display: none;
-	}
-	div.leftArea {
-		width: 100%;
-	}
+div.container div.content button#clickBtn {
+	width: 50px;
+	height: 50px;
+	margin: 10px;
+	background: #b7b6bb;
+	color: #000;
+	border: 1.5px solid #939394;
+	color: #fff;
+	text-shadow: 1px 1px 1px #9f9f9f;
+	font-weight: bold;
+	cursor: pointer;
+}
+div.container div.content div.results {
+	width: 60%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	color: #000;
+	text-align: center;
+}
+div.container div.content div.results div:first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-left: 1.4px #9f9f9f solid;
+}
+div.container div.content div.results div:last-child {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-right: 1.4px #9f9f9f solid;
+}
+div.container div.content div.results div {
+	border: 1.2px #9f9f9f solid;
+	width: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #fff;
+}
+div.container div.footer {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+}
+div.container div.footer button {
+	width: 50%;
+	padding: 5px;
+	cursor: pointer;
+}
+div.container div.footer button#startBtn {
+	background: #0173ff;
+	color: #fff;
+	font-size: 16px;
+	border: none;
+	border-right: 1px solid #fff;
+}
+div.container div.footer button#cancelBtn {
+	background: #588de4;
+	color: #fff;
+	font-size: 16px;
+	border: none;
+	border-left: 1px solid #fff;
 }
 

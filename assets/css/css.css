@@ -73,9 +73,10 @@ div.avatarBar::after {
 	z-index: 10;
 }
 div.avatarBar > div.avatar {
+	--avatar: url(assets/images/Avatar.svg);
 	height: 100%;
 	width: 100px;
-	background: url(../images/Avatar.svg) no-repeat center center;
+	background: var(--avatar) no-repeat center center;
 	background-size: cover;
 	transform: skew(15deg);
 	margin: 0;
