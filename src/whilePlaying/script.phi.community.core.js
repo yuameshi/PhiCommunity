@@ -2136,17 +2136,35 @@ function qwqdraw2() {
 	if (hyperMode.checked == true && mode != 'auto') {
 		mode = 'hyper';
 	}
-	console.log(123);
-
-	location.href = `../LevelOver/index.html?play=${new URLSearchParams(
-		new URL(location.href).search
-	).get('play')}&l=${new URLSearchParams(new URL(location.href).search).get(
-		'l'
-	)}&score=${stat.scoreStr}&mc=${stat.maxcombo}&p=${
+	sessionStorage.setItem(
+		'play',
+		new URLSearchParams(new URL(location.href).search).get('play')
+	);
+	sessionStorage.setItem(
+		'level',
+		new URLSearchParams(new URL(location.href).search).get('l')
+	);
+	sessionStorage.setItem('score', stat.scoreStr);
+	sessionStorage.setItem('maxCombo', stat.maxcombo);
+	sessionStorage.setItem(
+		'perfect',
 		stat.noteRank[5] + stat.noteRank[4] + stat.noteRank[1]
-	}&g=${stat.noteRank[7] + stat.noteRank[3]}&b=${stat.noteRank[6]}&e=${
-		stat.noteRank[7]
-	}&m=${stat.noteRank[2]}&mode=${mode}`;
+	);
+	sessionStorage.setItem('good', stat.noteRank[7] + stat.noteRank[3]);
+	sessionStorage.setItem('early', stat.noteRank[7]);
+	sessionStorage.setItem('bad', stat.noteRank[6]);
+	sessionStorage.setItem('miss', stat.noteRank[2]);
+	sessionStorage.setItem('mode', mode);
+	location.href = '../LevelOver/index.html';
+	// location.href = `../LevelOver/index.html?play=${new URLSearchParams(
+	// 	new URL(location.href).search
+	// ).get('play')}&l=${new URLSearchParams(new URL(location.href).search).get(
+	// 	'l'
+	// )}&score=${stat.scoreStr}&mc=${stat.maxcombo}&p=${
+	// 	stat.noteRank[5] + stat.noteRank[4] + stat.noteRank[1]
+	// }&g=${stat.noteRank[7] + stat.noteRank[3]}&b=${stat.noteRank[6]}&e=${
+	// 	stat.noteRank[7]
+	// }&m=${stat.noteRank[2]}&mode=${mode}`;
 	return;
 }
 

@@ -28,21 +28,19 @@ window.addEventListener('DOMContentLoaded', () => {
 	}
 	// resize('div.mainContent');
 	// resize('body > div.extraInfo', 'skew(-15deg)');
-	const urlParams = new URL(location.href).search;
-	const parsedURLParams = new URLSearchParams(urlParams);
-	//	获取各种数据
-	const play = parsedURLParams.get('play');
-	const playLevel = gameLevels[parsedURLParams.get('l')];
-	const playLevelString = parsedURLParams.get('l');
-	const score = parseInt(parsedURLParams.get('score'));
-	// const score=
-	const maxCombo = parsedURLParams.get('mc');
-	const perFect = parsedURLParams.get('p');
-	const good = parsedURLParams.get('g');
-	const bad = parsedURLParams.get('b');
-	const miss = parsedURLParams.get('m');
-	const early = parsedURLParams.get('e');
-	const mode = parsedURLParams.get('mode');
+	// 获取各种数据
+	const play = sessionStorage.getItem('play');
+	const playLevelString = sessionStorage.getItem('level');
+	const playLevel = gameLevels[playLevelString];
+	const score = parseInt(sessionStorage.getItem('score'));
+	const maxCombo = sessionStorage.getItem('maxCombo');
+	const perFect = sessionStorage.getItem('perfect');
+	const good = sessionStorage.getItem('good');
+	const early = sessionStorage.getItem('early');
+	const bad = sessionStorage.getItem('bad');
+	const miss = sessionStorage.getItem('miss');
+	const mode = sessionStorage.getItem('mode');
+	sessionStorage.clear();
 	switch (mode) {
 	case 'normal':
 		// document.querySelector('#scrollFrame').classList.add('normal');
