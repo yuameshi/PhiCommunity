@@ -16,13 +16,10 @@ window.addEventListener('DOMContentLoaded', () => {
 			location.href = '../chapterSelect/index.html';
 		});
 	}
-	fetch('https://api.github.com/repos/HanHan233/PhiCommunity/commits?per_page=1')
-		.then((response) => response.json())
+	fetch('../version.sha')
+		.then((response) => response.text())
 		.then((data) => {
-			document.querySelector('#ver').innerText = data[0].sha.slice(
-				0,
-				7
-			);
+			document.querySelector('#ver').innerText = data;
 		});
 
 	try {

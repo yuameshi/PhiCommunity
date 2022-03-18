@@ -8,6 +8,11 @@ const path = require('path');
 const resolve = (...paths) => path.resolve(__dirname, '..', ...paths);
 const resolveSrc = (...paths) => path.resolve(__dirname, '../src', ...paths);
 
+require('fs').writeFileSync(
+	'./public/version.sha',
+	require('child_process').execSync('git rev-parse HEAD').toString().slice(0, 7)
+);
+
 const pagePlugins = [
 	new HtmlWebpackPlugin({
 		template: resolveSrc('index.html'),
