@@ -84,11 +84,6 @@ export const settings = [
 	//下面就是模拟器其他的功能了
 	{
 		type: 'toggle',
-		title: '使用游玩友好型Note',
-		codename: 'usePlayerFriendlyUI',
-	},
-	{
-		type: 'toggle',
 		title: '开启低分辨率模式',
 		codename: 'enableLowRes',
 	},

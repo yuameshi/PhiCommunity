@@ -21,11 +21,6 @@ import HitSong0 from './assets/Tap.ogg';
 import HitSong1 from './assets/Drag.ogg';
 import HitSong2 from './assets/Flick.ogg';
 
-import FlickHL_friendly from './assets/playerFirendlyNote/FlickHL.png';
-import HoldHL_friendly from './assets/playerFirendlyNote/HoldHL.png';
-import HoldHeadHL_friendly from './assets/playerFirendlyNote/HoldHeadHL.png';
-import TapHL_friendly from './assets/playerFirendlyNote/TapHL.png';
-
 import clickRaw_old from './assets/oldui/clickRaw.png';
 import Drag_old from './assets/oldui/Drag.png';
 import DragHL_old from './assets/oldui/Drag2HL.png';
@@ -64,15 +59,6 @@ let resource = {
 	HitSong1,
 	HitSong2,
 };
-if (localStorage.getItem('usePlayerFriendlyUI') == 'true') {
-	resource = {
-		...resource,
-		FlickHL: FlickHL_friendly,
-		HoldHL: HoldHL_friendly,
-		HoldHeadHL: HoldHeadHL_friendly,
-		TapHL: TapHL_friendly,
-	};
-}
 if (localStorage.getItem('useOldUI') == 'true') {
 	resource = {
 		...resource,
