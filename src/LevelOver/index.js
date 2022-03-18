@@ -26,6 +26,19 @@ window.addEventListener('DOMContentLoaded', () => {
 				window.localStorage.getItem('playerName')
 			);
 	}
+	if (window.localStorage.getItem('playerAvatar') != null) {
+		console.log(
+			'Setting player avatar: ',
+			window.localStorage.getItem('playerAvatar')
+		);
+		document
+			.querySelector('div#avatarBar')
+			.children[0]
+			.setAttribute(
+				'style',
+				'--avatar: url("'+window.localStorage.getItem('playerAvatar')+'");'
+			);
+	}
 	// resize('div.mainContent');
 	// resize('body > div.extraInfo', 'skew(-15deg)');
 	// 获取各种数据
