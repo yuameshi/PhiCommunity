@@ -4,6 +4,14 @@ import LevelOver0 from './LevelOver0.ogg';
 import LevelOver1 from './LevelOver1.ogg';
 import LevelOver2 from './LevelOver2.ogg';
 import LevelOver3 from './LevelOver3.ogg';
+import phi15phi from 'assets/images/phi15phi.svg';
+import V15FC from 'assets/images/V15FC.svg';
+import V15V from 'assets/images/V15V.svg';
+import S15S from 'assets/images/S15S.svg';
+import A15A from 'assets/images/A15A.svg';
+import B15B from 'assets/images/B15B.svg';
+import C15C from 'assets/images/C15C.svg';
+import F15F from 'assets/images/F15F.svg';
 import { gameLevels } from '../constants.js';
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -89,7 +97,6 @@ window.addEventListener('DOMContentLoaded', () => {
 				10000
 		) / 100;
 	const late = good - early;
-	var grade;
 	document.getElementById('retryBtn').addEventListener('click', () => {
 		window.actx.close();
 		location.href =
@@ -104,41 +111,51 @@ window.addEventListener('DOMContentLoaded', () => {
 			'../songSelect/index.html';
 	});
 	//	判断等级（范围来自萌娘百科）
+	var grade,gradeURL;
 	if (score == 0) {
 		console.log('No grade');
 		grade = '';
+		gradeURL='';
 	}
 	if (score < 699999 && score != 0) {
 		console.log('Grade: False');
 		grade = 'F15F';
+		gradeURL=F15F;
 	}
 	if (700000 <= score && score <= 819999) {
 		console.log('Grade:C');
 		grade = 'C15C';
+		gradeURL=C15C;
 	}
 	if (820000 <= score && score <= 879999) {
 		console.log('Grade:B');
 		grade = 'B15B';
+		gradeURL=B15B;
 	}
 	if (880000 <= score && score <= 919999) {
 		console.log('Grade:A');
 		grade = 'A15A';
+		gradeURL=A15A;
 	}
 	if (920000 <= score && score <= 959999) {
 		console.log('Grade:S');
 		grade = 'S15S';
+		gradeURL=S15S;
 	}
 	if (960000 <= score && score <= 999999) {
 		console.log('Grade:V');
 		grade = 'V15V';
+		gradeURL=V15V;
 	}
 	if (bad == 0 && miss == 0) {
 		console.log('Grade: V wih Full Combo');
 		grade = 'V15FC';
+		gradeURL=V15FC;
 	}
 	if (1000000 <= score) {
 		console.log('Grade:Phi');
 		grade = 'phi15phi';
+		gradeURL=phi15phi;
 	}
 	// switch (score) {
 	// 	default:
@@ -154,6 +171,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			window.window.playResult = {
 				score: score,
 				grade: grade,
+				gradeURL: gradeURL,
 				play: play,
 				playLevel: playLevel,
 				songInfo: data,
@@ -229,8 +247,11 @@ window.addEventListener('DOMContentLoaded', () => {
 			document.querySelector('#score').innerText = score
 				.toString()
 				.padStart(7, '0');
-			document.querySelector('#gradeImage').src =
-				'../assets/images/' + grade + '.svg';
+			fetch(gradeURL)
+				.then(res=>res.blob())
+				.then(blob=>{
+					document.querySelector('#gradeImage').src = URL.createObjectURL(blob);
+				});
 			document.querySelector('#maxCombo').innerText = maxCombo;
 			document.querySelector('#accuracy').innerText = accuracy + '%';
 			document.querySelector('#perfect').innerText = perFect;

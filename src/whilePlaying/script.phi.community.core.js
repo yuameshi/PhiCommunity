@@ -2268,6 +2268,8 @@ function qwqdraw2() {
 			.finally(() => {
 				location.href = '../LevelOver/index.html';
 			});
+	}else{
+		location.href = '../LevelOver/index.html';
 	} 
 	return;
 }
