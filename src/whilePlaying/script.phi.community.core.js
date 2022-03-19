@@ -2136,14 +2136,21 @@ function qwqdraw2() {
 			.then((result) => {
 				//成功打开数据库
 				DB()
-					.readKey(result.objectStore, window.chartMetadata.codename)
+					.readKey(result.objectStore, window.chartMetadata.codename +'-' +new URLSearchParams(new URL(location.href).search).get('l').toLowerCase())
 					.then((res) => {
 						//如果没有此键（没玩过）
 						if (res == undefined) {
 							console.log('Unplayed song detected');
 							DB()
 								.createKey(result.objectStore, {
-									codename: window.chartMetadata.codename,
+									codename:
+										window.chartMetadata.codename +
+										'-' +
+										new URLSearchParams(
+											new URL(location.href).search
+										)
+											.get('l')
+											.toLowerCase(),
 									level: new URLSearchParams(
 										new URL(location.href).search
 									)
@@ -2175,7 +2182,14 @@ function qwqdraw2() {
 							prevBest = Math.round(res.score);
 							DB()
 								.updateKey(result.objectStore, {
-									codename: window.chartMetadata.codename,
+									codename: 
+									window.chartMetadata.codename +
+									'-' +
+									new URLSearchParams(
+										new URL(location.href).search
+									)
+										.get('l')
+										.toLowerCase(),
 									level: new URLSearchParams(
 										new URL(location.href).search
 									)
@@ -2219,7 +2233,14 @@ function qwqdraw2() {
 					.then((result) => {
 						DB()
 							.createKey(result.objectStore, {
-								codename: window.chartMetadata.codename,
+								codename: 
+								window.chartMetadata.codename +
+								'-' +
+								new URLSearchParams(
+									new URL(location.href).search
+								)
+									.get('l')
+									.toLowerCase(),
 								level: new URLSearchParams(
 									new URL(location.href).search
 								)

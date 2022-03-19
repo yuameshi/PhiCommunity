@@ -1,5 +1,6 @@
 import { gameLevels } from '../constants.js';
 import selectSongItem_mp3 from 'assets/audio/selectSongItem.mp3';
+import {DB} from '../utils/DB.js';
 
 function SongList({ defaultLevel = 'ez' }) {
 	const listElement = document.createElement('div');
@@ -46,6 +47,18 @@ function SongList({ defaultLevel = 'ez' }) {
 					source.start(0);
 				});
 				
+			});
+		DB()
+			.openDB('PhiCommunityPlayResults')
+			.then((result) => {
+				DB()
+					.readKey(result.objectStore, window.songMetaList[id].codename+'-'+level)
+					.then((res) => {
+						const result=res||{score:0,accuracy:0};
+						document.querySelector('#rightArea > div.detailBar.unplayed > div.score').innerText=Math.round((result.score)).toString().padStart(7,'0');
+						document.querySelector('#rightArea > div.detailBar.unplayed > div.score').setAttribute('data-acc',((result.accuracy)*100).toFixed(2)+'%');
+						document.querySelector('#rightArea > div.detailBar.unplayed > div.score').classList.remove('unplayed');
+					});
 			});
 		if (selected !== undefined) items[selected].unSelect();
 
@@ -197,6 +210,19 @@ function SongList({ defaultLevel = 'ez' }) {
 		window.levelSelected = newLevel;
 		items.forEach(({ switchLevel }) => switchLevel(newLevel));
 		level = newLevel;
+		const codename=document.querySelector('div.songItem.selected').getAttribute('data-codename');
+		DB()
+			.openDB('PhiCommunityPlayResults')
+			.then((result) => {
+				DB()
+					.readKey(result.objectStore, codename+'-'+level)
+					.then((res) => {
+						const result=res||{score:0,accuracy:0};
+						document.querySelector('#rightArea > div.detailBar.unplayed > div.score').innerText=Math.round((result.score)).toString().padStart(7,'0');
+						document.querySelector('#rightArea > div.detailBar.unplayed > div.score').setAttribute('data-acc',((result.accuracy)*100).toFixed(2)+'%');
+						document.querySelector('#rightArea > div.detailBar.unplayed > div.score').classList.remove('unplayed');
+					});
+			});
 	}
 
 	function sort(fn) {

@@ -371,21 +371,21 @@ div.levelChooser > div.levelItem.at::after {
 	content: 'AT';
 }
 div.score {
-	width: 200px;
+	width: 150px;
 	height: 100%;
+	padding-right: 50px;
 	display: flex;
 	font-size: 22px;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	order: 0;
 }
 div.score::before {
 	content: attr(data-acc);
 	font-size: 12px;
-	transform: scale(0.8);
 	order: 1;
 	display: flex;
-	color: #999;
+	color: #fff;
 	justify-content: center;
 	align-items: center;
 	margin-bottom: -10px;
