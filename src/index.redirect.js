@@ -1,12 +1,5 @@
 import './style.redirect.css';
-import tapToStart_mp3 from '../src/tapToStart/TapToStart.mp3';
 window.addEventListener('DOMContentLoaded', () => {
-	fetch(tapToStart_mp3)
-		.then(res=>res.blob())
-		.then(blob=>{
-			const blobURL=URL.createObjectURL(blob);
-			document.querySelector('audio#testAudio').src=blobURL;
-		});
 	fetch('https://api.github.com/repos/HanHan233/PhiCommunity/commits')
 		.then((res) => res.json())
 		.then((data) => {
