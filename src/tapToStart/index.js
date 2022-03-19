@@ -2,11 +2,8 @@ import './style.css';
 import tapToStart_mp3 from './TapToStart.mp3';
 
 window.addEventListener('DOMContentLoaded', () => {
-	fetch('../version.sha')
-		.then((response) => response.text())
-		.then((data) => {
-			document.querySelector('#ver').innerText = data;
-		});
+	document.querySelector('#ver').innerText = $VERSION;
+
 	try {
 		document.querySelector('#device').innerText =
 			'Platform: ' +

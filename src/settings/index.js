@@ -16,11 +16,8 @@ window.addEventListener('DOMContentLoaded', () => {
 			location.href = '../chapterSelect/index.html';
 		});
 	}
-	fetch('../version.sha')
-		.then((response) => response.text())
-		.then((data) => {
-			document.querySelector('#ver').innerText = data;
-		});
+
+	document.querySelector('#ver').innerText = $VERSION;
 
 	try {
 		document.querySelector('#device').innerText =
@@ -39,24 +36,24 @@ window.addEventListener('DOMContentLoaded', () => {
 	settings.forEach((setting) => {
 		let item;
 		switch (setting.type) {
-		case 'slide':
-			setting.defaultValue =
+			case 'slide':
+				setting.defaultValue =
 					parseFloat(window.localStorage.getItem(setting.codename)) ||
 					setting.defaultValue;
-			item = SliderItem(setting);
-			break;
-		case 'toggle':
-			setting.defaultValue =
+				item = SliderItem(setting);
+				break;
+			case 'toggle':
+				setting.defaultValue =
 					window.localStorage.getItem(setting.codename) == 'true'
 						? true
 						: false || setting.defaultValue;
-			item = ToggleItem(setting);
-			break;
-		case 'button':
-			item = ButtonItem(setting);
-			break;
-		default:
-			throw new Error('Unknown setting: ' + setting);
+				item = ToggleItem(setting);
+				break;
+			case 'button':
+				item = ButtonItem(setting);
+				break;
+			default:
+				throw new Error('Unknown setting: ' + setting);
 		}
 		document.getElementById('settingItems').appendChild(item.element);
 	});

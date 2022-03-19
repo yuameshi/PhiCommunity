@@ -1,17 +1,13 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { GitRevisionPlugin } = require('git-revision-webpack-plugin');
 
 const path = require('path');
 
 const resolve = (...paths) => path.resolve(__dirname, '..', ...paths);
 const resolveSrc = (...paths) => path.resolve(__dirname, '../src', ...paths);
-
-require('fs').writeFileSync(
-	'./public/version.sha',
-	require('child_process').execSync('git rev-parse HEAD').toString().slice(0, 7)
-);
 
 const pagePlugins = [
 	new HtmlWebpackPlugin({
@@ -49,6 +45,11 @@ const pagePlugins = [
 			})
 	),
 ];
+
+const gitRevisionPlugin = new GitRevisionPlugin({
+	versionCommand: 'describe --always --tags',
+});
+
 module.exports = {
 	entry: {
 		index: resolveSrc('index.redirect.js'),
@@ -68,11 +69,12 @@ module.exports = {
 	output: {
 		path: resolve('dist'),
 		filename: 'js/[name].[chunkhash].js',
-		assetModuleFilename: 'assets/packed/[name].[contenthash:4][ext]',
+		assetModuleFilename: 'assets/[name].[contenthash:4][ext]',
 	},
 	resolve: {
 		alias: {
 			assets: resolve('assets'),
+			public: resolve('public'),
 		},
 	},
 	performance: {
@@ -85,21 +87,22 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(),
 		...pagePlugins,
+		gitRevisionPlugin,
+		new webpack.DefinePlugin({
+			$VERSION: JSON.stringify(gitRevisionPlugin.version()),
+		}),
 		new MiniCssExtractPlugin({
 			filename: 'css/[name].[contenthash].css',
-		}),
-		new CopyWebpackPlugin({
-			patterns: [
-				resolve('public'),
-				{
-					from: resolve('assets'),
-					to: 'assets/[path][name][ext]',
-				},
-			],
 		}),
 	],
 	module: {
 		rules: [
+			{
+				test: /\.(html)$/,
+				use: {
+					loader: 'html-loader',
+				},
+			},
 			{
 				test: /\.css$/i,
 				use: [MiniCssExtractPlugin.loader, 'css-loader'],
@@ -114,7 +117,7 @@ module.exports = {
 					{
 						loader: 'file-loader',
 						options: {
-							name: 'assets/packed/[name].[contenthash:4].[ext]',
+							name: 'assets/[name].[contenthash:4].[ext]',
 							esModule: false,
 						},
 					},
