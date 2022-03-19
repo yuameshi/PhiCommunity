@@ -22,6 +22,7 @@
 	"homepage": "https://github.com/HanHan233/PhiCommunity#readme",
 	"devDependencies": {
 		"clean-webpack-plugin": "^4.0.0",
+		"copy-webpack-plugin": "^10.2.4",
 		"css-loader": "^6.6.0",
 		"file-loader": "^6.2.0",
 		"git-revision-webpack-plugin": "^5.0.0",
