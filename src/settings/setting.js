@@ -125,6 +125,14 @@ export const settings = [
 	// 	codename: 'showTransition',
 	// },
 	{
+		type: 'slide',
+		title: '谱面倍速(10为1倍)',
+		codename: 'chart-speedchange',
+		range: [7, 15],
+		defaultValue: 10,
+		offset: 1,
+	},
+	{
 		type: 'toggle',
 		title: '启用AutoPlay',
 		codename: 'autoplay',

@@ -2753,6 +2753,22 @@ window.addEventListener('DOMContentLoaded', () => {
 							pec2json(text, undefined).data
 						);
 					}
+					if (localStorage.getItem('chart-speedchange')!=null) {
+						const speedChange=parseInt(localStorage.getItem('chart-speedchange'))/10;
+						if (speedChange>=0.7&&speedChange<=1.5) {
+							console.log('Applying speed change:',speedChange);
+							Renderer.chart.judgeLineList.forEach(line=>{
+								line.notesAbove.forEach(note=>{
+									note.speed*=speedChange;
+								});
+								line.notesBelow.forEach(note=>{
+									note.speed*=speedChange;
+								});
+							});
+						}else{
+							console.error('Invalid speed change value:',speedChange);
+						}
+					}
 				})
 				.catch(() => {
 					alert('谱面获取失败！');
