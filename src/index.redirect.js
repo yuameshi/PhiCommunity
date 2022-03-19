@@ -41,6 +41,11 @@ window.addEventListener('DOMContentLoaded', () => {
 			location.href = 'https://cf.phicommunity.com.cn';
 		});
 	document
+		.querySelector('button#gotoVercel')
+		.addEventListener('click', () => {
+			location.href = 'https://vercel.phicommunity.com.cn';
+		});
+	document
 		.querySelector('button#gotoGHPages')
 		.addEventListener('click', () => {
 			location.href = 'https://phicommunity.com.cn';
