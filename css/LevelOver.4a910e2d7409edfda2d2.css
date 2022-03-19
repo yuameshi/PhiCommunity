@@ -361,6 +361,9 @@ div.scoreFrame.hyper::after {
 div.scoreFrame.auto::after {
 	content: 'AUTOPLAY' !important;
 }
+div.scoreFrame.newBest::after {
+	content: attr(data-nb) !important;
+}
 div.score {
 	font-size: 48px;
 }
