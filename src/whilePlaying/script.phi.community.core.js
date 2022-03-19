@@ -2203,7 +2203,7 @@ function qwqdraw2() {
 												.get('l')
 												.toLowerCase() + 'Ranking'
 										],
-									score: stat.score,
+									score: stat.scoreNum,
 									accuracy: stat.accNum,
 									rankingScore: getRks(stat.accNum),
 								})
