@@ -1,0 +1,16 @@
+{
+	"background_color": "#ada5dc",
+	"description": "A community driven project to make a game like phigros.",
+	"display": "fullscreen",
+	"icons": [
+		{
+			"src": "assets/images/AppIcon.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		}
+	],
+	"name": "PhiCommunity",
+	"short_name": "Phi",
+	"start_url": "/tapToStart/index.html",
+	"orientation": "landscape"
+}
