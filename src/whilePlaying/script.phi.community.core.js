@@ -1540,6 +1540,9 @@ btnPause.addEventListener('click', function () {
 			document
 				.querySelector('div#pauseOverlay.pauseOverlay')
 				.classList.remove('readyToResume');
+			if(localStorage.getItem('useBGABG')=='true'&&window.chartMetadata.backgroundAnimation!=undefined){
+				document.querySelector('video#bgaVideo').play();
+			}
 		}, 3000);
 	}
 });
@@ -1559,13 +1562,6 @@ let fucktemp = false;
 let fucktemp2 = false;
 //作图
 function loop() {
-	if(localStorage.getItem('useBGABG')=='true'&&window.chartMetadata.backgroundAnimation!=undefined){
-		createImageBitmap(document.querySelector('video#bgaVideo'))
-			.then(img=>Renderer.bgImage=img);
-		createImageBitmap(imgBlur(Renderer.bgImage)).then((imgBlur) => {
-			Renderer.bgImageBlur = imgBlur;
-		});
-	}
 	const now = Date.now();
 	//计算时间
 	if (qwqOut.second < 0.67) {
@@ -2963,6 +2959,16 @@ document
 		if(localStorage.getItem('useBGABG')=='true'&&window.chartMetadata.backgroundAnimation!=undefined){
 			setTimeout(()=>{
 				document.querySelector('video#bgaVideo').play();
+				const updateBGAInterval=setInterval(()=>{
+					createImageBitmap(document.querySelector('video#bgaVideo'))
+						.then(img=>Renderer.bgImage=img);
+					createImageBitmap(imgBlur(Renderer.bgImage)).then((imgBlur) => {
+						Renderer.bgImageBlur = imgBlur;
+					});
+				},50);
+				document.querySelector('video#bgaVideo').addEventListener('ended',()=>{
+					clearInterval(updateBGAInterval);
+				});
 			},4000);
 		}
 		btnPause.value = '暂停';
