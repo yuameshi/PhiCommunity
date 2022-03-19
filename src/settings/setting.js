@@ -41,7 +41,7 @@ export const settings = [
 		type: 'button',
 		title: '根据声音调整偏移率',
 		onClick() {
-			location.href = './calibrate';
+			location.href = './calibrate/index.html';
 		},
 	},
 	{
