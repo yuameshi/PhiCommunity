@@ -1470,6 +1470,9 @@ const qwqEnd = new Timer();
 btnPause.addEventListener('click', function () {
 	if (this.classList.contains('disabled') || btnPlay.value == '播放') return;
 	if (this.value == '暂停') {
+		if(localStorage.getItem('useBGABG')=='true'&&window.chartMetadata.backgroundAnimation!=undefined){
+			document.querySelector('video#bgaVideo').pause();
+		}
 		fetch(Pause_mp3)
 			.then((res) => res.arrayBuffer())
 			.then((arrayBuffer) => {
@@ -1556,6 +1559,13 @@ let fucktemp = false;
 let fucktemp2 = false;
 //作图
 function loop() {
+	if(localStorage.getItem('useBGABG')=='true'&&window.chartMetadata.backgroundAnimation!=undefined){
+		createImageBitmap(document.querySelector('video#bgaVideo'))
+			.then(img=>Renderer.bgImage=img);
+		createImageBitmap(imgBlur(Renderer.bgImage)).then((imgBlur) => {
+			Renderer.bgImageBlur = imgBlur;
+		});
+	}
 	const now = Date.now();
 	//计算时间
 	if (qwqOut.second < 0.67) {
@@ -2166,7 +2176,7 @@ function qwqdraw2() {
 							console.log('Updating database');
 							// 判断NEW
 							isNewBest = true;
-							prevBest = res.value;
+							prevBest = Math.round(res.score);
 							DB()
 								.updateKey(result.objectStore, {
 									codename: window.chartMetadata.codename,
@@ -2760,6 +2770,15 @@ window.addEventListener('DOMContentLoaded', () => {
 				.catch((error) => {
 					alert('无法获取曲绘，原因是：\n' + error);
 				});
+			if(localStorage.getItem('useBGABG')=='true'&&window.chartMetadata.backgroundAnimation!=undefined){
+				const bgaVideo=document.createElement('video');
+				bgaVideo.id='bgaVideo';
+				bgaVideo.muted='muted';
+				bgaVideo.style.display='none';
+				bgaVideo.setAttribute('crossOrigin', '');
+				bgaVideo.src='https://charts.phicommunity.com.cn/'+meta['codename']+'/'+meta['backgroundAnimation'];
+				document.body.appendChild(bgaVideo);
+			}
 			//	判定线贴图
 			window.chartLine = [];
 			window.chartLineData = [];
@@ -2941,6 +2960,11 @@ function replay() {
 document
 	.getElementById('btn-play')
 	.addEventListener('click', async function () {
+		if(localStorage.getItem('useBGABG')=='true'&&window.chartMetadata.backgroundAnimation!=undefined){
+			setTimeout(()=>{
+				document.querySelector('video#bgaVideo').play();
+			},4000);
+		}
 		btnPause.value = '暂停';
 		if (this.value == '播放') {
 			stopPlaying.push(playSound(res['mute'], true, false, 0)); //播放空音频(防止音画不同步)

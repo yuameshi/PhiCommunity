@@ -131,6 +131,11 @@ export const settings = [
 	},
 	{
 		type: 'toggle',
+		title: '游玩时使用背景动画作为背景',
+		codename: 'useBGABG',
+	},
+	{
+		type: 'toggle',
 		title: '开启触摸反馈',
 		codename: 'feedback',
 	},
