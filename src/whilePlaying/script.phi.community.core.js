@@ -6,6 +6,7 @@ import OggmentedAudioContext from 'oggmented';
 import * as StackBlur from 'stackblur-canvas';
 import Pause_mp3 from 'assets/audio/Pause.mp3';
 import Exit_mp3 from 'assets/audio/Exit.mp3';
+import { DB } from '../utils/DB.js';
 
 document.oncontextmenu = (e) => e.preventDefault(); //qwq
 //	切换提示框选项卡
@@ -2095,40 +2096,6 @@ function qwqdraw1(now) {
 //	结束处理
 function qwqdraw2() {
 	cancelAnimationFrame(stopDrawing);
-	//	计算并保存B19
-	// historyRks=JSON.parse(localStorage.getItem('rksStorage'));	//	获取历史RKS
-	// currentLevel=new URLSearchParams(new URL(location.href).search).get('play');	//	获取当前难度
-	// if(historyRks[currentLevel]<getRks()){
-	// 	historyRks[currentLevel]=getRks();	//保存当前RKS
-	// }else{
-	// 	if(historyRks[currentLevel]==undefined){
-	// 		historyRks[currentLevel]=getRks();	//保存RKS
-	// 	}
-	// }
-	// var b19rks=new Array();
-	// for(let i=0;i<Object.keys(historyRks).length;i++){
-	// 	b19rks.push(Object.keys(historyRks)[i]);
-	// }
-	// while (b19rks.length > 19) {
-	// 	b19rks.splice(b19rks.indexOf(Math.min(...b19rks)),1);
-	// }
-	// //	判断是否收歌
-	// if (stat.scoreStr=='1000000') {
-	// 	if (window.localStorage.getItem('phiSongLevel')==null) {
-	// 		window.localStorage.setItem('phiSongLevel',chartMetadata[currentLevel.toLowerCase()+'Ranking']);
-	// 	}
-	// 	if (window.localStorage.getItem('phiSongLevel')<chartMetadata[currentLevel.toLowerCase()+'Ranking']) {
-	// 		window.localStorage.setItem('phiSongLevel',chartMetadata[currentLevel.toLowerCase()+'Ranking']);
-	// 	}
-	// }
-	// rks=eval(b19rks.join('+'));
-	// if (window.localStorage.getItem('phiSongLevel')!=null) {
-	// 	rks+=parseFloat(window.localStorage.getItem('phiSongLevel'));
-	// }
-	// rks=rks/20;
-	// console.log(rks);
-	// localStorage.setItem('rks',rks);
-	//	直接跳转到LevelOver
 	let mode = 'normal';
 	if (autoplay.checked == true) {
 		mode = 'auto';
@@ -2155,16 +2122,126 @@ function qwqdraw2() {
 	sessionStorage.setItem('bad', stat.noteRank[6]);
 	sessionStorage.setItem('miss', stat.noteRank[2]);
 	sessionStorage.setItem('mode', mode);
-	location.href = '../LevelOver/index.html';
-	// location.href = `../LevelOver/index.html?play=${new URLSearchParams(
-	// 	new URL(location.href).search
-	// ).get('play')}&l=${new URLSearchParams(new URL(location.href).search).get(
-	// 	'l'
-	// )}&score=${stat.scoreStr}&mc=${stat.maxcombo}&p=${
-	// 	stat.noteRank[5] + stat.noteRank[4] + stat.noteRank[1]
-	// }&g=${stat.noteRank[7] + stat.noteRank[3]}&b=${stat.noteRank[6]}&e=${
-	// 	stat.noteRank[7]
-	// }&m=${stat.noteRank[2]}&mode=${mode}`;
+	if (mode == 'normal') {
+		var isNewBest = false,
+			prevBest = 0;
+		DB()
+			.openDB('PhiCommunityPlayResults')
+			.then((result) => {
+				//成功打开数据库
+				DB()
+					.readKey(result.objectStore, window.chartMetadata.codename)
+					.then((res) => {
+						//如果没有此键（没玩过）
+						if (res == undefined) {
+							console.log('Unplayed song detected');
+							DB()
+								.createKey(result.objectStore, {
+									codename: window.chartMetadata.codename,
+									level: new URLSearchParams(
+										new URL(location.href).search
+									)
+										.get('l')
+										.toLowerCase(),
+									levelRank:
+										window.chartMetadata[
+											new URLSearchParams(
+												new URL(location.href).search
+											)
+												.get('l')
+												.toLowerCase() + 'Ranking'
+										],
+									score: stat.scoreNum,
+									accuracy: stat.accNum,
+									rankingScore: getRks(stat.accNum),
+								})
+								.then(() => {
+									sessionStorage.setItem('isNewBest', 'true');
+									sessionStorage.setItem('prevBest', '0');
+									return;
+								});
+						}
+						//如果玩过且分数更高则更新
+						if (parseFloat(res.score) < stat.scoreNum) {
+							console.log('Updating database');
+							// 判断NEW
+							isNewBest = true;
+							prevBest = res.value;
+							DB()
+								.updateKey(result.objectStore, {
+									codename: window.chartMetadata.codename,
+									level: new URLSearchParams(
+										new URL(location.href).search
+									)
+										.get('l')
+										.toLowerCase(),
+									levelRank:
+										window.chartMetadata[
+											new URLSearchParams(
+												new URL(location.href).search
+											)
+												.get('l')
+												.toLowerCase() + 'Ranking'
+										],
+									score: stat.score,
+									accuracy: stat.accNum,
+									rankingScore: getRks(stat.accNum),
+								})
+								.then(() => {
+									sessionStorage.setItem(
+										'isNewBest',
+										isNewBest
+									);
+									sessionStorage.setItem(
+										'prevBest',
+										prevBest
+									);
+								});
+						}
+					});
+			})
+			.catch(() => {
+				//如果打开数据库失败（没有玩过游戏）
+				DB()
+					.createDB('PhiCommunityPlayResults', 'codename', [
+						'level',
+						'levelRank',
+						'score',
+						'accuracy',
+						'rankingScore',
+					])
+					.then((result) => {
+						DB()
+							.createKey(result.objectStore, {
+								codename: window.chartMetadata.codename,
+								level: new URLSearchParams(
+									new URL(location.href).search
+								)
+									.get('l')
+									.toLowerCase(),
+								levelRank:
+									window.chartMetadata[
+										new URLSearchParams(
+											new URL(location.href).search
+										)
+											.get('l')
+											.toLowerCase() + 'Ranking'
+									],
+								score: stat.scoreNum,
+								accuracy: stat.accNum,
+								rankingScore: getRks(stat.accNum),
+							})
+							.then(() => {
+								sessionStorage.setItem('isNewBest', 'true');
+								sessionStorage.setItem('prevBest', '0');
+								return;
+							});
+					});
+			})
+			.finally(() => {
+				location.href = '../LevelOver/index.html';
+			});
+	} 
 	return;
 }
 
@@ -2946,20 +3023,20 @@ document
 		}
 	});
 
-// function getRks() {
-// 	if (stat.accNum >= 0.7) {
-// 		return (
-// 			Math.pow((stat.accNum * 100 - 55) / 45, 2) *
-// 			window.chartMetadata[
-// 				new URLSearchParams(new URL(location.href).search)
-// 					.get('l')
-// 					.toLowerCase() + 'Ranking'
-// 			]
-// 		).toFixed(2);
-// 	} else {
-// 		return 0;
-// 	}
-// }
+function getRks(accuracy) {
+	if (accuracy >= 0.7) {
+		return (
+			Math.pow((accuracy * 100 - 55) / 45, 2) *
+			window.chartMetadata[
+				new URLSearchParams(new URL(location.href).search)
+					.get('l')
+					.toLowerCase() + 'Ranking'
+			]
+		).toFixed(2);
+	} else {
+		return 0;
+	}
+}
 document.addEventListener(
 	'visibilitychange',
 	() =>
