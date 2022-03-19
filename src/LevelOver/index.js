@@ -57,9 +57,12 @@ window.addEventListener('DOMContentLoaded', () => {
 	const bad = sessionStorage.getItem('bad');
 	const miss = sessionStorage.getItem('miss');
 	const mode = sessionStorage.getItem('mode');
-	sessionStorage.clear();
 	switch (mode) {
 	case 'normal':
+		if (sessionStorage.getItem('isNewBest')=='true') {
+			document.querySelector('#scrollFrame').classList.add('newBest');
+			document.querySelector('#scrollFrame').setAttribute('data-nb','NEW BEST '+sessionStorage.getItem('prevBest').toString().padStart(7, '0')+' +'+(score-sessionStorage.getItem('prevBest')));
+		}
 		// document.querySelector('#scrollFrame').classList.add('normal');
 		break;
 
@@ -74,6 +77,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	default:
 		break;
 	}
+	sessionStorage.clear();
 	const accuracy =
 		Math.round(
 			((parseInt(perFect) + parseInt(good) * 0.65) /
