@@ -1,6 +1,10 @@
 # 这是什么？
 这是一款名为`PhiCommunity`的节奏游戏，它仿照`Phigros`制作。
 
+# APP已发布(测试版本)
+
+请前往[PhiCommunityAPP](https://github.com/HanHan233/PhiCommunityAPP/actions)的最新构建下载Artifact，此构建为`Debug`构建，仅用于测试。
+
 # 许可证
 
 源代码(不包括多媒体资源，除非另有说明)在[GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html)许可下分发
