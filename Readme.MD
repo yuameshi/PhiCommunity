@@ -3,7 +3,9 @@
 
 # APP已发布(测试版本)
 
-请前往[PhiCommunityAPP](https://github.com/HanHan233/PhiCommunityAPP/actions)的最新构建下载Artifact，此构建为`Debug`构建，仅用于测试。
+请前往[Actions - PhiCommunityAPP](https://github.com/HanHan233/PhiCommunityAPP/actions)的最新构建下载Artifact，此构建为`Debug`构建，仅用于测试。
+
+您也可以前往[Releases - PhiCommunityAPP](https://github.com/HanHan233/PhiCommunityAPP/releases)下载发行版本（如果有）。
 
 # 许可证
 
