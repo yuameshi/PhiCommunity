@@ -32,6 +32,7 @@ const pagePlugins = [
 		'songSelect',
 		'tapToStart',
 		'whilePlaying',
+		"getChart",
 	].map(
 		(pagename) =>
 			new HtmlWebpackPlugin({
@@ -70,6 +71,7 @@ module.exports = {
 		tapToStart: resolveSrc('tapToStart/index.js'),
 		calibrate: resolveSrc('settings/calibrate/index.js'),
 		statistic: resolveSrc('settings/statistic/index.js'),
+		getChart: resolveSrc('getChart/index.js'),
 		whilePlaying: resolveSrc('whilePlaying/script.phi.community.core.js'),
 	},
 	output: {

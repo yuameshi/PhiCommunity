@@ -1,0 +1,232 @@
+@import url(assets/css/css.css);
+
+html {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 50px 0;
+	background: url(assets/images/ElementSqare.Half.Size.webp) center center
+		no-repeat fixed;
+	background-size: cover !important;
+	backdrop-filter: blur(15px) brightness(0.8) contrast(0.8);
+}
+html::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: url(assets/images/ElementSqare.Half.Size.webp) center center
+		no-repeat fixed;
+	background-size: cover;
+	filter: blur(15px) brightness(0.8) contrast(0.8);
+	z-index: -1;
+}
+
+div.title {
+	font-size: 48px;
+	font-weight: 500;
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+div.chartListContainer {
+	width: 90vw;
+	height: auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+div.chartListContainer > div.item {
+	width: 300px;
+	height: 75px;
+	margin: 15px;
+	padding: 20px;
+	--color: black;
+	color: var(--color);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: flex-start;
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px #000;
+	border: 1px #000 solid;
+	overflow: hidden;
+	--background: url(assets/images/ElementSqare.Half.Size.png);
+	background: var(--background) center center no-repeat;
+	background-size: cover;
+	text-shadow: 0px 0px 5px #fff;
+	cursor: pointer;
+}
+
+div.chartListContainer > div.item::before {
+	content: attr(data-name);
+}
+div.chartListContainer > div.item::after {
+	content: attr(data-artist);
+}
+
+div.expandView {
+	display: none;
+}
+div.expandView.show {
+	display: block;
+	--expandViewColor: black;
+	--expandViewBG: url(assets/images/ElementSqare.Half.Size.webp);
+	color: var(--expandViewColor);
+	text-shadow: 0px 0px 5px #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 10;
+	animation: expandViewSlideIn 0.5s ease-in-out;
+}
+@keyframes expandViewSlideIn {
+	0% {
+		overflow: 0;
+		transform: translateX(-100%);
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		transform: translateX(0%);
+	}
+}
+div.expandView.slideOut {
+	animation: expandViewSlideOut 0.5s ease-in-out;
+}
+@keyframes expandViewSlideOut {
+	0% {
+		transform: translateX(0%);
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		overflow: 0;
+		transform: translateX(-100%);
+	}
+}
+div.infoFrame {
+	height: 100vh;
+	width: 35vw;
+	padding-left: 35px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	/* background: var(--expandViewBG) center center no-repeat fixed; */
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: flex-start;
+}
+div.infoFrame::before {
+	content: '';
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: var(--expandViewBG) center center no-repeat fixed;
+	background-size: cover;
+	background-position: center;
+	filter: blur(15px) brightness(0.8) contrast(0.8);
+	z-index: -1;
+}
+div.infoFrame > div.songName,
+div.infoFrame > div.artist,
+div.infoFrame > div.chartDesigner {
+	width: 100%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+div.infoFrame > div.songName {
+	font-size: 48px;
+	font-weight: 500;
+}
+div.infoFrame > div.artist,
+div.infoFrame > div.chartDesigner {
+	height: 24px;
+}
+div.infoFrame > div.artist::before {
+	content: 'Music composed by:\3000';
+}
+
+div.infoFrame > div.chartDesigner::before {
+	content: 'Chart design by\3000\3000:\3000';
+}
+div.levels {
+	width: 100%;
+	margin-left: -10px;
+	margin-top: 25px;
+}
+div.levels > div.levelItem {
+	max-width: 300px;
+	height: 75px;
+	border-radius: 10px;
+	margin: 10px 0;
+	font-size: 24px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 20px;
+	color: #fff;
+}
+div.levels > div.levelItem.hidden {
+	display: none;
+}
+div.levels > div.levelItem::after {
+	content: attr(data-level);
+}
+div.levels > div.levelItem.ez {
+	background-color: #51af44;
+}
+div.levels > div.levelItem.ez::before {
+	content: 'Easy';
+}
+div.levels > div.levelItem.hd {
+	background-color: #3173b3;
+}
+div.levels > div.levelItem.hd::before {
+	content: 'Hard';
+}
+div.levels > div.levelItem.in {
+	background-color: #be2d23;
+}
+div.levels > div.levelItem.in::before {
+	content: 'Insane';
+}
+div.levels > div.levelItem.at {
+	background-color: #3a3637;
+}
+div.levels > div.levelItem.at::before {
+	content: 'Another';
+}
+button.addToChartListBtn {
+	height: 50px;
+	width: 200px;
+	align-self: flex-start;
+	font-size: 16px;
+	outline: none;
+	color: var(--expandViewColor);
+	border: 2px var(--expandViewColor) solid;
+	background: transparent;
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 35px;
+}

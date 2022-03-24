@@ -9,6 +9,12 @@ window.addEventListener('DOMContentLoaded', () => {
 			location.href = '../songSelect/index.html';
 		});
 	document
+		.querySelector('div#getChart')
+		.addEventListener('click', () => {
+			window.actx.close();
+			location.href = '../getChart/index.html';
+		});
+	document
 		.querySelector('div#cacheControl')
 		.addEventListener('click', () => {
 			window.actx.close();
