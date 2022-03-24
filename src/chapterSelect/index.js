@@ -2,6 +2,11 @@ import './style.css';
 import ChapterSelect0_mp3 from './ChapterSelect0.mp3';
 
 window.addEventListener('DOMContentLoaded', () => {
+	fetch('https://api.github.com/repos/HanHan233/PhiCommunity/commits?per_page=1')
+		.then((res) => res.json())
+		.then((data) => {
+			document.querySelector('div#recentUpdContent').innerText = data[0].commit.message;
+		});
 	document
 		.querySelector('div#startToPlayBtn')
 		.addEventListener('click', () => {

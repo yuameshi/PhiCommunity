@@ -34,15 +34,34 @@ div.mainActivityArea {
 	height: 80%;
 	width: 40%;
 	position: fixed;
-	right: 5%;
+	right: 7.5%;
 	bottom: 10%;
 	margin: 0;
 	padding: 0;
 	display: flex;
+	transform: perspective(30em) rotateY(-10deg) scale(0.9);
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	z-index: 1;
+}
+
+div#recentUpdContent{
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	font-size: 18px;
+	padding: 20px 0;
+	margin-bottom: 20px;
+	color: #fff;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	background: rgba(0,0,0,0.6);
+}
+div#recentUpdContent::before{
+	content: '\3000近期更新内容:\3000';
 }
 
 div#startToPlayBtn{
@@ -59,7 +78,6 @@ div#startToPlayBtn{
 div#startToPlayBtn,
 div#cacheControl,
 div.buttomLayer > div {
-	border-radius: 10px;
 	cursor: pointer;
 	color: #fff;
 	background: linear-gradient(to right, #0173ffd7, #588de4d7);
