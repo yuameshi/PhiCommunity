@@ -1,6 +1,10 @@
 import './style.css';
 
 window.addEventListener('DOMContentLoaded', () => {
+	let loadingEmbedFrame = document.createElement('iframe');
+	loadingEmbedFrame.src = '../loadingScreen/index.html';
+	loadingEmbedFrame.classList.add('loadingEmbedFrame');
+	document.body.appendChild(loadingEmbedFrame);
 	document.querySelector('div#avatarBar').addEventListener('click', (e) => {
 		var _element = e.target;
 		if (_element.classList.toString().match('avatarBar') == null) {
@@ -172,6 +176,7 @@ window.addEventListener('DOMContentLoaded', () => {
 							});
 						songListContainer.appendChild(songContainer);
 					});
+					loadingEmbedFrame.remove();
 					clearInterval(detectLoadCompleteInterval);
 				}
 			}, 100);

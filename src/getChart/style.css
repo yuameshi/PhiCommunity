@@ -230,3 +230,23 @@ button.addToChartListBtn {
 	align-items: center;
 	margin-bottom: 35px;
 }
+
+.loadingEmbedFrame {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	object-fit: cover;
+	z-index: 999999999;
+	background: #999;
+}
+
+@media screen and (max-width: 576px) {
+	div.infoFrame {
+		top: auto;
+		bottom: 0;
+		width: 100vw;
+		height: 90vh;
+	}
+}
