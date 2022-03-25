@@ -63,7 +63,11 @@ window.addEventListener('DOMContentLoaded', () => {
 	// Preset chart list
 	window.songCodeNameList = ['ouroVoros'];
 	const installedCharts = JSON.parse(localStorage.getItem('installedCharts'));
-	window.songCodeNameList=window.songCodeNameList.concat(installedCharts);
+	window.songCodeNameList =
+		installedCharts == null
+			? window.songCodeNameList
+			: window.songCodeNameList.concat(installedCharts);
+
 	// console.log(response);
 	// for (let i = 0; i < response.length; i++) {
 	// 	if (
