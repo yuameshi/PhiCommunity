@@ -6,6 +6,7 @@ import OggmentedAudioContext from 'oggmented';
 import * as StackBlur from 'stackblur-canvas';
 import Pause_mp3 from 'assets/audio/Pause.mp3';
 import Exit_mp3 from 'assets/audio/Exit.mp3';
+import { renderTutorialSPByTime,renderTutorialByTime } from './tutorial.js';
 import { DB } from '../utils/DB.js';
 
 document.oncontextmenu = (e) => e.preventDefault(); //qwq
@@ -2715,7 +2716,23 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	//	获取元数据
 	console.log('Fetching MetaData:', play);
-	fetch('https://charts.phicommunity.com.cn/' + play + '/meta.json')
+	let metaURL='https://charts.phicommunity.com.cn/' + play + '/meta.json';
+	if (play=='tutorial') {
+		const month=new Date().getMonth();
+		const day=new Date().getDate();
+		if (month===3&&day===1) {
+			//aprfus
+			metaURL='https://charts.phicommunity.com.cn/' + play + '/meta.sp.json';
+			setInterval(() => {
+				renderTutorialSPByTime(qwqIn.second);
+			}, 500);
+		}else{
+			setInterval(() => {
+				renderTutorialByTime(qwqIn.second);
+			}, 500);
+		}
+	}
+	fetch(metaURL)
 		.then((res) => res.json())
 		.then((meta) => {
 			window.chartMetadata = meta;

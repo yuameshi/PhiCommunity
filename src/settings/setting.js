@@ -152,13 +152,13 @@ export const settings = [
 		title: '显示定位点',
 		codename: 'showPoint',
 	},
-	// {
-	// 	type: 'button',
-	// 	title: '观看教学',
-	// 	onClick() {
-	// 		location.href = '../whilePlaying/index.html?play=introduction&l=ez';
-	// 	},
-	// },
+	{
+		type: 'button',
+		title: '观看教学',
+		onClick() {
+			location.href = '../whilePlaying/index.html?play=tutorial&l=ez';
+		},
+	},
 	{
 		type: 'button',
 		title: '修改玩家昵称',

@@ -61,7 +61,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		'c'
 	);
 	// Preset chart list
-	window.songCodeNameList = ['ouroVoros'];
+	window.songCodeNameList = ['tutorial', 'ouroVoros'];
 	const installedCharts = JSON.parse(localStorage.getItem('installedCharts'));
 	window.songCodeNameList =
 		installedCharts == null
@@ -119,6 +119,7 @@ window.addEventListener('DOMContentLoaded', () => {
 						window.msAudioContext)();
 			//	强行切换成第一首歌
 			songList.switchSong(0);
+			document.querySelector('#rightArea > div.detailBar > div.levelChooser > div.levelItem.selected').click();
 			// songList.switchLevel('in'.match('in'));
 			loadingEmbedFrame.remove();
 			// songList.setOrder(sortMode[currentOrder][0]);
