@@ -2722,6 +2722,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		const day=new Date().getDate();
 		if (month===3&&day===1) {
 			//aprfus
+			console.log('Hello World!');
 			metaURL='https://charts.phicommunity.com.cn/' + play + '/meta.sp.json';
 			setInterval(() => {
 				renderTutorialSPByTime(qwqIn.second);

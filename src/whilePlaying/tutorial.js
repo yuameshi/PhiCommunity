@@ -62,7 +62,7 @@ function drawTutorial(stage) {
 		showText('让我们把所有的元素综合起来', 2000);
 		break;
 	case 7:
-		showText('判定线还会旋转，移动，显现，消失', 4000);
+		showText('判定线还会旋转，移动，显现，消失<br/>还有另一面可以判定', 4000);
 		break;
 	case 8:
 		showText(
@@ -137,7 +137,7 @@ function drawTutorialSP(stage) {
 	switch (stage) {
 	case 0:
 		showText(
-			'<h1>欢迎来到PhiCommunity!</h1>现在将进行<b style="color: #6cf">基本的</b>游戏玩法教学。',
+			'<h1>欢迎来到PhiCommunity!</h1><div>现在将进行<b style="color: #6cf">基本的</b>游戏玩法教学。</div>',
 			2000
 		);
 		break;
@@ -165,19 +165,22 @@ function drawTutorialSP(stage) {
 	case 6:
 		showText(
 			'最后是Flick音符<br/>当它们落到判定线上向任意方向滑动',
-			4000
+			2000
 		);
 		break;
 	case 7:
 		showText(
-			'判定线还会旋转，移动，显现，消失<br/>其还有另一面可以判定',
-			4000
+			'判定线还会旋转，移动，显现，消失<br/>还有另一面可以判定',
+			2000
 		);
 		break;
 	case 8:
 		showText('让我们把所有的元素综合起来', 2000);
 		break;
 	case 9:
+		showText('来试试判定线的另一面', 2000);
+		break;
+	case 10:
 		showText(
 			'最后，希望你在PhiCommunity游玩愉快<br/>有任何Bug及时到GitHub反馈噢',
 			2000
@@ -214,40 +217,46 @@ function renderTutorialSPByTime(time) {
 			window.tutorialStage = 4;
 		}
 	}
-	if (time > 30 && time < 31) {
+	if (time > 29.5 && time < 30.5) {
 		if (window.tutorialStage == 4) {
 			drawTutorialSP(4);
 			window.tutorialStage = 5;
 		}
 	}
-	if (time > 32 && time < 34) {
+	if (time > 30.5 && time < 32.5) {
 		if (window.tutorialStage == 5) {
 			drawTutorialSP(5);
 			window.tutorialStage = 6;
 		}
 	}
-	if (time > 84 && time < 86) {
+	if (time > 82 && time < 86) {
 		if (window.tutorialStage == 6) {
-			drawTutorialSP(7);
+			drawTutorialSP(6);
 			window.tutorialStage = 7;
 		}
 	}
-	if (time > 79 && time < 82) {
+	if (time > 84 && time < 86) {
 		if (window.tutorialStage == 7) {
-			drawTutorialSP(6);
+			drawTutorialSP(7);
 			window.tutorialStage = 8;
 		}
 	}
-	if (time > 102 && time < 104) {
+	if (time > 104 && time < 106) {
 		if (window.tutorialStage == 8) {
 			drawTutorialSP(8);
 			window.tutorialStage = 9;
 		}
 	}
-	if (time > 145 && time < 150) {
-		if (window.tutorialStage == 8) {
-			drawTutorialSP(8);
-			window.tutorialStage = 9;
+	if (time > 117 && time < 120) {
+		if (window.tutorialStage == 9) {
+			drawTutorialSP(9);
+			window.tutorialStage = 10;
+		}
+	}
+	if (time > 148 && time < 150) {
+		if (window.tutorialStage == 10) {
+			drawTutorialSP(10);
+			window.tutorialStage = 11;
 		}
 	}
 }
