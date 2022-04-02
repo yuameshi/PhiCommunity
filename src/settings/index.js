@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	if (window.localStorage.length == 0) {
 		document.querySelector('#backBtn').addEventListener('click', () => {
 			// location.href = '../chapterSelect/index.html';
-			location.href='../whilePlaying/index.html?play=introduction&l=ez';
+			location.href='../whilePlaying/index.html?play=tutorial&l=ez';
 		});
 	} else {
 		document.querySelector('#backBtn').addEventListener('click', () => {

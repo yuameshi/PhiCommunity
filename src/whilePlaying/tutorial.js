@@ -90,7 +90,7 @@ function renderTutorialByTime(time) {
 			window.tutorialStage = 2;
 		}
 	}
-	if (time > 4 && time < 5) {
+	if (time > 4 && time < 6) {
 		if (window.tutorialStage == 2) {
 			drawTutorial(2);
 			window.tutorialStage = 3;
@@ -120,7 +120,7 @@ function renderTutorialByTime(time) {
 			window.tutorialStage = 7;
 		}
 	}
-	if (time > 79 && time < 82) {
+	if (time > 78.5 && time < 82) {
 		if (window.tutorialStage == 7) {
 			drawTutorial(6);
 			window.tutorialStage = 8;
