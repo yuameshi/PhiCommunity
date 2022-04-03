@@ -192,6 +192,7 @@ div#recentUpdContent::before{
 div#startToPlayBtn{
 	width: 100%;
 	height: 60%;
+	min-height: 100px;
 	background-size: contain;
 	font-size: 3rem;
 	display: flex;
@@ -205,6 +206,9 @@ div#cacheControl,
 div.buttomLayer > div {
 	cursor: pointer;
 	color: #fff;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	background: linear-gradient(to right, #0173ffd7, #588de4d7);
 	backdrop-filter: blur(10px);
 	box-shadow: 0 0 10px 0 #0173fff7;
