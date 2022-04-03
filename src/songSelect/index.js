@@ -238,7 +238,7 @@ document.querySelector('div.playBtn').addEventListener('click', () => {
 			});
 		});
 	setTimeout(() => {
-		window.slicesAudioContext.close();
+		window.slicesAudioContext == undefined ? undefined : window.slicesAudioContext.close();
 		location.href =
 			'../whilePlaying/index.html?play=' +
 			document

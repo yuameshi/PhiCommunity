@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		fadeInElem.classList.add('fadeIn');
 		document.body.appendChild(fadeInElem);
 		setTimeout(() => {
-			window.actx.close();
+			window.actx == undefined ? undefined : window.actx.close();
 			if (window.localStorage.length == 0) {
 				location.href = '../settings/index.html';
 			} else {

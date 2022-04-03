@@ -36,7 +36,8 @@ document
 				window.calibraceACtxSource.addEventListener(
 					'ended',
 					function () {
-						window.calibrateActx.close();
+						window.calibrateActx == undefined ? undefined : window.calibrateActx.close();
+						window.calibrateActx = undefined;
 						document
 							.querySelector('button#startBtn')
 							.removeAttribute('disabled');

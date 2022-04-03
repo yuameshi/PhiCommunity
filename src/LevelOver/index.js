@@ -98,7 +98,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		) / 100;
 	const late = good - early;
 	document.getElementById('retryBtn').addEventListener('click', () => {
-		window.actx.close();
+		window.actx == undefined ? undefined : window.actx.close();
 		location.href =
 			'../whilePlaying/index.html?play=' +
 			play +
@@ -106,7 +106,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			playLevelString;
 	});
 	document.getElementById('backInResultBtn').addEventListener('click', () => {
-		window.actx.close();
+		window.actx == undefined ? undefined : window.actx.close();
 		location.href =
 			'../songSelect/index.html';
 	});

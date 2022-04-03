@@ -51,7 +51,7 @@ const onTriggered = () => {
 
 	main.scrollStart(() => {
 		setTimeout(() => {
-			actx.close();
+			actx == undefined ? undefined : actx.close();
 			location.href = '../chapterSelect/index.html';
 		}, 3000);
 	});
@@ -63,7 +63,7 @@ const onTriggered = () => {
 
 		if (exitCounter <= 0) {
 			setTimeout(() => {
-				actx.close();
+				actx == undefined ? undefined : actx.close();
 				location.href = '../chapterSelect/index.html';
 			}, 1000);
 		}

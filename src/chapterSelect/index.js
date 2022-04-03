@@ -10,29 +10,29 @@ window.addEventListener('DOMContentLoaded', () => {
 	document
 		.querySelector('div#startToPlayBtn')
 		.addEventListener('click', () => {
-			window.actx.close();
+			window.actx == undefined ? undefined : window.actx.close();
 			location.href = '../songSelect/index.html';
 		});
 	document
 		.querySelector('div#getChart')
 		.addEventListener('click', () => {
-			window.actx.close();
+			window.actx == undefined ? undefined : window.actx.close();
 			location.href = '../getChart/index.html';
 		});
 	document
 		.querySelector('div#cacheControl')
 		.addEventListener('click', () => {
-			window.actx.close();
+			window.actx == undefined ? undefined : window.actx.close();
 			location.href = '../cacheControl/index.html';
 		});
 	document.querySelector('div#settingBtn').addEventListener('click', () => {
-		window.actx.close();
+		window.actx == undefined ? undefined : window.actx.close();
 		location.href = '../settings/index.html';
 	});
 	document
 		.querySelector('div#uploadChartsBtn')
 		.addEventListener('click', () => {
-			window.actx.close();
+			window.actx == undefined ? undefined : window.actx.close();
 			location.href =
 				'https://github.com/HanHan233/PhiCommunity-Charts-Repo';
 		});
