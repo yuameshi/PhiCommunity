@@ -5,19 +5,19 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 const path = require('path');
 
 module.exports = (env) => {
-	const deployPlatform =
-		['cf', 'vercel'].find((platform) => env[platform]) || 'default';
+	console.log(env);
+	const chartsSource = env['charts-source'] || 'default';
 
-	if (deployPlatform) console.log('deploy on platform: ' + deployPlatform);
+	if (chartsSource) console.log('Deploy with charts source: ' + chartsSource);
 
 	const loaders = [];
-	if (deployPlatform !== 'default')
+	if (chartsSource !== 'default')
 		loaders.push({
 			test: /\.js$/,
 			loader: 'string-replace-loader',
 			options: {
 				search: /https:\/\/charts\.phicommunity\.com\.cn/gi,
-				replace: `https://${deployPlatform}.charts.phicommunity.com.cn`,
+				replace: chartsSource,
 			},
 		});
 

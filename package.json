@@ -13,8 +13,8 @@
 		"start": "webpack serve --config ./config/webpack.dev.js --open",
 		"watch": "webpack --config ./config/webpack.prod.js --watch",
 		"build": "webpack --config ./config/webpack.prod.js",
-		"build:cf": "npm run build  -- --env=cf",
-		"build:vercel": "npm run build  -- --env=vercel"
+		"build:cf": "npm run build  -- --env charts-source=\"https://cf.charts.phicommunity.com.cn\"",
+		"build:vercel": "npm run build  -- --env charts-source=\"https://vercel.charts.phicommunity.com.cn\""
 	},
 	"bugs": {
 		"url": "https://github.com/HanHan233/PhiCommunity/issues"
