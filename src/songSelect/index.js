@@ -50,10 +50,11 @@ window.addEventListener('DOMContentLoaded', () => {
 		);
 		document
 			.querySelector('div#avatarBar')
-			.children[0]
-			.setAttribute(
+			.children[0].setAttribute(
 				'style',
-				'--avatar: url("'+window.localStorage.getItem('playerAvatar')+'");'
+				'--avatar: url("' +
+					window.localStorage.getItem('playerAvatar') +
+					'");'
 			);
 	}
 	//	获取歌曲列表并生成元素
@@ -80,21 +81,27 @@ window.addEventListener('DOMContentLoaded', () => {
 	// }
 	// window.songCodeNameList = JSON.parse(songListXHR.responseText);
 	window.songMetaList = new Array();
-	
+
 	for (let i = 0; i < window.songCodeNameList.length; i++) {
-		fetch(encodeURI('https://charts.phicommunity.com.cn/' + window.songCodeNameList[i] + '/meta.json'))
+		fetch(
+			encodeURI(
+				'https://charts.phicommunity.com.cn/' +
+					window.songCodeNameList[i] +
+					'/meta.json'
+			)
+		)
 			.then((res) => res.json())
-			.then(json=>{
+			.then((json) => {
 				window.songMetaList.push(json);
 			});
 	}
-	const detectLoadCompleteInterval=setInterval(()=>{
-		if(window.songMetaList.length==window.songCodeNameList.length){
+	const detectLoadCompleteInterval = setInterval(() => {
+		if (window.songMetaList.length == window.songCodeNameList.length) {
 			const songListElement = songList.element;
 			document
 				.getElementsByClassName('leftArea')[0]
 				.appendChild(songListElement);
-			
+
 			for (let i = 0; i < window.songMetaList.length; i++) {
 				songList.createSong(
 					i,
@@ -102,10 +109,10 @@ window.addEventListener('DOMContentLoaded', () => {
 					window.songMetaList[i]['codename']
 				);
 			}
-			
+
 			let currentOrder = defaultOrder;
 			document.querySelector('div.sortMode').innerText =
-						sortMode[defaultOrder][1];
+				sortMode[defaultOrder][1];
 			document
 				.querySelector('div.sortMode')
 				.addEventListener('click', (e) => {
@@ -114,12 +121,16 @@ window.addEventListener('DOMContentLoaded', () => {
 					e.target.innerText = sortMode[currentOrder][1];
 				});
 			window.slicesAudioContext = new (window.AudioContext ||
-						window.webkitAudioContext ||
-						window.mozAudioContext ||
-						window.msAudioContext)();
+				window.webkitAudioContext ||
+				window.mozAudioContext ||
+				window.msAudioContext)();
 			//	强行切换成第一首歌
 			songList.switchSong(0);
-			document.querySelector('#rightArea > div.detailBar > div.levelChooser > div.levelItem.selected').click();
+			document
+				.querySelector(
+					'#rightArea > div.detailBar > div.levelChooser > div.levelItem.selected'
+				)
+				.click();
 			// songList.switchLevel('in'.match('in'));
 			loadingEmbedFrame.remove();
 			// songList.setOrder(sortMode[currentOrder][0]);
@@ -154,13 +165,13 @@ window.addEventListener('DOMContentLoaded', () => {
 			// 	if (newYCoord <= 0 || e.wheelDeltaY < 0)
 			// 		songList.element.style.top = newYCoord + 'px';
 			// });
-			
+
 			// //	添加移动端触屏滑动
 			// let pY, cY;
 			// document.body.addEventListener('touchstart', (e) => {
 			// 	pY = e.changedTouches['0'].clientY;
 			// });
-			
+
 			// document.body.addEventListener('touchmove', (e) => {
 			// 	cY = e.changedTouches['0'].clientY;
 			// 	let nY =
@@ -169,7 +180,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			// });
 			clearInterval(detectLoadCompleteInterval);
 		}
-	},100);
+	}, 100);
 });
 
 function changeLevel(event) {
@@ -213,7 +224,42 @@ function changeLevel(event) {
 document
 	.querySelectorAll('div.levelItem')
 	.forEach((element) => element.addEventListener('click', changeLevel));
-
+document.querySelector('div#deleteChart').addEventListener('click', () => {
+	const currSelectedCodename = document
+		.querySelector('div.songItem.selected')
+		.getAttribute('data-codename');
+	const currSelectedName = document.querySelector(
+		'div.songItem.selected'
+	).innerText;
+	const isDelConfirm = confirm('是否要删除' + currSelectedName + '?');
+	if (isDelConfirm) {
+		const installedCharts = JSON.parse(
+			localStorage.getItem('installedCharts')
+		);
+		if (!installedCharts.includes(currSelectedCodename)) {
+			alert('不能操作内置曲目');
+			return;
+		} else {
+			installedCharts.splice(
+				installedCharts.indexOf(currSelectedCodename) - 1,
+				1
+			);
+			localStorage.setItem(
+				'installedCharts',
+				JSON.stringify(installedCharts)
+			);
+			const currSongContainer = document.querySelector(
+				'div.songItemContainer.selected'
+			);
+			currSongContainer.nextElementSibling == null
+				? currSongContainer.previousElementSibling.click()
+				: currSongContainer.nextElementSibling.click();
+			currSongContainer.remove();
+		}
+	} else {
+		return;
+	}
+});
 document.querySelector('div.playBtn').addEventListener('click', () => {
 	clearInterval(window.sliceAudioInterval);
 	try {
@@ -223,8 +269,8 @@ document.querySelector('div.playBtn').addEventListener('click', () => {
 	}
 	document.querySelector('#readyToLoadOverlay').classList.add('go');
 	fetch(Start_mp3)
-		.then(res => res.arrayBuffer())
-		.then(arrayBuffer => {
+		.then((res) => res.arrayBuffer())
+		.then((arrayBuffer) => {
 			const actx = new (window.AudioContext ||
 				window.webkitAudioContext ||
 				window.mozAudioContext ||
@@ -238,7 +284,9 @@ document.querySelector('div.playBtn').addEventListener('click', () => {
 			});
 		});
 	setTimeout(() => {
-		window.slicesAudioContext == undefined ? undefined : window.slicesAudioContext.close();
+		window.slicesAudioContext == undefined
+			? undefined
+			: window.slicesAudioContext.close();
 		location.href =
 			'../whilePlaying/index.html?play=' +
 			document

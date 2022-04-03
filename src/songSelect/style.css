@@ -370,6 +370,11 @@ div.levelChooser > div.levelItem.in::after {
 div.levelChooser > div.levelItem.at::after {
 	content: 'AT';
 }
+div.scoreContainer{
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+}
 div.score {
 	width: 150px;
 	height: 100%;
@@ -398,6 +403,12 @@ div.score.unplayed::after {
 	padding-right: 5px;
 	order: 2;
 	text-shadow: 0 0 5px #999;
+}
+div#deleteChart{
+	height: 100%;
+	width: 50px;
+	background: url(assets/images/TrashBin.svg) center no-repeat;
+	background-size: 80% 80%;
 }
 
 div.playBtn {
