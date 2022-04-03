@@ -16,18 +16,19 @@ window.addEventListener('DOMContentLoaded', () => {
 			navigator.userAgent.slice(navigator.userAgent.lastIndexOf(' '));
 	}
 	document.querySelector('#device').title = navigator.userAgent;
-	fetch(tapToStart_mp3)
+	const actx = new (window.AudioContext ||
+		window.webkitAudioContext ||
+		window.mozAudioContext ||
+		window.msAudioContext)();
+	const abortController = new AbortController();
+	fetch(tapToStart_mp3, abortController.signal)
 		.then((res) => res.arrayBuffer())
 		.then((arrayBuffer) => {
-			window.actx = new (window.AudioContext ||
-				window.webkitAudioContext ||
-				window.mozAudioContext ||
-				window.msAudioContext)();
-			window.actx.decodeAudioData(arrayBuffer, function (buffer) {
-				var source = window.actx.createBufferSource();
+			actx.decodeAudioData(arrayBuffer, function (buffer) {
+				var source = actx.createBufferSource();
 				source.buffer = buffer;
 				source.loop = true;
-				source.connect(window.actx.destination);
+				source.connect(actx.destination);
 				source.start(0);
 			});
 		});
@@ -37,7 +38,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		fadeInElem.classList.add('fadeIn');
 		document.body.appendChild(fadeInElem);
 		setTimeout(() => {
-			window.actx == undefined ? undefined : window.actx.close();
+			actx == undefined ? abortController.abort() : actx.close();
 			if (window.localStorage.length == 0) {
 				location.href = '../settings/index.html';
 			} else {

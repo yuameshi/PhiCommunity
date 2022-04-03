@@ -15,6 +15,10 @@ import F15F from 'assets/images/F15F.svg';
 import { gameLevels } from '../constants.js';
 
 window.addEventListener('DOMContentLoaded', () => {
+	const actx = new (window.AudioContext ||
+		window.webkitAudioContext ||
+		window.mozAudioContext ||
+		window.msAudioContext)();
 	document.querySelector('div#avatarBar').addEventListener('click', (e) => {
 		var _element = e.target;
 		if (_element.classList.toString().match('avatarBar') == null) {
@@ -97,19 +101,6 @@ window.addEventListener('DOMContentLoaded', () => {
 				10000
 		) / 100;
 	const late = good - early;
-	document.getElementById('retryBtn').addEventListener('click', () => {
-		window.actx == undefined ? undefined : window.actx.close();
-		location.href =
-			'../whilePlaying/index.html?play=' +
-			play +
-			'&l=' +
-			playLevelString;
-	});
-	document.getElementById('backInResultBtn').addEventListener('click', () => {
-		window.actx == undefined ? undefined : window.actx.close();
-		location.href =
-			'../songSelect/index.html';
-	});
 	//	判断等级（范围来自萌娘百科）
 	var grade,gradeURL;
 	if (score == 0) {
@@ -209,21 +200,31 @@ window.addEventListener('DOMContentLoaded', () => {
 			default:
 				break;
 			}
-			fetch(levelOverAudio)
+			const fetchLevelOverAbortController = new AbortController();
+			fetch(levelOverAudio,fetchLevelOverAbortController.signal)
 				.then((res) => res.arrayBuffer())
 				.then((arrayBuffer) => {
-					window.actx = new (window.AudioContext ||
-						window.webkitAudioContext ||
-						window.mozAudioContext ||
-						window.msAudioContext)();
-					window.actx.decodeAudioData(arrayBuffer, function (buffer) {
-						var source = window.actx.createBufferSource();
+					actx.decodeAudioData(arrayBuffer, function (buffer) {
+						var source = actx.createBufferSource();
 						source.buffer = buffer;
 						source.loop = true;
-						source.connect(window.actx.destination);
+						source.connect(actx.destination);
 						source.start(0);
 					});
 				});
+			document.getElementById('retryBtn').addEventListener('click', () => {
+				actx == undefined ? fetchLevelOverAbortController.abort() : actx.close();
+				location.href =
+					'../whilePlaying/index.html?play=' +
+					play +
+					'&l=' +
+					playLevelString;
+			});
+			document.getElementById('backInResultBtn').addEventListener('click', () => {
+				actx == undefined ? fetchLevelOverAbortController.abort() : actx.close();
+				location.href =
+					'../songSelect/index.html';
+			});
 			document.body.setAttribute(
 				'style',
 				`--background:url(${encodeURI(

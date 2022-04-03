@@ -23,7 +23,7 @@ const thanks = [
 	爱音乐de大神🎶	部分背景音乐思路提供
 	余音歆风						测试人员
 	守约							测试人员`,
-	`感谢所有为PhiCommunity提供帮助的个人或团体`,
+	'感谢所有为PhiCommunity提供帮助的个人或团体',
 	['And', br(), 'You.', br()],
 ];
 
@@ -36,8 +36,8 @@ const onTriggered = () => {
 		window.webkitAudioContext ||
 		window.mozAudioContext ||
 		window.msAudioContext)();
-
-	fetch(AboutUs_mp3)
+	const abortController = new AbortController();
+	fetch(AboutUs_mp3, abortController.signal)
 		.then((res) => res.arrayBuffer())
 		.then((arrayBuffer) => {
 			actx.decodeAudioData(arrayBuffer, function (buffer) {
@@ -51,7 +51,7 @@ const onTriggered = () => {
 
 	main.scrollStart(() => {
 		setTimeout(() => {
-			actx == undefined ? undefined : actx.close();
+			actx == undefined ? abortController.abort() : actx.close();
 			location.href = '../chapterSelect/index.html';
 		}, 3000);
 	});
@@ -63,7 +63,7 @@ const onTriggered = () => {
 
 		if (exitCounter <= 0) {
 			setTimeout(() => {
-				actx == undefined ? undefined : actx.close();
+				actx == undefined ? abortController.abort() : actx.close();
 				location.href = '../chapterSelect/index.html';
 			}, 1000);
 		}
