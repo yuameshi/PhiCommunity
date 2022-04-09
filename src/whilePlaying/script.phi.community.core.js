@@ -1596,7 +1596,7 @@ function loop() {
 	ctx.textAlign = 'right';
 	ctx.textBaseline = 'middle';
 	ctx.fillText(
-		'PhiCommunity By lchzh3473 & HanHan233',
+		'PhiCommunity By lchzh3473 & Yuameshi',
 		(canvas.width + canvasos.width) / 2 - lineScale * 0.1,
 		canvas.height - lineScale * 0.3
 	);

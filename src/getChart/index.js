@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	fetch(
-		'https://api.github.com/repos/HanHan233/PhiCommunity-Charts-Repo/contents'
+		'https://api.github.com/repos/Yuameshi/PhiCommunity-Charts-Repo/contents'
 	)
 		.then((res) => res.json())
 		.then((response) => {

@@ -1,6 +1,6 @@
 import './style.redirect.css';
 window.addEventListener('DOMContentLoaded', () => {
-	fetch('https://api.github.com/repos/HanHan233/PhiCommunity/commits')
+	fetch('https://api.github.com/repos/Yuameshi/PhiCommunity/commits')
 		.then((res) => res.json())
 		.then((data) => {
 			const changeLogFrame = document.querySelector(
@@ -58,7 +58,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		document.querySelector('button#gotoGHPages').style.display = 'none';
 	}
 	document.querySelector('button#ghRepo').addEventListener('click', () => {
-		window.open('https://github.com/HanHan233/PhiCommunity');
+		window.open('https://github.com/Yuameshi/PhiCommunity');
 	});
 	document.querySelector('button#deviceReq').addEventListener('click', () => {
 		document

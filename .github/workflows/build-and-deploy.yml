@@ -36,8 +36,8 @@ jobs:
 
       - name: Setup Webpack & Install Dependences
         run: |
-          git config --global user.email "64469437+HanHan233@users.noreply.github.com"
-          git config --global user.name "HanHan233"
+          git config --global user.email "64469437+Yuameshi@users.noreply.github.com"
+          git config --global user.name "Yuameshi"
           npm install webpack-cli webpack -g
           npm install
 
@@ -52,7 +52,7 @@ jobs:
 
       - name: Trigger APP CI Build
         run: |
-          curl 'https://api.github.com/repos/HanHan233/PhiCommunityAPP/dispatches' --request POST \
+          curl 'https://api.github.com/repos/Yuameshi/PhiCommunityAPP/dispatches' --request POST \
             -H 'Accept: application/vnd.github.v3+json' \
             -H 'Content-Type: application/json' \
             -H 'Authorization: Bearer ${{ secrets.GH_TOKEN }}' \

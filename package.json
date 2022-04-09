@@ -2,11 +2,11 @@
 	"name": "phi-community",
 	"version": "1.0.0",
 	"description": "A community driven project to make a game like phigros.",
-	"author": "HanHan233",
+	"author": "Yuameshi",
 	"license": "GPL-3.0",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/HanHan233/PhiCommunity.git"
+		"url": "https://github.com/Yuameshi/PhiCommunity.git"
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
@@ -17,9 +17,9 @@
 		"build:vercel": "npm run build  -- --env charts-source=\"https://vercel.charts.phicommunity.com.cn\""
 	},
 	"bugs": {
-		"url": "https://github.com/HanHan233/PhiCommunity/issues"
+		"url": "https://github.com/Yuameshi/PhiCommunity/issues"
 	},
-	"homepage": "https://github.com/HanHan233/PhiCommunity#readme",
+	"homepage": "https://github.com/Yuameshi/PhiCommunity#readme",
 	"devDependencies": {
 		"clean-webpack-plugin": "^4.0.0",
 		"copy-webpack-plugin": "^10.2.4",

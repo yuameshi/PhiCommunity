@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			});
 		});
 	fetch(
-		'https://api.github.com/repos/HanHan233/PhiCommunity/commits?per_page=1'
+		'https://api.github.com/repos/Yuameshi/PhiCommunity/commits?per_page=1'
 	)
 		.then((res) => res.json())
 		.then((data) => {
@@ -59,7 +59,7 @@ window.addEventListener('DOMContentLoaded', () => {
 				? abortController.abort()
 				: actx.close();
 			location.href =
-				'https://github.com/HanHan233/PhiCommunity-Charts-Repo';
+				'https://github.com/Yuameshi/PhiCommunity-Charts-Repo';
 		});
 	const body = document.getElementById('body');
 	if (window.DeviceOrientationEvent) {

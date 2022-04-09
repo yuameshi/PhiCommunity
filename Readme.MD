@@ -3,9 +3,9 @@
 
 # APP已发布(测试版本)
 
-请前往[Actions - PhiCommunityAPP](https://github.com/HanHan233/PhiCommunityAPP/actions)的最新构建下载Artifact，此构建为`Debug`构建，仅用于测试。
+请前往[Actions - PhiCommunityAPP](https://github.com/Yuameshi/PhiCommunityAPP/actions)的最新构建下载Artifact，此构建为`Debug`构建，仅用于测试。
 
-您也可以前往[Releases - PhiCommunityAPP](https://github.com/HanHan233/PhiCommunityAPP/releases)下载发行版本（如果有）。
+您也可以前往[Releases - PhiCommunityAPP](https://github.com/Yuameshi/PhiCommunityAPP/releases)下载发行版本（如果有）。
 
 # 许可证
 
@@ -52,7 +52,7 @@ GNU Affero 通用公共许可证 v3.0
 如您所见，游戏还没有完成，具体体现在“谱面少”和“性能差”。
 ## 为`谱面`做贡献
 
-如需提交谱面文件，请前往[此仓库](https://github.com/HanHan233/PhiCommunity-Charts-Repo)。
+如需提交谱面文件，请前往[此仓库](https://github.com/Yuameshi/PhiCommunity-Charts-Repo)。
 
 ## 贡献代码
 
