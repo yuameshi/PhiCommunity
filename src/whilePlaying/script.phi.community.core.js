@@ -1499,19 +1499,11 @@ btnPause.addEventListener('click', function () {
 		curTime = timeBgm;
 		while (stopPlaying.length) stopPlaying.shift()();
 	} else {
-		document.querySelector('div#pauseOverlay.pauseOverlay').innerHTML = '3';
+		document.querySelector('div#pauseOverlay.pauseOverlay').innerHTML = '<div class="resumeText"></div>';
 		document
 			.querySelector('div#pauseOverlay.pauseOverlay')
 			.classList.add('readyToResume');
-		setTimeout(() => {
-			document.querySelector('div#pauseOverlay.pauseOverlay').innerHTML =
-				'2';
-		}, 1000);
-		setTimeout(() => {
-			document.querySelector('div#pauseOverlay.pauseOverlay').innerHTML =
-				'1';
-		}, 2000);
-		setTimeout(() => {
+		const resumeTimeOut=setTimeout(() => {
 			document
 				.querySelector('div#pauseOverlay.pauseOverlay')
 				.classList.remove('visable');
@@ -1544,6 +1536,7 @@ btnPause.addEventListener('click', function () {
 			if(localStorage.getItem('useBGABG')=='true'&&window.chartMetadata.backgroundAnimation!=undefined){
 				document.querySelector('video#bgaVideo').play();
 			}
+			clearTimeout(resumeTimeOut);
 		}, 3000);
 	}
 });
