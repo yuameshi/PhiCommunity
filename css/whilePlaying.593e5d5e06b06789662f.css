@@ -231,6 +231,56 @@ div.pauseOverlay.visable {
 	backdrop-filter: blur(15px);
 	font-size: 3rem;
 	color: #fff;
+	animation: pauseOverlayBlur .1s linear;
+}
+@keyframes pauseOverlayBlur {
+	0% {
+		backdrop-filter: blur(0px);
+	}
+	100% {
+		backdrop-filter: blur(15px);
+	}
+}
+div.pauseOverlay.visable.readyToResume > div.resumeText {
+	height: 3rem;
+	width: 9rem;
+	font-size: 3rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-image: linear-gradient(
+		to right,
+		transparent,
+		white,
+		transparent
+	);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+div.pauseOverlay.visable.readyToResume > div.resumeText::before {
+	font-size: 3rem;
+	content: '\3000\3000 3 \3000\3000 2 \3000\3000 1 \3000\3000';
+	animation: resumeTextAnimation 3s linear;
+	white-space: nowrap;
+	margin-left: -175%;
+}
+@keyframes resumeTextAnimation {
+	0% {
+		margin-left: 175%;
+	}
+	30% {
+		margin-left: 175%;
+	}
+	33% {
+		margin-left: 0%;
+	}
+	60% {
+		margin-left: 0%;
+	}
+	66% {
+		margin-left: -175%;
+	}
 }
 div.pauseOverlay.visable.readyToResume {
 	animation: pauseOverlayFadeOut 3s linear;
