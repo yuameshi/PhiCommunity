@@ -42,8 +42,8 @@ div.main {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	border-top: 1.5px #fff solid;
-	border-bottom: 1.5px #fff solid;
+	border-top: 2px #fff solid;
+	border-bottom: 2px #fff solid;
 	animation: stretch 1.5s ease;
 }
 @keyframes stretch {
@@ -62,14 +62,13 @@ audio {
 	width: 300px !important;
 	height: 100px !important;
 }
-div.btnsContainer {
+div.btnContainer {
 	text-align: center;
 }
 div.popupOverlay {
 	display: none;
 }
 div.popupOverlay.show {
-	display: block;
 	background: rgba(255, 255, 255, 0.4);
 	height: 100%;
 	width: 100%;
@@ -148,13 +147,13 @@ div#changelogContainer > a.item {
 }
 
 @media screen and (max-width: 576px) {
-	div.btnsContainer {
+	div.btnContainer {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
 	}
-	div.btnsContainer > br {
+	div.btnContainer > br {
 		display: none;
 	}
 }
