@@ -7,10 +7,11 @@ window.addEventListener('DOMContentLoaded', async () => {
 	document
 		.querySelector('#delAllCache')
 		.addEventListener('click', delAllCache);
-	const cacheKeys = await caches.keys();
+	// const cacheKeys = await caches.keys();
 
-	cacheKeys.forEach(async (cacheKey) => {
-		const cache = await caches.open(cacheKey);
+	// cacheKeys.forEach(async (cacheKey) => {
+		// const cache = await caches.open(cacheKey);
+		const cache = await caches.open('phi-runtime-v1');
 		const keys = await cache.keys();
 
 		keys.forEach(function (request) {
@@ -18,7 +19,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 			cacheList.append(item.element);
 			cacheItems.push(item);
 		});
-	});
+	// });
 
 	function delAllCache() {
 		cacheItems.forEach((item) => {

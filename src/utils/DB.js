@@ -183,7 +183,7 @@ function DB() {
 			const getAllKeysReq = objectStore.getAllKeys();
 			getAllKeysReq.onsuccess = function (e) {
 				const keyStr = e.target.result;
-				const gettedKeys = new Array();
+				const gettedKeys = [];
 				keyStr.forEach((keys, index) => {
 					const req = objectStore.get(keys);
 					req.onsuccess = function (e) {

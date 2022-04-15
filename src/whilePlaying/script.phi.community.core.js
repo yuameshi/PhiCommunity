@@ -3009,13 +3009,18 @@ document
 		if(localStorage.getItem('useBGABG')=='true'&&window.chartMetadata.backgroundAnimation!=undefined){
 			setTimeout(()=>{
 				document.querySelector('video#bgaVideo').play();
-				const updateBGAInterval=setInterval(()=>{
-					createImageBitmap(document.querySelector('video#bgaVideo'))
-						.then(img=>Renderer.bgImage=img);
-					createImageBitmap(imgBlur(Renderer.bgImage)).then((imgBlur) => {
-						Renderer.bgImageBlur = imgBlur;
-					});
-				},50);
+				const updateBGAInterval = setInterval(() => {
+					createImageBitmap(
+						document.querySelector('video#bgaVideo')
+					).then((img) => (Renderer.bgImage = img));
+					document.getElementById('imageBlur').checked
+						? createImageBitmap(imgBlur(Renderer.bgImage)).then(
+								(imgBlur) => {
+									Renderer.bgImageBlur = imgBlur;
+								}
+						)
+						: undefined;
+				}, 50);
 				document.querySelector('video#bgaVideo').addEventListener('ended',()=>{
 					clearInterval(updateBGAInterval);
 				});
