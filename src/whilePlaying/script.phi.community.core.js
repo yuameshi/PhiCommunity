@@ -3008,6 +3008,7 @@ document
 	.addEventListener('click', async function () {
 		if(localStorage.getItem('useBGABG')=='true'&&window.chartMetadata.backgroundAnimation!=undefined){
 			setTimeout(()=>{
+				document.querySelector('video#bgaVideo').currentTime=0;
 				document.querySelector('video#bgaVideo').play();
 				const updateBGAInterval = setInterval(() => {
 					createImageBitmap(
