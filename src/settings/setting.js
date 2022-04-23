@@ -105,7 +105,7 @@ export const settings = [
 	},
 	{
 		type: 'toggle',
-		title: '开启HyperMode',
+		title: '开启HyperMode(严格判定)',
 		codename: 'hyperMode',
 	},
 	{
