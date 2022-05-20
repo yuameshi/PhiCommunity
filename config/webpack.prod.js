@@ -28,6 +28,7 @@ module.exports = (env) => {
 				swSrc: path.resolve(__dirname, '../src', 'sw.js'),
 				swDest: 'service-worker.js',
 				exclude: [/service-worker\.js/, /sw\.js/],
+				maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
 			}),
 		],
 		module: {

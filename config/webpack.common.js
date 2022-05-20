@@ -88,7 +88,7 @@ module.exports = {
 	performance: {
 		hints: 'warning',
 		maxAssetSize: 12 * 1024 * 1024,
-		maxEntrypointSize: 2 * 1024 * 1024,
+		maxEntrypointSize: 4 * 1024 * 1024,
 		assetFilter: (assetFilename) =>
 			assetFilename.match(/\.(css|js|mp3|wav|ogg|png|jpg|webp|svg)$/i),
 	},

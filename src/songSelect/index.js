@@ -80,7 +80,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	// 	window.songCodeNameList.push(response[i].name);
 	// }
 	// window.songCodeNameList = JSON.parse(songListXHR.responseText);
-	window.songMetaList = new Array();
+	window.songMetaList = new Array(window.songCodeNameList.length);
 
 	for (let i = 0; i < window.songCodeNameList.length; i++) {
 		fetch(
@@ -92,11 +92,11 @@ window.addEventListener('DOMContentLoaded', () => {
 		)
 			.then((res) => res.json())
 			.then((json) => {
-				window.songMetaList.push(json);
+				window.songMetaList[i] = json;
 			});
 	}
 	const detectLoadCompleteInterval = setInterval(() => {
-		if (window.songMetaList.length == window.songCodeNameList.length) {
+		if (!JSON.stringify(window.songMetaList).includes('null')) {
 			const songListElement = songList.element;
 			document
 				.getElementsByClassName('leftArea')[0]

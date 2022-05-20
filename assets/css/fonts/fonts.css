@@ -1,13 +1,17 @@
 @font-face {
 	font-family: Phi;
-	src: url(./Exo-Regular.otf);
-	src: url(./Source\ Han\ Sans\ &\ Saira\ Hybrid-Regular.ttf);
+	src: url(./Exo-Regular.woff2)format('woff2');
+	src: url(./SourceHanSans&SairaHybrid.woff2)format('woff2');
+	src: url(./Exo-Regular.woff)format('woff');
+	src: url(./SourceHanSans&SairaHybrid.woff)format('woff');
 	/* src: url(./Saira.woff2)format('woff2'); */
 }
 @font-face {
 	font-family: Mina;
-	src: url(./Exo-Regular.otf);
-	src: url(./Source\ Han\ Sans\ &\ Saira\ Hybrid-Regular.ttf);
+	src: url(./Exo-Regular.woff2)format('woff2');
+	src: url(./SourceHanSans&SairaHybrid.woff2)format('woff2');
+	src: url(./Exo-Regular.woff)format('woff');
+	src: url(./SourceHanSans&SairaHybrid.woff)format('woff');
 	/* src: url(./Saira.woff2)format('woff2'); */
 }
 
