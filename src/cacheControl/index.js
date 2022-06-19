@@ -3,23 +3,18 @@ import './style.css';
 window.addEventListener('DOMContentLoaded', async () => {
 	const cacheItems = [];
 	const cacheList = document.getElementById('container');
+	const cache = await caches.open('phi-runtime-v1');
+	const keys = await cache.keys();
 
 	document
 		.querySelector('#delAllCache')
 		.addEventListener('click', delAllCache);
-	// const cacheKeys = await caches.keys();
 
-	// cacheKeys.forEach(async (cacheKey) => {
-		// const cache = await caches.open(cacheKey);
-		const cache = await caches.open('phi-runtime-v1');
-		const keys = await cache.keys();
-
-		keys.forEach(function (request) {
-			const item = CacheItem(cache, request);
-			cacheList.append(item.element);
-			cacheItems.push(item);
-		});
-	// });
+	keys.forEach(function (request) {
+		const item = CacheItem(cache, request);
+		cacheList.append(item.element);
+		cacheItems.push(item);
+	});
 
 	function delAllCache() {
 		cacheItems.forEach((item) => {
@@ -35,16 +30,13 @@ function CacheItem(cache, request) {
 	item.setAttribute('data-url', request.url);
 	item.setAttribute(
 		'data-file-name',
-		new URL(request.url).pathname.split('/')[
-			new URL(request.url).pathname.split('/').length - 1
-		]
+		new URL(request.url).pathname.split('/').slice(-1)[0] // url的最后一段（文件名）
 	);
 
 	const delBtn = document.createElement('button');
 	delBtn.classList.add('deleteBtn');
 	delBtn.innerText = '删除';
 	delBtn.addEventListener('click', delCache);
-	container.appendChild(item);
 	item.appendChild(delBtn);
 
 	return { element: item, delCache };
