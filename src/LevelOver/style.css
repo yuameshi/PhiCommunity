@@ -400,6 +400,13 @@ div.extraInfo > div.text {
 	transform: skew(15deg);
 }
 
+div.copyrights#copyrights{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	color: #999;
+}
+
 @media screen and (max-width: 576px) {
 	.mainContent {
 		flex-direction: column !important;
